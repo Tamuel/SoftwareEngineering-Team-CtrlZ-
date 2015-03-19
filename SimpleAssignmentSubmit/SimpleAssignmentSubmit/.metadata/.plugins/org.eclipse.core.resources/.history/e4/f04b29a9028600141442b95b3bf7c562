@@ -1,0 +1,5 @@
+package objectSave;
+
+public class ObjectSaveSingleton {
+
+}

@@ -1,0 +1,74 @@
+package QnA;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import Account.*;
+import Assignment.*;
+
+public class Question {
+	private Student student;
+	private Subject subject;
+	private String attachedDocument;
+	private ArrayList<Question> questions;
+	private ArrayList<Answer> answers;
+	private String topic;
+	private String content;
+	
+	public Question(Student student, Subject subject)
+	{
+		this.student=student;
+		this.subject=subject;
+		attachedDocument = new ArrayList<String>();
+	}
+	
+	public Question(Student student, Subject subject, String topic, String content)
+	{
+		this.student=student;
+		this.subject=subject;
+		this.topic=topic;
+		this.content=content;
+		attachedDocument = new ArrayList<String>();
+	}
+	
+	public void addQuestion(Student student, Question question)
+	{
+		question.setStudent(student);
+		questions.add(question);
+	}
+	
+	public void setStudent(Student student)
+	{
+		this.student=student;
+	}
+	
+	public void setTopic(String topic)
+	{
+		this.topic=topic;
+	}
+	
+	public void setContent(String content)
+	{
+		this.content=content;
+	}
+	
+	public String getTopic()
+	{
+		return topic;
+	}
+	
+	public String getContent()
+	{
+		return content;
+	}
+	
+	public ArrayList<Question> getQuestions()
+	{
+		return questions;
+	}
+}

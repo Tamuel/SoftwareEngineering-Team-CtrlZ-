@@ -1,0 +1,122 @@
+package GUIPanel;
+
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import Assignment.Assignment;
+import GUIFrame.BulletinBoardFrame;
+import GuiComponent.SimpleButton;
+import GuiComponent.SimpleLabel;
+import GuiComponent.SimpleTextArea;
+import QnA.Question;
+
+public class QuestionPanel extends JPanel{
+	
+	private Question question;
+	
+	private BulletinBoardFrame boardFrame;
+//	private StudentAssignmentPanel myAssignmentPanel;
+	
+	private SimpleTextArea topic;
+	private SimpleTextArea content;
+	private SimpleTextArea time;
+	private SimpleButton makeAssignment;
+	
+	private JScrollPane scrollBar;
+
+	private int topicHeight = 40;
+	private int xBorder = 10;
+	private int yBorder = 10;
+
+	private Color backgroundColor = new Color(255, 255, 255);
+	
+	public QuestionPanel() {
+		
+	}
+
+	public QuestionPanel(int height, Question question, BulletinBoardFrame boardFrame) {
+		this.question = question;
+		this.boardFrame = boardFrame;
+		this.setLayout(null);
+		this.setSize(0, height);
+
+		this.setBackground(backgroundColor);
+		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
+	}
+	
+	public void reSize() {
+		this.setSize(boardFrame.getWidth() - (this.getLocationOnScreen().x - boardFrame.getLocationOnScreen().x) - xBorder,
+					(this.getHeight() - 30 - yBorder * 3) / 2);
+		topic = new SimpleTextArea(question.getTopic());
+		topic.setSize(this.getWidth() * 3 / 5 - 2, topicHeight - 1);
+		topic.setLocation(1, 1);
+	
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		time = new SimpleTextArea(dateFormat.format(question.getTime()) + "\n작성자 - " + question.getStudent().getName());
+		time.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
+		time.setLocation(topic.getWidth() + 1, 1);
+		time.setBackground(new Color(240, 240, 240));
+		time.setSmallFont();
+
+		makeAssignment = new SimpleButton("답변 작성");
+		makeAssignment.setSize(90, 30);
+		makeAssignment.setLocation(this.getWidth() - makeAssignment.getWidth() - 5, this.getHeight() - makeAssignment.getHeight() - 5);
+//		makeAssignment.addActionListener(new SubmitButtonListener());
+		
+		content = new SimpleTextArea(question.getContent());
+		content.setSize(this.getWidth() - 2, this.getHeight() - topicHeight - makeAssignment.getHeight() - 25);
+		content.setLocation(1, topicHeight);
+//		content.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(180, 180, 180)));
+		content.setMargin(new Insets(10, 10, 10, 10));
+
+		scrollBar = new JScrollPane(content);
+		scrollBar.setLocation(1, topicHeight);
+		scrollBar.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(180, 180, 180)));
+		scrollBar.setSize(this.getWidth() - 2, this.getHeight() - topicHeight - makeAssignment.getHeight() - 10);
+		scrollBar.setWheelScrollingEnabled(true);
+		
+		this.add(topic);
+		this.add(scrollBar);
+		this.add(time);
+		
+		this.add(makeAssignment);
+	}
+	
+//	private class SubmitButtonListener implements ActionListener {
+//		public void actionPerformed(ActionEvent ev) {
+//			removeMyAssignmentPanel();
+//				
+//			myAssignmentPanel = new StudentAssignmentPanel(boardFrame.getHeight(),
+//			assignment, boardFrame);
+//			myAssignmentPanel.setLocation(thisX(), thisBottom());
+//			boardFrame.add(myAssignmentPanel);
+//			myAssignmentPanel.reSize();
+//			boardFrame.repaint();
+//		}
+//	}
+//	
+//	public void removeMyAssignmentPanel() {
+//		if(myAssignmentPanel != null)
+//			boardFrame.remove(myAssignmentPanel);
+//	}
+
+	public int thisHeight() {
+		return this.getHeight();
+	}
+
+	public int thisX() {
+		return this.getX();
+	}
+	
+	public int thisBottom() {
+		return this.getY() + this.getHeight() + yBorder;
+	}
+}

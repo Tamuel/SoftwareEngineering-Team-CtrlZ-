@@ -1,0 +1,77 @@
+package GuiComponent;
+
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
+import Account.Student;
+
+public class SimpleButton extends JButton{
+	
+	JLabel label1;
+	JLabel label2;
+	
+	private Font font = new Font("¸¼Àº °íµñ", Font.PLAIN, 15);
+	private Font font2 = new Font("¸¼Àº °íµñ", Font.PLAIN, 12);
+
+	public SimpleButton() {
+		super();
+		custom();
+	}
+	
+	public SimpleButton(String arg) {
+		super(arg);
+		custom();
+	}
+	
+	public SimpleButton(String arg, int width, int height) {
+		super(arg);
+		custom();
+		this.setSize(width, height);
+	}
+	
+	public SimpleButton(String arg0, String arg1, int width, int height) {
+		super();
+		custom();
+		this.setSize(width, height);
+		this.setLayout(null);
+		
+		label1 = new JLabel(arg0);
+		label1.setHorizontalAlignment(SwingConstants.CENTER);
+		label1.setSize(this.getWidth(), 50);
+		label1.setLocation(0, 0);
+		label1.setFont(font);
+		label1.setForeground(Color.WHITE);
+		
+		label2 = new JLabel(arg1);
+		label2.setHorizontalAlignment(SwingConstants.CENTER);
+		label2.setSize(this.getWidth(), 40);
+		label2.setLocation(0, height/2);
+		label2.setFont(font2);
+		label2.setForeground(Color.WHITE);
+		
+		this.add(label1);
+		this.add(label2);
+	}
+	
+	public void setFontColor(Color a, Color b) {
+		label1.setForeground(a);
+		label2.setForeground(b);
+	}
+	
+	private void custom() {
+		this.setOpaque(true);
+		//this.setBackground(new Color(30, 114, 237));
+		this.setBackground(new Color(83, 157, 197));
+		Border empty = new EmptyBorder(2, 2, 2, 2);
+		this.setBorder(empty);
+		this.setFont(font);
+		this.setForeground(Color.WHITE);
+		this.setFocusPainted(false);
+	}
+}
