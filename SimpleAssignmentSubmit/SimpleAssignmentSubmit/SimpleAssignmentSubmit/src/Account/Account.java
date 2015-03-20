@@ -5,17 +5,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Account implements Serializable{
+	
 	private String id;
 	private String name;
 	private String password;
-	private int permission; // Student 0, Professor 1
+	// private int permission; // Student 0, Professor 1
 	private ArrayList<Account> accounts;
+	
+	// 21 MAR 2015 Tuna
+	// add a new enumeration class "PermissionType" to check permission type
+	// and add a private attribute permission as a PermissionType
+	public enum PermissionType {STUDENT, PROFESSOR}
+	private PermissionType permission;
 	
 	public Account() {
 		this.accounts = new ArrayList<Account>();
 	}
 	
-	public Account(String id, String password, String name, int permission) {
+	// 21 MAR 2015 Tuna
+	// change 4th parameter "int permission" to "Permission permission"
+	public Account(String id, String password, String name, PermissionType permission) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -43,8 +52,10 @@ public class Account implements Serializable{
 		name = string;
 	}
 	
-	public void setPermission(int a) {
-		this.permission = a;
+	// 21 MAR 2015 Tuna
+	// Change parameter "int a" to "Permission permission"
+	public void setPermission(PermissionType permission) {
+		this.permission = permission;
 	}
 	
 	public boolean setPassword(String oldPassword, String newPassword) {
@@ -56,22 +67,28 @@ public class Account implements Serializable{
 			return false;
 	}
 	
+	// 21 MAR 2015 Tuna
+	// change (int)0 to (enum)PermissionType.STUDENT
 	public boolean isStudent() {
-		if(this.permission == 0)
+		if(this.permission == PermissionType.STUDENT)
 			return true;
 		else
 			return false;
 	}
 	
+	// 21 MAR 2015 Tuna
+	// change (int)1 to (enum)PermissonType.PROFESSOR
 	public boolean isProfessor() {
-		if(this.permission == 1)
+		if(this.permission == PermissionType.PROFESSOR)
 			return true;
 		else
 			return false;
 	}
 	
-	public boolean checkPassword(String string) {
-		if(this.password.equals(string))
+	// 21 MAR 2015 Tuna
+	// Change parameter "String string" to "String password"
+	public boolean checkPassword(String password) {
+		if(this.password.equals(password))
 			return true;
 		else
 			return false;
@@ -81,6 +98,11 @@ public class Account implements Serializable{
 		this.accounts.add(account);
 	}
 	
+	// 21 MAR 2015 Tuna
+	// add a comment
+	/**
+	 * if there exists a duplicated id then return false
+	 * **/ 
 	public boolean checkIdRepeated(String id) {
 		Iterator checkAccount = accounts.iterator();
 		while(checkAccount.hasNext()) {
@@ -89,7 +111,7 @@ public class Account implements Serializable{
 		}
 		return true;
 	}
-	
+
 	public Account searchAccount(String id, String password) {
 		Iterator checkAccount = accounts.iterator();
 		Account temp;

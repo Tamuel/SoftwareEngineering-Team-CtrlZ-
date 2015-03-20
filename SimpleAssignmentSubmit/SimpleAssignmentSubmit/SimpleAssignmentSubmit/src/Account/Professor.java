@@ -15,7 +15,10 @@ public class Professor extends Account {
 	private ArrayList<Answer> answers;
 
 	public Professor(String id, String password, String name, Subject subject) {
-		super(id, password, name, 1);
+		
+		// 21 MAR 2015 Tuna
+		// change 4th parameter (int)1 to PermissionType.PROFESSOR
+		super(id, password, name, PermissionType.PROFESSOR);
 		this.subject = subject;
 		assignments = new ArrayList<Assignment>();
 		answers = new ArrayList<Answer>();

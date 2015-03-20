@@ -18,7 +18,10 @@ public class Student extends Account{
 	private ArrayList<Answer> answers;
 	
 	public Student(String id, String password, String name) {
-		super(id, password, name, 0);
+		
+		// 21 MAR 2015 Tuna
+		// change 4th parameter (int)0 to PermissionType.STUDENT
+		super(id, password, name, PermissionType.STUDENT);
 		subjects = new ArrayList<Subject>();
 		assignments = new ArrayList<Assignment>();
 		submittedAssignments = new ArrayList<Assignment>();
