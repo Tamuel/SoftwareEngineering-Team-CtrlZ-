@@ -1,0 +1,125 @@
+package Assignment;
+
+import Account.*;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Assignment {
+	private String topic;
+	private String content;
+	private Professor professor;
+	private Student student;
+	private Subject subject;
+	private Date deadline;
+	private Assignment scoredStudentsAssignment;
+	private boolean isScored;
+	private boolean submitted = false;
+	private ArrayList<Assignment> studentsAssignment;
+	private ArrayList<String> attachedDocument; // 첨부 파일의 절대 경로를 저장
+	private ArrayList<String> comment;
+	
+	public Assignment(Professor professor) {
+		this.professor = professor;
+		this.setScored(false);
+		studentsAssignment = new ArrayList<Assignment>();
+		attachedDocument = new ArrayList<String>();
+		comment = new ArrayList<String>();
+	}
+	
+	public Assignment(Professor professor, String topic, String content,
+			String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour) {
+		this.topic = topic;
+		this.content = content;
+		this.professor = professor;
+		this.setScored(false);
+		String stringDate = deadlineYear + "/" + deadlineMonth + "/" + deadlineDay + "/" + deadlineHour;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
+		try {
+			deadline = dateFormat.parse(stringDate);
+		} catch (Exception ex) {}
+
+		studentsAssignment = new ArrayList<Assignment>();
+		attachedDocument = new ArrayList<String>();
+		comment = new ArrayList<String>();
+	}
+	
+	public Assignment(String topic, String content, Date date) {
+		this.topic = topic;
+		this.content = content;
+		this.deadline = date;
+		this.setScored(false);
+		this.submitted = true;
+		attachedDocument = new ArrayList<String>();
+		comment = new ArrayList<String>();
+	}
+	
+	public void addStudentAssignment(Student student, Assignment assignment) {
+		assignment.setStudent(student);
+		studentsAssignment.add(assignment);
+	}
+	
+	public void submitScoredStudentsAssignment(Assignment assignment) {
+		assignment.setScored(true);
+		scoredStudentsAssignment = assignment;
+	}
+	
+	public ArrayList<Assignment> getStudentsAssignment() {
+		return studentsAssignment;
+	}
+	
+	public String getTopic() {
+		return topic;
+	}
+	
+	public Subject getSubject() {
+		return subject;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+	
+	public Date getDeadline() {
+		return deadline;
+	}
+	
+	private void setStudent(Student student) {
+		this.student = student;
+	}
+	
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+	
+	public void setScored(boolean a) {
+		isScored = a;
+	}
+	
+	public boolean isScored() {
+		return isScored;
+	}
+	
+	public boolean isSubmitted(Student student) {
+		return submitted;
+	}
+	
+	private void saveData() {
+	}
+	
+	public void makeStatistic() {	
+	}
+}

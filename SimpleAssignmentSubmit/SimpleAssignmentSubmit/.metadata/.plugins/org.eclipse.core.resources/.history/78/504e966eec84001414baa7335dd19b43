@@ -1,0 +1,72 @@
+package Account;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import Assignment.*;
+import GuiComponent.SimpleTextArea;
+import QnA.Question;
+import QnA.Answer;
+
+public class Student extends Account{
+	private ArrayList<Subject> subjects;
+	private ArrayList<Assignment> assignments;
+	private ArrayList<Question> questions;
+	private ArrayList<Answer> answers;
+	
+	public Student(String id, String password, String name) {
+		super(id, password, name, 0);
+		subjects = new ArrayList<Subject>();
+		assignments = new ArrayList<Assignment>();
+		questions = new ArrayList<Question>();
+		answers = new ArrayList<Answer>();
+	}
+
+	public void submitAssignment(Assignment whichAssignment, Assignment myAssignment) {
+		whichAssignment.addStudentAssignment(this, myAssignment);
+		assignments.add(myAssignment);
+	}
+	
+	public void makeQuestion() {
+		
+	}
+	
+	public void answerQuestion() {
+		
+	}
+	
+	public ArrayList<Subject> getSubjects() {
+		return subjects;
+	}
+	
+	public void addSubject(Subject subject) {
+		subjects.add(subject);
+	}
+
+	public void pl(String a) {
+		System.out.println(a);
+	}
+
+	public void printAllAssignment() {
+		pl("--------------------------------------------------");
+		for(int i = 0; i < this.getSubjects().size(); i++) {
+			Subject subejct = this.getSubjects().get(i);
+			pl("과목 : " + subejct.getName() + " ");
+			for(int j = 0; j < subejct.getAssignments().size(); j++) {
+				Assignment assignment = subejct.getAssignments().get(j);
+				pl("      " + "과제: " + assignment.getTopic() + " ");
+				for(int k = 0; k < assignment.getStudentsAssignment().size(); k++) {
+					Assignment sassignment = assignment.getStudentsAssignment().get(k);
+
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+					pl("              " + "학생 : " + getName());
+					pl("              " + "제출시간 : " + dateFormat.format(sassignment.getDeadline()));
+					pl("              " + "제목 : " + sassignment.getTopic());
+					pl("              " + "내용 : " + sassignment.getContent());
+				}
+			}
+		}
+	}
+}

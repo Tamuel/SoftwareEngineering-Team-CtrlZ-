@@ -1,0 +1,12 @@
+package objectSave;
+
+public class ObjectSaveSingleton {
+	private static ObjectSaveSingleton singleton = null;
+	
+	private ObjectSaveSingleton()  // 중요함...
+	{
+		System.out.println(" 인스턴스 생성 ");
+	}
+
+
+}

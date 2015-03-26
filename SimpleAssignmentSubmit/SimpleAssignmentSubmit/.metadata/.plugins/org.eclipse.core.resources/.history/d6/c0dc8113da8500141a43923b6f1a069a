@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//src/Client/AbstractClient.java=UTF-8
+encoding//src/Client/ChatClient.java=UTF-8
+encoding//src/Server/AbstractServer.java=UTF-8
+encoding//src/Server/ConnectionToClient.java=UTF-8
+encoding//src/ServerClientConsole/ClientConsole.java=UTF-8
