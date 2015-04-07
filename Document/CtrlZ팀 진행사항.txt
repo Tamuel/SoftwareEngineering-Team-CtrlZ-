@@ -1,0 +1,21 @@
+소프트웨어 공학
+
+CtrlZ 팀
+
+Origin 은 Git Repository 로
+
+Git 관리 툴은 SourceTree 사용
+
+3/31 MRD, SRS 작성
+
+4/7 Context Diagram, Architecture Design 작성
+
+4/16 프로젝트 수행 계획서, 발표자료, 발표 동영상
+
+4/30 디자인 분석서
+
+5/14, 5/28 테스트 코드, 구현 코드
+
+6/16 테스트 분석서, 코드 품질향상 평가서
+
+6/18 최종 발표
