@@ -11,26 +11,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 /**
- * °úÁ¦¸¦ »ý¼º, ¼öÁ¤ÇÏ±â À§ÇÑ Å¬·¡½º
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
  * @author eastern7star
  *
  */
 public class Assignment implements Serializable{
 	private String topic;
 	private String content;
-	private Professor professor;
-	private Student student;
+	private ProfessorAccount professor;
+	private StudentAccount student;
 	private Subject subject;
 	private Date deadline;
 	private Assignment scoredStudentsAssignment;
 	private Double score;
 	private boolean isScored;
-	private ArrayList<Assignment> studentsAssignment; // ÇÐ»ýµé¾Æ Á¦ÃâÇÑ °úÁ¦
-	private ArrayList<String> attachedDocument; // Ã·ºÎ ÆÄÀÏÀÇ Àý´ë °æ·Î¸¦ ÀúÀå
+	private ArrayList<Assignment> studentsAssignment; // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private ArrayList<String> attachedDocument; // Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private String comment;
 	
-	/* ±³¼ö°¡ °úÁ¦¸¦ ¸¸µé ¶§ »ý¼ºÀÚ */
-	public Assignment(Professor professor, String topic, String content,
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	public Assignment(ProfessorAccount professor, String topic, String content,
 			String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour) {
 		this.topic = topic;
 		this.content = content;
@@ -40,13 +40,13 @@ public class Assignment implements Serializable{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
 		try {
 			deadline = dateFormat.parse(stringDate);
-		} catch (Exception ex) {System.err.println("½Ã°£ÀÌ Á¦´ë·Î ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù!");}
+		} catch (Exception ex) {System.err.println("ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");}
 
 		studentsAssignment = new ArrayList<Assignment>();
 		attachedDocument = new ArrayList<String>();
 	}
 	
-	/* ÇÐ»ýÀÌ °úÁ¦¸¦ Á¦Ãâ ½Ã »ý¼ºÀÚ */
+	/* ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	public Assignment(String topic, String content, Date date) {
 		this.topic = topic;
 		this.content = content;
@@ -56,19 +56,19 @@ public class Assignment implements Serializable{
 	}
 	
 	/**
-	 * ±âÁ¸¿¡ ÀÖ´Â °úÁ¦¿Í ÇÐ»ýÀ» ¿¬°áÇØÁÜ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param student
 	 * @param assignment
 	 * @author eastern7star
 	 */
-	public void addStudentAssignment(Student student, Assignment assignment) {
+	public void addStudentAssignment(StudentAccount student, Assignment assignment) {
 		assignment.setStudent(student);
 		studentsAssignment.add(assignment);
 	}
 	
 	/**
-	 * °úÁ¦¸¦ Æò°¡Çß´Ù°í Ç¥½ÃÇØÁØ ´ÙÀ½
-	 * ÇÐ»ýÀÌ °¡Áö°í ÀÖ´Â "Æò°¡µÈ ÇÐ»ý °úÁ¦"¿¡ °úÁ¦ ÇÒ´ç
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù°ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ "ï¿½ò°¡µï¿½ ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
 	 * @param assignment
 	 * @author eastern7star
 	 */
@@ -97,7 +97,7 @@ public class Assignment implements Serializable{
 		return content;
 	}
 	
-	public Professor getProfessor() {
+	public ProfessorAccount getProfessor() {
 		return professor;
 	}
 	
@@ -105,7 +105,7 @@ public class Assignment implements Serializable{
 		return deadline;
 	}
 	
-	public Student getStudent() {
+	public StudentAccount getStudent() {
 		return student;
 	}
 	
@@ -125,7 +125,7 @@ public class Assignment implements Serializable{
 		this.comment = text;
 	}
 	
-	public void setStudent(Student student) {
+	public void setStudent(StudentAccount student) {
 		this.student = student;
 	}
 	
@@ -133,7 +133,7 @@ public class Assignment implements Serializable{
 		this.subject = subject;
 	}
 
-	public void setProfessor(Professor professor) {
+	public void setProfessor(ProfessorAccount professor) {
 		this.professor = professor;
 	}
 	
@@ -157,7 +157,7 @@ public class Assignment implements Serializable{
 		return isScored;
 	}
 	
-	public boolean isSubmitted(Student student) {
+	public boolean isSubmitted(StudentAccount student) {
 		if(student.getWhichAssignmentSubmitted().indexOf(this) != -1)
 			return true;
 		else

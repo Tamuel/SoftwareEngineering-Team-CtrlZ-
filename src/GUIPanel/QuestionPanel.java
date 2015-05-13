@@ -12,8 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
@@ -57,14 +57,14 @@ public class QuestionPanel extends JPanel{
 		topic.setLocation(1, 1);
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		time = new SimpleTextArea("ÀÛ¼ºÀÚ - " + question.getStudent().getName(), dateFormat.format(question.getTime()));
+		time = new SimpleTextArea("ï¿½Û¼ï¿½ï¿½ï¿½ - " + question.getStudent().getName(), dateFormat.format(question.getTime()));
 		time.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		time.setLocation(topic.getWidth() + 1, 1);
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 
-		if(account.isStudent() && ((Student)account).getQuestions().indexOf(question) != -1) {
-			makeAnswer = new SimpleButton("Áú¹® ¼öÁ¤");
+		if(account.isStudent() && ((StudentAccount)account).getQuestions().indexOf(question) != -1) {
+			makeAnswer = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			makeAnswer.setSize(90, buttonHeight);
 			makeAnswer.setLocation(this.getWidth() - makeAnswer.getWidth() - 5, this.getHeight() - makeAnswer.getHeight() - 5);
 			makeAnswer.addActionListener(new editListener());
@@ -95,12 +95,12 @@ public class QuestionPanel extends JPanel{
 		public void actionPerformed(ActionEvent ev) {
 			if(!editable) {
 				editable = true;
-				((SimpleButton)ev.getSource()).setText("¼öÁ¤ ¿Ï·á");
+				((SimpleButton)ev.getSource()).setText("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 				topic.setEditable(true);
 				content.setEditable(true);
 			} else if(editable) {
 				editable = false;
-				((SimpleButton)ev.getSource()).setText("Áú¹® ¼öÁ¤");
+				((SimpleButton)ev.getSource()).setText("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				topic.setEditable(false);
 				content.setEditable(false);
 				question.setTopic(topic.getText().toString());

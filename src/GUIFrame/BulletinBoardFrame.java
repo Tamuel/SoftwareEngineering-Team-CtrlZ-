@@ -37,8 +37,8 @@ import GuiComponent.SimpleJFrame;
 import QnA.Question;
 
 /**
- * ½ÇÁ¦ ·Î±×ÀÎ ÈÄ °Ô½ÃÆÇ Ã¢À» ¶ç¿ì´Â ÇÁ·¹ÀÓ Å¬·¡½º
- * °ú¸ñ ¸®½ºÆ®¸¦ Ç¥½ÃÇØÁÖ¸ç, Áú¹® °Ô½ÃÆÇ, °úÁ¦ °Ô½ÃÆÇ Á¢±ÙÀÌ °¡´ÉÇÏ´Ù
+ * ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
  * @author eastern7star
  *
  */
@@ -104,28 +104,28 @@ public class BulletinBoardFrame extends SimpleJFrame{
 		this.add(assignmentScrollPane);
 		this.add(contentPane);
 		
-		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1)); // frame¿¡ Å×µÎ¸® Àû¿ë
+		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1)); // frameï¿½ï¿½ ï¿½×µÎ¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		this.getContentPane().setBackground(Color.WHITE);//new Color(235, 235, 235));
 		this.setVisible(true);
 	}
 	
 	private class menuListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(menuButton.getText().equals("³»°¡ ¿Ã¸° °úÁ¦")) {
-				ContentPanel stPanel = new ContentPanel(((Student)account).getAssignments(), getFrame(), titleBar);
+			if(menuButton.getText().equals("ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½")) {
+				ContentPanel stPanel = new ContentPanel(((StudentAccount)account).getAssignments(), getFrame(), titleBar);
 				addContentPanel(stPanel);
 				titleBar.setAssignmentPath(subject);
-			} else if(menuButton.getText().equals("°úÁ¦ »ý¼º")) {
+			} else if(menuButton.getText().equals("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")) {
 				NewAssignmentPanel naPanel = new NewAssignmentPanel(subject, thisFrame(), titleBar);
 				ContentPanel contentPanel = new ContentPanel(naPanel, thisFrame(), titleBar);
 				addContentPanel(contentPanel);
 				titleBar.setAssignmentPath(subject);
-			} else if(menuButton.getText().equals("Áú¹® ¿Ã¸®±â")) {
+			} else if(menuButton.getText().equals("ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½")) {
 				NewQuestionPanel nqPanel = new NewQuestionPanel(account, subject, thisFrame(), titleBar);
 				ContentPanel contentPanel = new ContentPanel(nqPanel, thisFrame(), titleBar);
 				addContentPanel(contentPanel);
-			} else if(menuButton.getText().equals("³ªÀÇ ´äº¯")) {
-				ContentPanel maPanel = new ContentPanel(getFrame(), ((Professor)account).getAnswers(), titleBar);
+			} else if(menuButton.getText().equals("ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯")) {
+				ContentPanel maPanel = new ContentPanel(getFrame(), ((ProfessorAccount)account).getAnswers(), titleBar);
 				addContentPanel(maPanel);
 				seeWholeAnswer = true;
 			}
@@ -138,9 +138,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public void addAssignmentPanel(AssignmentList assignmentPanel) {
 		if(account.isStudent())
-			menuButton.setText("³»°¡ ¿Ã¸° °úÁ¦");
+			menuButton.setText("ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		else if(account.isProfessor())
-			menuButton.setText("°úÁ¦ »ý¼º");
+			menuButton.setText("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		
 		menuButton.setVisible(true);
 		assignmentScrollPane.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(200, 200, 200)));
@@ -159,9 +159,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public void addQuestionPanel(QuestionList questionPanel) {
 		if(account.isStudent())
-			menuButton.setText("Áú¹® ¿Ã¸®±â");
+			menuButton.setText("ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½");
 		else if(account.isProfessor())
-			menuButton.setText("³ªÀÇ ´äº¯");
+			menuButton.setText("ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯");
 		
 		menuButton.setVisible(true);
 		

@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
@@ -51,14 +51,14 @@ public class SubjectList extends JPanel{
 		
 		this.setLayout(null);
 		
-		assignmentButton = new SimpleButton("°úÁ¦", "°Ô½ÃÆÇ", subjectButtonHeight, subjectButtonWidth / 2);
+		assignmentButton = new SimpleButton("ï¿½ï¿½ï¿½ï¿½", "ï¿½Ô½ï¿½ï¿½ï¿½", subjectButtonHeight, subjectButtonWidth / 2);
 		assignmentButton.setBackground(new Color(255, 255, 255, 100));
 		assignmentButton.setFontColor(fontColor, fontColor);
 		assignmentButton.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210), 1));
 		assignmentButton.setLocation(-subjectButtonWidth, 0);
 		assignmentButton.addActionListener(new assignmentListener());
 		
-		questionButton = new SimpleButton("Áú¹®", "°Ô½ÃÆÇ", subjectButtonHeight, subjectButtonWidth / 2);
+		questionButton = new SimpleButton("ï¿½ï¿½ï¿½ï¿½", "ï¿½Ô½ï¿½ï¿½ï¿½", subjectButtonHeight, subjectButtonWidth / 2);
 		questionButton.setBackground(new Color(255, 255, 255, 100));
 		questionButton.setFontColor(fontColor, fontColor);
 		questionButton.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210), 1));
@@ -70,9 +70,9 @@ public class SubjectList extends JPanel{
 
 		if(account.isStudent()) {
 			// subjectButtons
-			for(int i = 0; i < ((Student)account).getSubjects().size(); i++) {
-				SimpleButton temp = new SimpleButton(((Student)account).getSubjects().get(i).getName(),
-						((Student)account).getSubjects().get(i).getProfessor().getName() + " ±³¼ö´Ô",
+			for(int i = 0; i < ((StudentAccount)account).getSubjects().size(); i++) {
+				SimpleButton temp = new SimpleButton(((StudentAccount)account).getSubjects().get(i).getName(),
+						((StudentAccount)account).getSubjects().get(i).getProfessor().getName() + " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
 						subjectButtonWidth, subjectButtonHeight);
 				temp.setLocation(xBorder, yBorder + (subjectButtonHeight + yBorder) * i);
 				temp.addActionListener(new chooseListener());
@@ -80,7 +80,7 @@ public class SubjectList extends JPanel{
 				temp.setFontColor(fontColor, fontColor);
 				temp.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210), 1));
 				
-				if(i == ((Student)account).getSubjects().size() - 1)
+				if(i == ((StudentAccount)account).getSubjects().size() - 1)
 					height = temp.getY() + subjectButtonHeight + yBorder;
 
 				subjectButtons.add(temp);
@@ -90,7 +90,7 @@ public class SubjectList extends JPanel{
 		
 		if(account.isProfessor()) {
 			// subjectButton
-			SimpleButton temp = new SimpleButton(((Professor)account).getSubject().getName(),
+			SimpleButton temp = new SimpleButton(((ProfessorAccount)account).getSubject().getName(),
 					subjectButtonWidth, subjectButtonHeight);
 			temp.setLocation(xBorder, yBorder);
 			temp.addActionListener(new chooseListener());
@@ -114,9 +114,9 @@ public class SubjectList extends JPanel{
 	private class chooseListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(account.isStudent())
-				tempSubject = ((Student)account).getSubjects().get(subjectButtons.indexOf((SimpleButton)ev.getSource()));
+				tempSubject = ((StudentAccount)account).getSubjects().get(subjectButtons.indexOf((SimpleButton)ev.getSource()));
 			else if(account.isProfessor())
-				tempSubject = ((Professor)account).getSubject();
+				tempSubject = ((ProfessorAccount)account).getSubject();
 			
 			assignmentButton.setLocation(((SimpleButton)ev.getSource()).getX(), ((SimpleButton)ev.getSource()).getY());
 			questionButton.setLocation(assignmentButton.getX() + assignmentButton.getWidth(), ((SimpleButton)ev.getSource()).getY());

@@ -66,7 +66,7 @@ public class StudentAssignmentPanel extends JPanel{
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("Á¦Ãâ");
+		submit = new SimpleButton("ï¿½ï¿½ï¿½ï¿½");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new SubmitButtonListener());
@@ -94,7 +94,7 @@ public class StudentAssignmentPanel extends JPanel{
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
 	}
 	
-	public StudentAssignmentPanel(Student student, int indexOfAssignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
+	public StudentAssignmentPanel(StudentAccount student, int indexOfAssignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = student.getAssignments().get(indexOfAssignment);
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
@@ -108,13 +108,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("Á¦Ãâ ÀÏÀÚ " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("¼öÁ¤");
+		submit = new SimpleButton("ï¿½ï¿½ï¿½ï¿½");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new EditButtonListener());
@@ -142,7 +142,7 @@ public class StudentAssignmentPanel extends JPanel{
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
 	}
 	
-	/* ±³¼ö°¡ ÇÐ»ýµéÀÌ Á¦ÃâÇÑ ¸ðµç °úÁ¦¸¦ º¼ ¶§ÀÇ »ý¼ºÀÚ  */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  */
 	public StudentAssignmentPanel(Subject subject, Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = assignment;
 		this.boardFrame = boardFrame;
@@ -157,13 +157,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("ÀÛ¼ºÀÚ - " + assignment.getStudent().getName(), "Á¦Ãâ ÀÏÀÚ " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("ï¿½Û¼ï¿½ï¿½ï¿½ - " + assignment.getStudent().getName(), "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("Æò°¡");
+		submit = new SimpleButton("ï¿½ï¿½");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new ScoreButtonListener());
@@ -191,8 +191,8 @@ public class StudentAssignmentPanel extends JPanel{
 			comment.setText(assignment.getScoredAssignment().getComment());
 			score.setText(assignment.getScoredAssignment().getScore() + "");
 		} else if(!assignment.isScored()) {
-			comment.setText("ÄÚ¸àÆ®");
-			score.setText("Á¡¼ö");
+			comment.setText("ï¿½Ú¸ï¿½Æ®");
+			score.setText("ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		scrollBar = new JScrollPane(content);
@@ -219,7 +219,7 @@ public class StudentAssignmentPanel extends JPanel{
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
 	}
 	
-	/* Æò°¡µÈ °úÁ¦ Ç¥½Ã */
+	/* ï¿½ò°¡µï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ */
 	public StudentAssignmentPanel(Assignment assignment, Double sc, String cm, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = assignment;
 		this.boardFrame = boardFrame;
@@ -234,13 +234,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("ÀÛ¼ºÀÚ - " + assignment.getStudent().getName(), "Á¦Ãâ ÀÏÀÚ " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("ï¿½Û¼ï¿½ï¿½ï¿½ - " + assignment.getStudent().getName(), "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("Æò°¡");
+		submit = new SimpleButton("ï¿½ï¿½");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		
@@ -256,7 +256,7 @@ public class StudentAssignmentPanel extends JPanel{
 		comment.setMargin(new Insets(10, 10, 10, 10));
 		comment.setEditable(false);
 		
-		SimpleTextArea score = new SimpleTextArea(sc + "Á¡");
+		SimpleTextArea score = new SimpleTextArea(sc + "ï¿½ï¿½");
 		score.setSize(submit.getWidth() - 10, submit.getHeight());
 		score.setLocation(submit.getX() - score.getWidth() - xBorder, submit.getY() - 5);
 		score.setMargin(new Insets(10, 10, 10, 10));
@@ -289,7 +289,7 @@ public class StudentAssignmentPanel extends JPanel{
 	private class ScoreButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(!assignment.isScored())
-				((Professor)boardFrame.getAccount()).assignmentApprasal(comment.getText().toString(), score.getText().toString(), assignment);
+				((ProfessorAccount)boardFrame.getAccount()).assignmentApprasal(comment.getText().toString(), score.getText().toString(), assignment);
 			System.out.println(assignment.getScoredAssignment().getScore() + " " + assignment.getScoredAssignment().getComment());
 		}
 	}
@@ -319,9 +319,9 @@ public class StudentAssignmentPanel extends JPanel{
 		}
 	}
 	
-	public Student getStudent() {
+	public StudentAccount getStudent() {
 		if(boardFrame.getAccount().isStudent())
-			return (Student)boardFrame.getAccount();
+			return (StudentAccount)boardFrame.getAccount();
 		else
 			return null;
 	}

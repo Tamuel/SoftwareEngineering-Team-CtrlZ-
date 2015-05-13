@@ -13,8 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
@@ -61,7 +61,7 @@ public class NewAnswerPanel extends JPanel{
 		content.setEditable(true);
 	
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		time = new SimpleTextArea( "ÀÛ¼ºÀÚ - " + account.getName());//, dateFormat.format(new Date()));
+		time = new SimpleTextArea( "ï¿½Û¼ï¿½ï¿½ï¿½ - " + account.getName());//, dateFormat.format(new Date()));
 		time.setSize(this.getWidth() * 3 / 16 - 1, height - 2);
 		time.setLocation(1, 1);
 		time.setBackground(new Color(240, 240, 240));
@@ -73,7 +73,7 @@ public class NewAnswerPanel extends JPanel{
 		scrollBar.setSize(this.getWidth() * 10 / 16 - 1, height - 2);
 		scrollBar.setWheelScrollingEnabled(true);
 		
-		submitButton = new SimpleButton("´äº¯");
+		submitButton = new SimpleButton("ï¿½äº¯");
 		submitButton.setSize(this.getWidth() * 3 / 16 - 10, height - 2 - 10);
 		submitButton.setLocation(scrollBar.getX() + scrollBar.getWidth() + 1 + 5, 1 + 5);
 		submitButton.addActionListener(new submit());
@@ -90,9 +90,9 @@ public class NewAnswerPanel extends JPanel{
 	private class submit implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(account.isProfessor()) {
-				((Professor)account).answerQuestion(question, content.getText());
+				((ProfessorAccount)account).answerQuestion(question, content.getText());
 			}else if(account.isStudent()) {
-				((Student)account).answerQuestion(question, content.getText());
+				((StudentAccount)account).answerQuestion(question, content.getText());
 			}
 
 			boardFrame.addContentPanel(new ContentPanel(question, boardFrame, titleBar));

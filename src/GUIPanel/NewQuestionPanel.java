@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Account.Account;
-import Account.Student;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
@@ -52,19 +52,19 @@ public class NewQuestionPanel extends JPanel{
 		this.setLayout(null);
 
 		this.setSize(boardFrame.getContentWidth() - xBorder * 2, (boardFrame.getHeight() - yBorder * 3 - titleBar.getHeight()) / 2);
-		topic = new SimpleTextField("Áú¹® Á¦¸ñ");
+		topic = new SimpleTextField("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		topic.setSize(this.getWidth() * 3 / 5 - 2, topicHeight - 1);
 		topic.setLocation(1, 1);
 		topic.setEditable(true);
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		time = new SimpleTextArea("ÀÛ¼ºÀÚ - " + account.getName(), dateFormat.format(new Date()));
+		time = new SimpleTextArea("ï¿½Û¼ï¿½ï¿½ï¿½ - " + account.getName(), dateFormat.format(new Date()));
 		time.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		time.setLocation(topic.getWidth() + 1, 1);
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 
-		makeAnswer = new SimpleButton("Áú¹® ¿Ã¸®±â");
+		makeAnswer = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½");
 		makeAnswer.setSize(90, 30);
 		makeAnswer.setLocation(this.getWidth() - makeAnswer.getWidth() - 5, this.getHeight() - makeAnswer.getHeight() - 5);
 		makeAnswer.addActionListener(new addQuestion());
@@ -93,7 +93,7 @@ public class NewQuestionPanel extends JPanel{
 
 	private class addQuestion implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			((Student)account).makeQuestion(subject, topic.getText(), content.getText());
+			((StudentAccount)account).makeQuestion(subject, topic.getText(), content.getText());
 			boardFrame.addQuestionPanel(new QuestionList(thisHeight(), subject, boardFrame, titleBar));
 			boardFrame.repaint();
 		}

@@ -12,8 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
@@ -52,14 +52,14 @@ public class AnswerPanel extends JPanel{
 		this.setSize(contentPanel.getWidth() - xBorder * 2 - 18, height);
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		time = new SimpleTextArea( "ÀÛ¼ºÀÚ - " + answer.getName(), dateFormat.format(answer.getTime()));
+		time = new SimpleTextArea( "ï¿½Û¼ï¿½ï¿½ï¿½ - " + answer.getName(), dateFormat.format(answer.getTime()));
 		time.setSize(this.getWidth() * 5 / 16 - 1, height - 2);
 		time.setLocation(1, 1);
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 		
-		if((account.isStudent() && ((Student)account).getAnswers().indexOf(answer) != -1) ||
-		   (account.isProfessor() && ((Professor)account).getAnswers().indexOf(answer) != -1)) {
+		if((account.isStudent() && ((StudentAccount)account).getAnswers().indexOf(answer) != -1) ||
+		   (account.isProfessor() && ((ProfessorAccount)account).getAnswers().indexOf(answer) != -1)) {
 			content = new SimpleTextArea(answer.getContent());
 			content.setSize(this.getWidth() * 10 / 16 - 1, 0);
 			content.setLocation(1, 1);
@@ -99,9 +99,9 @@ public class AnswerPanel extends JPanel{
 	private class deleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(account.isStudent())
-				((Student)account).getAnswers().remove(((Student)account).getAnswers().indexOf(answer));
+				((StudentAccount)account).getAnswers().remove(((StudentAccount)account).getAnswers().indexOf(answer));
 			else if(account.isProfessor())
-				((Professor)account).getAnswers().remove(((Professor)account).getAnswers().indexOf(answer));
+				((ProfessorAccount)account).getAnswers().remove(((ProfessorAccount)account).getAnswers().indexOf(answer));
 			
 			answer.getQuestion().getAnswers().remove(answer.getQuestion().getAnswers().indexOf(answer));
 			
@@ -109,7 +109,7 @@ public class AnswerPanel extends JPanel{
 				boardFrame.addContentPanel(new ContentPanel(answer.getQuestion(), boardFrame, titleBar));
 				boardFrame.repaint();	
 			}else {
-				ContentPanel maPanel = new ContentPanel(boardFrame, ((Professor)account).getAnswers(), titleBar);
+				ContentPanel maPanel = new ContentPanel(boardFrame, ((ProfessorAccount)account).getAnswers(), titleBar);
 				boardFrame.addContentPanel(maPanel);
 				boardFrame.setSeeWholeAnswer(true);
 			}

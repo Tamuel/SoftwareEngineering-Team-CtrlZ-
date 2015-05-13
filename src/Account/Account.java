@@ -11,7 +11,9 @@ public class Account implements Serializable{
 	private String id;
 	private String name;
 	private String password;
+	private int numberOfNotice;
 	private Permission permission; // Student 0, Professor 1
+	private boolean onLine = false; // Determine whether account is on-line
 	private ArrayList<Account> accounts;
 	
 	public Account() {
@@ -66,7 +68,7 @@ public class Account implements Serializable{
 	// 21 MAR 2015 Tuna
 	// change (int)0 to (enum)PermissionType.STUDENT
 	public boolean isStudent() {
-		if(this.permission == Permission.Student)
+		if(this.permission == Permission.STUDENT)
 			return true;
 		else
 			return false;
@@ -75,7 +77,7 @@ public class Account implements Serializable{
 	// 21 MAR 2015 Tuna
 	// change (int)1 to (enum)PermissonType.PROFESSOR
 	public boolean isProfessor() {
-		if(this.permission == Permission.Professor)
+		if(this.permission == Permission.PROFESSOR)
 			return true;
 		else
 			return false;

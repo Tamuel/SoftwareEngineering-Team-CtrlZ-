@@ -10,6 +10,6 @@ package common;
  */
 
 public enum Permission {
-	Student,
-	Professor
+	STUDENT,
+	PROFESSOR
 }

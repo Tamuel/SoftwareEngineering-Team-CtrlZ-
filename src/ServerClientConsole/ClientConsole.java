@@ -38,7 +38,7 @@ public class ClientConsole implements ChatIF // ChatIF 인터페이스 호출
    * The instance of the client that created this ConsoleChat.
    * ChatClient 객체 생성
    */
-  ChatClient client;
+  Client client;
 
   
   //Constructors ****************************************************
@@ -56,7 +56,7 @@ public class ClientConsole implements ChatIF // ChatIF 인터페이스 호출
   {
     try 
     {
-      client = new ChatClient(host, port, this);
+      client = new Client(host, port, this);
     } 
     catch(IOException exception) 
     {
@@ -106,7 +106,7 @@ public class ClientConsole implements ChatIF // ChatIF 인터페이스 호출
     		else
     		{
     			System.out.println("서버에 접속합니다.");
-    			client = new ChatClient(client.getHost(), client.getPort(), this);
+    			client = new Client(client.getHost(), client.getPort(), this);
     		}
     	}
     	else if(message.equals("#logoff"))

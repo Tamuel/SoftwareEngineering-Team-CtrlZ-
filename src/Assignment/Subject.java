@@ -7,8 +7,8 @@ import QnA.Question;
 
 public class Subject implements Serializable{
 	private String name;
-	private Professor professor;
-	private ArrayList<Student> students;
+	private ProfessorAccount professor;
+	private ArrayList<StudentAccount> students;
 	private ArrayList<Assignment> assignments;
 	private Question question;
 	
@@ -24,12 +24,12 @@ public class Subject implements Serializable{
 		this.question = new Question(this);
 	}
 	
-	public void setProfessor(Professor professor) {
+	public void setProfessor(ProfessorAccount professor) {
 		this.professor = professor;
 	}
 	
 	/**
-	 * ÇØ´çÇÏ´Â °ú¸ñ¿¡ Áú¹® Ãß°¡
+	 * ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	 * @param question
 	 * @author eastern7star
 	 */
@@ -49,7 +49,7 @@ public class Subject implements Serializable{
 		return name;
 	}
 	
-	public Professor getProfessor() {
+	public ProfessorAccount getProfessor() {
 		return professor;
 	}
 }

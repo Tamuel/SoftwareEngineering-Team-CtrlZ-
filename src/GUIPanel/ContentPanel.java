@@ -12,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import Account.Account;
-import Account.Student;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
@@ -23,7 +23,7 @@ import QnA.Question;
 
 public class ContentPanel extends JPanel{
 	
-	private Student student;
+	private StudentAccount student;
 	
 	private Subject subject;
 	private Question thisQuestion;
@@ -79,11 +79,11 @@ public class ContentPanel extends JPanel{
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
-	/* ÇÐ»ýÀÌ °úÁ¦¸¦ Å¬¸¯ÇßÀ» ¶§ */
+	/* ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
 	public ContentPanel(Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
-		this.student = ((Student)boardFrame.getAccount());
+		this.student = ((StudentAccount)boardFrame.getAccount());
 		answerPanels = new ArrayList<AnswerPanel>();
 		thisAssignment = assignment;
 		
@@ -97,12 +97,12 @@ public class ContentPanel extends JPanel{
 		this.add(assignmentPanel);
 		
 
-		if(boardFrame.getAccount().isStudent() && assignment.isSubmitted(((Student)boardFrame.getAccount()))) {
-			addSubmittedStudentAssignmentPanel(((Student)boardFrame.getAccount())
+		if(boardFrame.getAccount().isStudent() && assignment.isSubmitted(((StudentAccount)boardFrame.getAccount()))) {
+			addSubmittedStudentAssignmentPanel(((StudentAccount)boardFrame.getAccount())
 					.getWhichAssignmentSubmitted().indexOf(assignment));
 		}
 		
-		/* Æò°¡µÈ °úÁ¦°¡ ÀÖÀ» °æ¿ì */
+		/* ï¿½ò°¡µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ */
 		if(boardFrame.getAccount().isStudent() &&
 				student.getWhichAssignmentSubmitted().indexOf(assignment) != -1 &&
 				student.getAssignments().get(student.getWhichAssignmentSubmitted().indexOf(assignment)).getScoredAssignment() != null) {
@@ -157,7 +157,7 @@ public class ContentPanel extends JPanel{
 		this.setSize(boardFrame.getContentWidth() + 20, height);
 
 		for(int i = assignments.size() - 1; i >= 0; i--) {
-			StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((Student)boardFrame.getAccount()), i, boardFrame, titleBar);
+			StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)boardFrame.getAccount()), i, boardFrame, titleBar);
 			stPanel.setLocation(xBorder, (assignments.size() - i) * xBorder + (assignments.size() - i - 1) * stPanel.getHeight());
 			
 			if(i == 0)
@@ -174,7 +174,7 @@ public class ContentPanel extends JPanel{
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 	
-	/* ±³¼ö °èÁ¤À¸·Î ·Î±×ÀÎ ÇßÀ» ¶§ °úÁ¦¿¡ ÀÖ´Â ÇÐ»ýÀÌ Á¦ÃâÇÑ ¸ðµç °úÁ¦¸¦ °°ÀÌ º¸¿©ÁÜ */
+	/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	public ContentPanel(Subject subject, Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
@@ -228,7 +228,7 @@ public class ContentPanel extends JPanel{
 	}
 
 	public void addSubmittedStudentAssignmentPanel(int index) {
-		StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((Student)boardFrame.getAccount()), index,boardFrame, titleBar);
+		StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)boardFrame.getAccount()), index,boardFrame, titleBar);
 		stPanel.setLocation(assignmentPanel.getX(), assignmentPanel.getY() + assignmentPanel.getHeight() + xBorder);
 		this.add(stPanel);
 	}

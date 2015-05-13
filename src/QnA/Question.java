@@ -13,7 +13,7 @@ import Account.*;
 import Assignment.*;
 
 public class Question implements Serializable{
-	private Student student;
+	private StudentAccount student;
 	private Subject subject;
 	private String attachedDocument;
 	private ArrayList<Question> questions;
@@ -27,7 +27,7 @@ public class Question implements Serializable{
 		questions = new ArrayList<Question>();
 	}
 	
-	public Question(Student student, Subject subject, String topic, String content) {
+	public Question(StudentAccount student, Subject subject, String topic, String content) {
 		this.student = student;
 		this.subject = subject;
 		this.topic = topic;
@@ -48,7 +48,7 @@ public class Question implements Serializable{
 		answers.add(answer);
 	}
 	
-	public void setStudent(Student student) {
+	public void setStudent(StudentAccount student) {
 		this.student=student;
 	}
 	
@@ -72,7 +72,7 @@ public class Question implements Serializable{
 		return content;
 	}
 	
-	public Student getStudent() {
+	public StudentAccount getStudent() {
 		return student;
 	}
 	

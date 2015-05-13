@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Account.Account;
-import Account.Student;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
@@ -59,17 +59,17 @@ public class AssignmentPanel extends JPanel{
 		topic.setLocation(1, 1);
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		deadline = new SimpleTextArea("Á¦Ãâ " + dateFormat.format(assignment.getDeadline()) + " ±îÁö");
+		deadline = new SimpleTextArea("ï¿½ï¿½ï¿½ï¿½ " + dateFormat.format(assignment.getDeadline()) + " ï¿½ï¿½ï¿½ï¿½");
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 		
 		if(account.isStudent()) {
-			makeAssignment = new SimpleButton("°úÁ¦ ÀÛ¼º");
+			makeAssignment = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½");
 			makeAssignment.addActionListener(new SubmitButtonListener());
 		} else if(account.isProfessor()) {
-			makeAssignment = new SimpleButton("°úÁ¦ ¼öÁ¤");
+			makeAssignment = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			makeAssignment.addActionListener(new EditButtonListener());
 		}
 		makeAssignment.setSize(90, 30);
@@ -98,8 +98,8 @@ public class AssignmentPanel extends JPanel{
 
 	private class SubmitButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			// Á¦Ãâ ¾ÈÇÑ °úÁ¦ÀÏ °æ¿ì
-			if(boardFrame.getAccount().isStudent() && !assignment.isSubmitted(((Student)boardFrame.getAccount()))) {
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			if(boardFrame.getAccount().isStudent() && !assignment.isSubmitted(((StudentAccount)boardFrame.getAccount()))) {
 				contentPanel.addUnsubmittedStudentAssignmentPanel();
 			}
 			boardFrame.repaint();

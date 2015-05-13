@@ -12,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import Account.Account;
-import Account.Student;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
@@ -54,7 +54,7 @@ public class AssignmentList extends JPanel{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 			
 			SimpleButton temp = new SimpleButton(subject.getAssignments().get(i).getTopic(),
-					dateFormat.format(subject.getAssignments().get(i).getDeadline()) + " ±îÁö",
+					dateFormat.format(subject.getAssignments().get(i).getDeadline()) + " ï¿½ï¿½ï¿½ï¿½",
 					assignmentButtonWidth, assignmentButtonHeight);
 			temp.setLocation(xBorder, yBorder + (assignmentButtonHeight + yBorder) * i);
 			temp.addActionListener(new assignmentButtonListener());

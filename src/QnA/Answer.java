@@ -13,13 +13,13 @@ import Account.*;
 import Assignment.*;
 
 public class Answer implements Serializable{
-	private Student student;
-	private Professor professor;
+	private StudentAccount student;
+	private ProfessorAccount professor;
 	private Question question;
 	private String content;
 	private Date time;
 	
-	public Answer(Student student, Question question, String ans)
+	public Answer(StudentAccount student, Question question, String ans)
 	{
 		this.student=student;
 		this.question=question;
@@ -27,7 +27,7 @@ public class Answer implements Serializable{
 		this.time = new Date();
 	}
 	
-	public Answer(Professor professor, Question question, String ans)
+	public Answer(ProfessorAccount professor, Question question, String ans)
 	{
 		this.professor=professor;
 		this.question=question;
@@ -35,12 +35,12 @@ public class Answer implements Serializable{
 		this.time = new Date();
 	}
 
-	public void setStudent(Student student)
+	public void setStudent(StudentAccount student)
 	{
 		this.student=student;
 	}
 	
-	public void setProfessor(Professor professor)
+	public void setProfessor(ProfessorAccount professor)
 	{
 		this.professor=professor;
 	}
@@ -59,7 +59,7 @@ public class Answer implements Serializable{
 		return time;
 	}
 	
-	public Professor getProfessor()
+	public ProfessorAccount getProfessor()
 	{
 		return professor;
 	}
@@ -68,7 +68,7 @@ public class Answer implements Serializable{
 		return question;
 	}
 	
-	public Student getStudent() {
+	public StudentAccount getStudent() {
 		return student;
 	}
 	

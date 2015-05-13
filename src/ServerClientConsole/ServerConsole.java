@@ -41,7 +41,7 @@ public class ServerConsole implements ChatIF // ChatIF 인터페이스 호출
    * The instance of the client that created this ConsoleChat.
    * ChatClient 객체 생성
    */
-  EchoServer server;
+  Server server;
 
   
   //Constructors ****************************************************
@@ -56,7 +56,7 @@ public class ServerConsole implements ChatIF // ChatIF 인터페이스 호출
    */
   public ServerConsole(int port) // Server Console 생성자
   {
-	  server = new EchoServer(port, this);
+	  server = new Server(port, this);
 		try 
 		{
 			server.listen(); //Start listening for connections
@@ -179,7 +179,7 @@ public class ServerConsole implements ChatIF // ChatIF 인터페이스 호출
     }
     catch(Throwable t)
     {
-      port = DEFAULT_PORT; //Set port to 5555
+      port = DEFAULT_PORT; //Set port to 9000
     }
 	
     ServerConsole sv = new ServerConsole(port);

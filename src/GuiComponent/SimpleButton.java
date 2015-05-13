@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import Account.Student;
+import Account.StudentAccount;
 
 public class SimpleButton extends JButton{
 	
@@ -18,8 +18,8 @@ public class SimpleButton extends JButton{
 	JLabel label2;
 	JLabel label3;
 	
-	private Font font = new Font("¸¼Àº °íµñ", Font.PLAIN, 15);
-	private Font font2 = new Font("¸¼Àº °íµñ", Font.PLAIN, 12);
+	private Font font = new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½", Font.PLAIN, 15);
+	private Font font2 = new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½", Font.PLAIN, 12);
 	
 	private int adjustPos = -20;
 

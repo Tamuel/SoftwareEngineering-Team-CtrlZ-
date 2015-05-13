@@ -12,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import Account.Account;
-import Account.Student;
+import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
@@ -57,7 +57,7 @@ public class QuestionList extends JPanel{
 			
 			SimpleButton temp = new SimpleButton(subject.getSubjectQuestions().getQuestions().get(i).getTopic(),
 					subject.getSubjectQuestions().getQuestions().get(i).getStudent().getName(),
-					dateFormat.format(subject.getSubjectQuestions().getQuestions().get(i).getTime()) + "¿¡ ÀÛ¼º",
+					dateFormat.format(subject.getSubjectQuestions().getQuestions().get(i).getTime()) + "ï¿½ï¿½ ï¿½Û¼ï¿½",
 					questionButtonWidth, questionButtonHeight);
 			temp.setLocation(xBorder, yBorder + (questionButtonHeight + yBorder) * i);
 			temp.addActionListener(new questionButtonListener());

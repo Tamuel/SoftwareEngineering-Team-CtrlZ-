@@ -13,22 +13,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Subject;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import GuiComponent.SimpleTextField;
 
 /**
- * °èÁ¤À» »ý¼ºÇÏ´Â °úÁ¤¿¡¼­ ¼ö°­ÇÏ´Â °ú¸ñÀ» ¼±ÅÃÇÏ´Â ÇÁ·¹ÀÓ Å¬·¡½º
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
  * 
  * @author eastern7star
  *
  */
 public class SubjectSelectFrame extends SimpleJFrame{
 	
-	private Student student;
+	private StudentAccount student;
 	
 	private LoginFrame loginFrame;
 	
@@ -44,7 +44,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 	
 	private Color selected = new Color(230, 230, 230);
 	
-	public SubjectSelectFrame(ArrayList<Account> accounts, Student student, String frameName, int width, int height, LoginFrame loginFrame) {
+	public SubjectSelectFrame(ArrayList<Account> accounts, StudentAccount student, String frameName, int width, int height, LoginFrame loginFrame) {
 		super(frameName, width, height);
 
 		this.student = student;
@@ -64,8 +64,8 @@ public class SubjectSelectFrame extends SimpleJFrame{
 		while(iter.hasNext()) {
 			Account temp = (Account)iter.next();
 			if(temp.isProfessor()) {
-				SubjectButton tempButton = new SubjectButton(((Professor)temp).getSubject().getName(), ((Professor)temp).getName(),
-						WIDTH - xBorder * 4, componentHeight, ((Professor)temp).getSubject());
+				SubjectButton tempButton = new SubjectButton(((ProfessorAccount)temp).getSubject().getName(), ((ProfessorAccount)temp).getName(),
+						WIDTH - xBorder * 4, componentHeight, ((ProfessorAccount)temp).getSubject());
 				tempButton.setLocation(xBorder * 2, componentHeight * i + yBorder * (i + 1));
 				tempButton.addActionListener(new selectListener());
 				tempButton.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
@@ -88,7 +88,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 		scrollBar.setLocation(0, 0);
 		scrollBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(180, 180, 180)));
 		
-		submitButton = new SimpleButton("È®ÀÎ");
+		submitButton = new SimpleButton("È®ï¿½ï¿½");
 		submitButton.setSize(this.getWidth() - xBorder * 2, 50);
 		submitButton.setLocation(xBorder, scrollBar.getY() + scrollBar.getHeight() + 10);
 		submitButton.addActionListener(new submitListener());

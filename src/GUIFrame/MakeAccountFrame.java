@@ -8,15 +8,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 import Account.Account;
-import Account.Professor;
-import Account.Student;
+import Account.ProfessorAccount;
+import Account.StudentAccount;
 import Assignment.Subject;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import GuiComponent.SimpleTextField;
 
 /**
- * °èÁ¤À» ¸¸µå´Â ÇÁ·¹ÀÓ Å¬·¡½º
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
  * 
  * @author eastern7star
  *
@@ -39,7 +39,7 @@ public class MakeAccountFrame extends SimpleJFrame{
 	private int xBorder = 20;
 	private int yBorder = 10;
 	
-	private String subString = "´ã´ç °ú¸ñ (¾øÀ¸¸é ÇÐ»ýÀÔ´Ï´Ù)";
+	private String subString = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð»ï¿½ï¿½Ô´Ï´ï¿½)";
 	
 	public MakeAccountFrame(Account accounts, String frameName, int width, int height, LoginFrame loginFrame) {
 		super(frameName, width, height);
@@ -57,7 +57,7 @@ public class MakeAccountFrame extends SimpleJFrame{
 		passwordField.setBackground(new Color(240, 240, 240));
 		passwordField.setLocation(xBorder, componentHeight * 2 + yBorder + adjust);
 		
-		nameField = new SimpleTextField("ÀÌ¸§");
+		nameField = new SimpleTextField("ï¿½Ì¸ï¿½");
 		nameField.setSize(WIDTH - xBorder * 2, componentHeight);
 		nameField.setBackground(new Color(240, 240, 240));
 		nameField.setLocation(xBorder, componentHeight * 3 + yBorder * 2 + adjust);
@@ -67,12 +67,12 @@ public class MakeAccountFrame extends SimpleJFrame{
 		subjectField.setBackground(new Color(240, 240, 240));
 		subjectField.setLocation(xBorder, componentHeight * 4 + yBorder * 3 + adjust);
 		
-		submitButton = new SimpleButton("µî·Ï");
+		submitButton = new SimpleButton("ï¿½ï¿½ï¿½");
 		submitButton.setSize((WIDTH - xBorder *3) / 2, componentHeight);
 		submitButton.setLocation(xBorder, componentHeight * 5 + yBorder * 4 + adjust);
 		submitButton.addActionListener(new submitListener());
 		
-		cancleButton = new SimpleButton("Ãë¼Ò");
+		cancleButton = new SimpleButton("ï¿½ï¿½ï¿½");
 		cancleButton.setSize((WIDTH - xBorder *3) / 2, componentHeight);
 		cancleButton.setLocation(xBorder * 2 + submitButton.getWidth(), submitButton.getY());
 		cancleButton.addActionListener(new cancleListener());
@@ -90,21 +90,21 @@ public class MakeAccountFrame extends SimpleJFrame{
 	
 	private class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			/* ±³¼ö´Ô °èÁÂ »ý¼º */
+			/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 			if(accounts.checkIdRepeated(idField.getText().toString()) && !subjectField.getText().equals(subString)) {
 				Subject newSubject = new Subject(subjectField.getText().toString());
-				Professor temp = new Professor(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString(), newSubject);
+				ProfessorAccount temp = new ProfessorAccount(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString(), newSubject);
 				accounts.addAccount(temp);
 				loginFrame.setVisible(true);
 				visible(false);
-			} else if(accounts.checkIdRepeated(idField.getText().toString()) && subjectField.getText().equals(subString)) { /* ÇÐ»ý °èÁÂ »ý¼º */
-				Student temp = new Student(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString());
+			} else if(accounts.checkIdRepeated(idField.getText().toString()) && subjectField.getText().equals(subString)) { /* ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+				StudentAccount temp = new StudentAccount(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString());
 				accounts.addAccount(temp);
-				SubjectSelectFrame sbFrame = new SubjectSelectFrame(accounts.getAccounts(), temp, "°ú¸ñ ¼±ÅÃ", 300, 300, loginFrame);
+				SubjectSelectFrame sbFrame = new SubjectSelectFrame(accounts.getAccounts(), temp, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", 300, 300, loginFrame);
 				visible(false);
 			} else if(!accounts.checkIdRepeated(idField.getText().toString())) {
 				idField.setText("");
-				idField.setGrayColor("ÀÌ¹Ì ¾ÆÀÌµð°¡ Á¸ÀçÇÕ´Ï´Ù");
+				idField.setGrayColor("ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½");
 				idField.focusLost(null);
 			}
 		}

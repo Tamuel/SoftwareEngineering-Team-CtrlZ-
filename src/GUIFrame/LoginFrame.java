@@ -33,29 +33,29 @@ import javax.swing.JTextField;
 import objectSave.ObjectSaveSingleton;
 
 /**
- * ·Î±×ÀÎ Ã¢À» ¶ç¿ì´Â ÇÁ·¹ÀÓ Å¬·¡½º
+ * ï¿½Î±ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
  * 
  * @author eastern7star
  *
  */
 public class LoginFrame extends SimpleJFrame{
-	
+
 	private SimpleTextField idField;
 	private SimpleTextField passwordField;
-	
+
 	static private Account accounts = ObjectSaveSingleton.getInstance().getAccounts();
-	
+
 	private SimpleButton loginButton;
 	private SimpleButton joinButton;
 
 	private int componentHeight = 40;
 	private int xBorder = 20;
 	private int yBorder = 10;
-	
+
 	public LoginFrame(String frameName, int width, int height) {
 		super(frameName, width, height);
 		
-		// Component Ãß°¡
+		// Component ï¿½ß°ï¿½
 		idField = new SimpleTextField("ID");
 		idField.setSize(WIDTH - xBorder * 2, componentHeight);
 		idField.setBackground(new Color(240, 240, 240));
@@ -86,7 +86,7 @@ public class LoginFrame extends SimpleJFrame{
 		this.getContentPane().setBackground(new Color(255, 255, 255));
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
 	}
-	
+
 	private class Action implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(ev.getSource().equals(loginButton)) {
@@ -102,17 +102,17 @@ public class LoginFrame extends SimpleJFrame{
 			}
 		}
 	}
-	
+
 	public LoginFrame getThis() {
 		return this;
 	}
-	
+
 	public void visible (boolean bool) {
 		this.setVisible(bool);
 	}
-	
+
 	public void makeBulletinBoard(Account account) {
-		BulletinBoardFrame board = new BulletinBoardFrame("°úÁ¦ Á¦Ãâ", 1100, 630, account);
+		BulletinBoardFrame board = new BulletinBoardFrame("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", 1100, 630, account);
 	}
 
 	public static void main(String args[]) {
