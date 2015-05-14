@@ -12,18 +12,18 @@ import GuiComponent.SimpleTextArea;
 import QnA.Question;
 import QnA.Answer;
 
-public class Student extends Account{
+public class StudentAccount extends Account{
 	private ArrayList<Subject> subjects;
-	private ArrayList<Assignment> assignments; // Á¦ÃâÇÑ °úÁ¦
-	private ArrayList<Assignment> submittedAssignments; // °úÁ¦¸¦ ¾îµð¿¡ Á¦ÃâÇß´ÂÁö
+	private ArrayList<Assignment> assignments; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private ArrayList<Assignment> submittedAssignments; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½
 	private ArrayList<Question> questions;
 	private ArrayList<Answer> answers;
 	
-	public Student(String id, String password, String name) {
+	public StudentAccount(String id, String password, String name) {
 		
 		// 21 MAR 2015 Tuna
 		// change 4th parameter (int)0 to PermissionType.STUDENT
-		super(id, password, name, Permission.Student);
+		super(id, password, name, Permission.STUDENT);
 		subjects = new ArrayList<Subject>();
 		assignments = new ArrayList<Assignment>();
 		submittedAssignments = new ArrayList<Assignment>();
@@ -82,18 +82,18 @@ public class Student extends Account{
 		pl("--------------------------------------------------");
 		for(int i = 0; i < this.getSubjects().size(); i++) {
 			Subject subejct = this.getSubjects().get(i);
-			pl("°ú¸ñ : " + subejct.getName() + " ");
+			pl("ï¿½ï¿½ï¿½ï¿½ : " + subejct.getName() + " ");
 			for(int j = 0; j < subejct.getAssignments().size(); j++) {
 				Assignment assignment = subejct.getAssignments().get(j);
-				pl("      " + "°úÁ¦: " + assignment.getTopic() + " ");
+				pl("      " + "ï¿½ï¿½ï¿½ï¿½: " + assignment.getTopic() + " ");
 				for(int k = 0; k < assignment.getStudentsAssignment().size(); k++) {
 					Assignment sassignment = assignment.getStudentsAssignment().get(k);
 
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					pl("              " + "ÇÐ»ý : " + sassignment.getStudent().getName());
-					pl("              " + "Á¦Ãâ½Ã°£ : " + dateFormat.format(sassignment.getDeadline()));
-					pl("              " + "Á¦¸ñ : " + sassignment.getTopic());
-					pl("              " + "³»¿ë : " + sassignment.getContent());
+					pl("              " + "ï¿½Ð»ï¿½ : " + sassignment.getStudent().getName());
+					pl("              " + "ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ : " + dateFormat.format(sassignment.getDeadline()));
+					pl("              " + "ï¿½ï¿½ï¿½ï¿½ : " + sassignment.getTopic());
+					pl("              " + "ï¿½ï¿½ï¿½ï¿½ : " + sassignment.getContent());
 				}
 			}
 		}

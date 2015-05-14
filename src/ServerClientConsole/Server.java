@@ -4,9 +4,13 @@ package ServerClientConsole;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.ArrayList;
 
+import Account.Account;
+import Assignment.Assignment;
+import Assignment.Subject;
+import QnA.Question;
 import common.*;
-
 import server.*;
 
 /**
@@ -21,7 +25,7 @@ import server.*;
  * @author Paul Holden
  * @version July 2000
  */
-public class EchoServer extends AbstractServer 
+public class Server extends AbstractServer 
 {
   //Class variables *************************************************
   
@@ -29,7 +33,7 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 9000;
-  
+ 
   ChatIF chatUI;
   
   //Constructors ****************************************************
@@ -39,7 +43,7 @@ public class EchoServer extends AbstractServer
    * 
    * @param port The port number to connect on.
    */
-  public EchoServer(int port, ChatIF chatUI) 
+  public Server(int port, ChatIF chatUI) 
   {
     super(port);
 	this.chatUI = chatUI;

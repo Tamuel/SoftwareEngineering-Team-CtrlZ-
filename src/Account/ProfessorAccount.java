@@ -11,16 +11,16 @@ import Assignment.Subject;
 import QnA.Answer;
 import QnA.Question;
 
-public class Professor extends Account {
+public class ProfessorAccount extends Account {
 	private Subject subject;
 	private ArrayList<Assignment> assignments;
 	private ArrayList<Answer> answers;
 
-	public Professor(String id, String password, String name, Subject subject) {
+	public ProfessorAccount(String id, String password, String name, Subject subject) {
 		
 		// 21 MAR 2015 Tuna
 		// change 4th parameter (int)1 to PermissionType.PROFESSOR
-		super(id, password, name, Permission.Professor);
+		super(id, password, name, Permission.PROFESSOR);
 		this.subject = subject;
 		assignments = new ArrayList<Assignment>();
 		answers = new ArrayList<Answer>();
@@ -34,6 +34,11 @@ public class Professor extends Account {
 		newAssignment.setSubject(subject);
 		assignments.add(newAssignment);
 		subject.getAssignments().add(newAssignment);
+		/*
+		 * To do
+		 * Make Notice Here
+		 * Yu Dong Kyu, 15.05.13
+		 */
 	}
 	
 	public void assignmentApprasal(String comment, String score, Assignment assignment) {
