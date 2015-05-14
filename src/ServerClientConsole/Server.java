@@ -17,7 +17,7 @@ import server.*;
  * This class overrides some of the methods in the abstract 
  * superclass in order to give more functionality to the server.
  * 
- * 이 Class 는 기능성 향상을 위해 AbstractServer를 override 함.
+ * �씠 Class �뒗 湲곕뒫�꽦 �뼢�긽�쓣 �쐞�빐 AbstractServer瑜� override �븿.
  *
  * @author Dr Timothy C. Lethbridge
  * @author Dr Robert Lagani&egrave;re
@@ -55,7 +55,7 @@ public class Server extends AbstractServer
   /**
    * This method handles any messages received from the client.
    * 
-   * 이 메소드는 client 에서 받은 모든 메세지를 핸들링 한다.
+   * �씠 硫붿냼�뱶�뒗 client �뿉�꽌 諛쏆� 紐⑤뱺 硫붿꽭吏�瑜� �빖�뱾留� �븳�떎.
    * 
    * @param msg The message received from the client.
    * @param client The connection from which the message originated.
@@ -70,7 +70,7 @@ public class Server extends AbstractServer
   /**
    * This method overrides the one in the superclass.  Called
    * 
-   * Client와 연결되었을 때 메세지 출력
+   * Client�� �뿰寃곕릺�뿀�쓣 �븣 硫붿꽭吏� 異쒕젰
    * 
    * when the server starts listening for connections.
    */
@@ -83,7 +83,7 @@ public class Server extends AbstractServer
   /**
    * This method overrides the one in the superclass.  Called
    * 
-   * Server가 중지되었을 때 출력
+   * Server媛� 以묒��릺�뿀�쓣 �븣 異쒕젰
    * 
    * when the server stops listening for connections.
    */
@@ -95,18 +95,18 @@ public class Server extends AbstractServer
   
   @Override
   protected void clientConnected(ConnectionToClient client) {
-	  System.out.println("클라이언트가 연결되었습니다.");
+	  System.out.println("�겢�씪�씠�뼵�듃媛� �뿰寃곕릺�뿀�뒿�땲�떎.");
   }
   
   @Override
   synchronized protected void clientException(
 		    ConnectionToClient client, Throwable exception) {
-	  System.out.println("클라이언트 연결이 해제되었습니다.");
+	  System.out.println("�겢�씪�씠�뼵�듃 �뿰寃곗씠 �빐�젣�릺�뿀�뒿�땲�떎.");
   }
   
   @Override
   synchronized protected void clientDisconnected(ConnectionToClient client) {
-	  System.out.println("클라이언트 연결을 해제하였습니다.");
+	  System.out.println("�겢�씪�씠�뼵�듃 �뿰寃곗쓣 �빐�젣�븯���뒿�땲�떎.");
   }  
   
   @Override
@@ -126,6 +126,13 @@ public class Server extends AbstractServer
   }
   
   
+  public void getAccount() {
+	  
+  }
+  
+  public void setAccount() {
+	  
+  }
   //Class methods ***************************************************
   
   /**

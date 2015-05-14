@@ -41,7 +41,7 @@ public class ProfessorAccount extends Account {
 		 */
 	}
 	
-	public void assignmentApprasal(String comment, String score, Assignment assignment) {
+	public void assignmentAppraisal(String comment, String score, Assignment assignment) {
 		assignment.setComment(comment);
 		assignment.setScore(Double.parseDouble(score));
 		assignment.submitScoredStudentsAssignment(assignment);

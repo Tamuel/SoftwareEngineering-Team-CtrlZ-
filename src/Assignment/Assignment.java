@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 /**
- * ������ ����, �����ϱ� ���� Ŭ����
+ * 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙, 占쏙옙占쏙옙占싹깍옙 占쏙옙占쏙옙 클占쏙옙占쏙옙
  * @author eastern7star
  *
  */
@@ -25,11 +25,11 @@ public class Assignment implements Serializable{
 	private Assignment scoredStudentsAssignment;
 	private Double score;
 	private boolean isScored;
-	private ArrayList<Assignment> studentsAssignment; // �л���� ������ ����
-	private ArrayList<String> attachedDocument; // ÷�� ������ ���� ��θ� ����
+	private ArrayList<Assignment> studentsAssignment; // 占싻삼옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+	private ArrayList<String> attachedDocument; // 첨占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙罐占� 占쏙옙占쏙옙
 	private String comment;
 	
-	/* ������ ������ ���� �� ������ */
+	/* 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 */
 	public Assignment(ProfessorAccount professor, String topic, String content,
 			String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour) {
 		this.topic = topic;
@@ -40,13 +40,13 @@ public class Assignment implements Serializable{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
 		try {
 			deadline = dateFormat.parse(stringDate);
-		} catch (Exception ex) {System.err.println("�ð��� ����� �Էµ��� �ʾҽ��ϴ�!");}
+		} catch (Exception ex) {System.err.println("占시곤옙占쏙옙 占쏙옙占쏙옙占� 占쌉력듸옙占쏙옙 占십았쏙옙占싹댐옙!");}
 
 		studentsAssignment = new ArrayList<Assignment>();
 		attachedDocument = new ArrayList<String>();
 	}
 	
-	/* �л��� ������ ���� �� ������ */
+	/* 占싻삼옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 */
 	public Assignment(String topic, String content, Date date) {
 		this.topic = topic;
 		this.content = content;
@@ -56,7 +56,7 @@ public class Assignment implements Serializable{
 	}
 	
 	/**
-	 * ������ �ִ� ������ �л��� ��������
+	 * 占쏙옙占쏙옙占쏙옙 占쌍댐옙 占쏙옙占쏙옙占쏙옙 占싻삼옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
 	 * @param student
 	 * @param assignment
 	 * @author eastern7star
@@ -67,8 +67,8 @@ public class Assignment implements Serializable{
 	}
 	
 	/**
-	 * ������ ���ߴٰ� ǥ������ ����
-	 * �л��� ������ �ִ� "�򰡵� �л� ����"�� ���� �Ҵ�
+	 * 占쏙옙占쏙옙占쏙옙 占쏙옙占쌩다곤옙 표占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+	 * 占싻삼옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌍댐옙 "占쏠가듸옙 占싻삼옙 占쏙옙占쏙옙"占쏙옙 占쏙옙占쏙옙 占쌀댐옙
 	 * @param assignment
 	 * @author eastern7star
 	 */

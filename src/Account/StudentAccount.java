@@ -14,8 +14,8 @@ import QnA.Answer;
 
 public class StudentAccount extends Account{
 	private ArrayList<Subject> subjects;
-	private ArrayList<Assignment> assignments; // ������ ����
-	private ArrayList<Assignment> submittedAssignments; // ������ ��� �����ߴ���
+	private ArrayList<Assignment> assignments; // Assignments which Student have
+	private ArrayList<Assignment> submittedAssignments; // Submitted Assignments which Student have
 	private ArrayList<Question> questions;
 	private ArrayList<Answer> answers;
 	
@@ -82,18 +82,18 @@ public class StudentAccount extends Account{
 		pl("--------------------------------------------------");
 		for(int i = 0; i < this.getSubjects().size(); i++) {
 			Subject subejct = this.getSubjects().get(i);
-			pl("���� : " + subejct.getName() + " ");
+			pl("占쏙옙占쏙옙 : " + subejct.getName() + " ");
 			for(int j = 0; j < subejct.getAssignments().size(); j++) {
 				Assignment assignment = subejct.getAssignments().get(j);
-				pl("      " + "����: " + assignment.getTopic() + " ");
+				pl("      " + "占쏙옙占쏙옙: " + assignment.getTopic() + " ");
 				for(int k = 0; k < assignment.getStudentsAssignment().size(); k++) {
 					Assignment sassignment = assignment.getStudentsAssignment().get(k);
 
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					pl("              " + "�л� : " + sassignment.getStudent().getName());
-					pl("              " + "����ð� : " + dateFormat.format(sassignment.getDeadline()));
-					pl("              " + "���� : " + sassignment.getTopic());
-					pl("              " + "���� : " + sassignment.getContent());
+					pl("              " + "占싻삼옙 : " + sassignment.getStudent().getName());
+					pl("              " + "占쏙옙占쏙옙챨占� : " + dateFormat.format(sassignment.getDeadline()));
+					pl("              " + "占쏙옙占쏙옙 : " + sassignment.getTopic());
+					pl("              " + "占쏙옙占쏙옙 : " + sassignment.getContent());
 				}
 			}
 		}

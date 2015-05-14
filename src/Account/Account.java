@@ -28,6 +28,7 @@ public class Account implements Serializable{
 		this.name = name;
 		this.permission = permission;
 		this.accounts = new ArrayList<Account>();
+		this.numberOfNotice = 0;
 	}
 	
 	public String getId() {
@@ -119,5 +120,12 @@ public class Account implements Serializable{
 				return temp;
 		}
 		return null;
+	}
+	
+	/**
+	 * haveNotice() : Declare whether notice is exist, return number of users notice
+	 */
+	public int haveNotice() {
+		return numberOfNotice;
 	}
 }

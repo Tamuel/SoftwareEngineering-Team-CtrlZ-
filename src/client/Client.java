@@ -4,8 +4,10 @@
 
 package client;
 
+import Account.Account;
 import client.*;
 import common.*;
+
 import java.io.*;
 
 /**
@@ -25,7 +27,8 @@ public class Client extends AbstractClient
    * The interface type variable.  It allows the implementation of 
    * the display method in the client.
    */
-  ChatIF clientUI; 
+  ChatIF clientUI;
+  Account account;
 
   
   //Constructors ****************************************************
@@ -33,7 +36,7 @@ public class Client extends AbstractClient
   /**
    * Constructs an instance of the chat client.
    *
-   * ChatClient 객체 생성.
+   * ChatClient 媛앹껜 �깮�꽦.
    *
    * @param host The server to connect to.
    * @param port The port number to connect on.
@@ -54,7 +57,7 @@ public class Client extends AbstractClient
   /**
    * This method handles all data that comes in from the server.
    * 
-   * 서버에서 메세지를 받아들인다.
+   * �꽌踰꾩뿉�꽌 硫붿꽭吏�瑜� 諛쏆븘�뱾�씤�떎.
    * 
    * @param msg The message from the server.
    */
@@ -66,7 +69,7 @@ public class Client extends AbstractClient
   /**
    * This method handles all data coming from the UI            
    *
-   * Client UI에서 메세지를 handling 한다.
+   * Client UI�뿉�꽌 硫붿꽭吏�瑜� handling �븳�떎.
    *
    * @param message The message from the UI.    
    */
@@ -74,7 +77,7 @@ public class Client extends AbstractClient
   {
     try
     {
-      sendToServer(message); // Server로 message 전송
+      sendToServer(message); // Server濡� message �쟾�넚
     }
     catch(IOException e)
     {
@@ -86,12 +89,12 @@ public class Client extends AbstractClient
   
   @Override
   protected void connectionClosed() {
-	  System.out.println("서버와 연결을 끊었습니다.");
+	  System.out.println("�꽌踰꾩� �뿰寃곗쓣 �걡�뿀�뒿�땲�떎.");
   }
 
   @Override
   protected void connectionException(Exception exception) {
-	  System.out.println("서버가 연결을 끊었습니다.");
+	  System.out.println("�꽌踰꾧� �뿰寃곗쓣 �걡�뿀�뒿�땲�떎.");
 	  System.exit(1);
   }
   
@@ -105,6 +108,14 @@ public class Client extends AbstractClient
       closeConnection();
     }
     catch(IOException e) {}
+  }
+  
+  public Account getAccount() {
+	  return account;
+  }
+  
+  public void setAccount(Account account) {
+	  this.account = account;
   }
 }
 //End of ChatClient class
