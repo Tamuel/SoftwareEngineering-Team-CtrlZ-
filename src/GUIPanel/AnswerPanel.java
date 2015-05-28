@@ -21,10 +21,10 @@ import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import QnA.Answer;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class AnswerPanel extends JPanel{
 	
-	private Account account;
 	private Answer answer;
 	
 	private BulletinBoardFrame boardFrame;
@@ -46,7 +46,6 @@ public class AnswerPanel extends JPanel{
 		this.answer = answer;
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
-		this.account = boardFrame.getAccount();
 		this.setLayout(null);
 
 		this.setSize(contentPanel.getWidth() - xBorder * 2 - 18, height);
@@ -58,8 +57,8 @@ public class AnswerPanel extends JPanel{
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 		
-		if((account.isStudent() && ((StudentAccount)account).getAnswers().indexOf(answer) != -1) ||
-		   (account.isProfessor() && ((ProfessorAccount)account).getAnswers().indexOf(answer) != -1)) {
+		if((ClientConsole.client.getAccount().isStudent() && ((StudentAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer) != -1) ||
+		   (ClientConsole.client.getAccount().isProfessor() && ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer) != -1)) {
 			content = new SimpleTextArea(answer.getContent());
 			content.setSize(this.getWidth() * 10 / 16 - 1, 0);
 			content.setLocation(1, 1);
@@ -98,10 +97,10 @@ public class AnswerPanel extends JPanel{
 	
 	private class deleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(account.isStudent())
-				((StudentAccount)account).getAnswers().remove(((StudentAccount)account).getAnswers().indexOf(answer));
-			else if(account.isProfessor())
-				((ProfessorAccount)account).getAnswers().remove(((ProfessorAccount)account).getAnswers().indexOf(answer));
+			if(ClientConsole.client.getAccount().isStudent())
+				((StudentAccount)ClientConsole.client.getAccount()).getAnswers().remove(((StudentAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer));
+			else if(ClientConsole.client.getAccount().isProfessor())
+				((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().remove(((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer));
 			
 			answer.getQuestion().getAnswers().remove(answer.getQuestion().getAnswers().indexOf(answer));
 			
@@ -109,7 +108,7 @@ public class AnswerPanel extends JPanel{
 				boardFrame.addContentPanel(new ContentPanel(answer.getQuestion(), boardFrame, titleBar));
 				boardFrame.repaint();	
 			}else {
-				ContentPanel maPanel = new ContentPanel(boardFrame, ((ProfessorAccount)account).getAnswers(), titleBar);
+				ContentPanel maPanel = new ContentPanel(boardFrame, ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers(), titleBar);
 				boardFrame.addContentPanel(maPanel);
 				boardFrame.setSeeWholeAnswer(true);
 			}

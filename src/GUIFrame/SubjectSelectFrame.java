@@ -27,7 +27,6 @@ import ServerClientConsole.Protocol;
 
 public class SubjectSelectFrame extends SimpleJFrame{
 	
-	private StudentAccount student;
 	
 	private LoginFrame loginFrame;
 	
@@ -43,10 +42,9 @@ public class SubjectSelectFrame extends SimpleJFrame{
 	
 	private Color selected = new Color(230, 230, 230);
 	
-	public SubjectSelectFrame(StudentAccount student, String frameName, int width, int height, LoginFrame loginFrame) {
+	public SubjectSelectFrame(String frameName, int width, int height, LoginFrame loginFrame) {
 		super(frameName, width, height);
 
-		this.student = student;
 		this.loginFrame = loginFrame;
 
 		subjectButtons = new ArrayList<SimpleButton>();

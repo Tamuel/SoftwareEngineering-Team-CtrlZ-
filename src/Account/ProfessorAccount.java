@@ -1,17 +1,17 @@
 package Account;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
 import common.Permission;
-
 import Assignment.Assignment;
 import Assignment.Subject;
 import QnA.Answer;
 import QnA.Question;
 
-public class ProfessorAccount extends Account {
+public class ProfessorAccount extends Account implements Serializable{
 	private Subject subject;
 	private ArrayList<Assignment> assignments;
 	private ArrayList<Answer> answers;

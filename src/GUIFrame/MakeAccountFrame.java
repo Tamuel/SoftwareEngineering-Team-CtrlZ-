@@ -102,7 +102,7 @@ public class MakeAccountFrame extends SimpleJFrame{
 			visible(false);
 		} else if(ClientConsole.client.getAccount().isStudent()) {
 			ClientConsole.client.setMsgReceive(false);
-			SubjectSelectFrame sbFrame = new SubjectSelectFrame((StudentAccount)ClientConsole.client.getAccount(), "과목 선택", 300, 300, loginFrame);
+			SubjectSelectFrame sbFrame = new SubjectSelectFrame("과목 선택", 300, 300, loginFrame);
 			ClientConsole.client.setMsgReceive(false);
 			visible(false);
 		}

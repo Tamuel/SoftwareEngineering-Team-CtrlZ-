@@ -18,10 +18,9 @@ import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleTextArea;
+import ServerClientConsole.ClientConsole;
 
 public class AssignmentList extends JPanel{
-	
-	private Account account;
 	
 	private Subject subject;
 	private BulletinBoardFrame boardFrame;
@@ -46,7 +45,6 @@ public class AssignmentList extends JPanel{
 		this.titleBar = titleBar;
 		this.subject = subject;
 		this.boardFrame = boardFrame;
-		this.account = boardFrame.getAccount();
 
 		this.setLayout(null);
 		
@@ -83,12 +81,12 @@ public class AssignmentList extends JPanel{
 		public void actionPerformed(ActionEvent ev) {
 			Assignment assignment = subject.getAssignments().get(assignmentButtons.indexOf((SimpleButton)ev.getSource()));
 			
-			if(account.isStudent()) {
+			if(ClientConsole.client.getAccount().isStudent()) {
 				ContentPanel contentPanel = new ContentPanel(assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);
 				titleBar.setAssignmentPath(assignment);
 				boardFrame.repaint();
-			} else if(account.isProfessor()) {
+			} else if(ClientConsole.client.getAccount().isProfessor()) {
 				ContentPanel contentPanel = new ContentPanel(subject, assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);
 				titleBar.setAssignmentPath(assignment);

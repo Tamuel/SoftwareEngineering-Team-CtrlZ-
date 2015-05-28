@@ -5,11 +5,13 @@ package ServerClientConsole;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.ArrayList;
 
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
+import Assignment.Notice;
 import Assignment.Subject;
 import Controller.AccountController;
 import Controller.ProfessorAccountController;
@@ -32,11 +34,15 @@ import server.*;
 public class Server extends AbstractServer {
 	// Class variables *************************************************
 
-	static public Account accounts = ObjectSaveSingleton.getInstance().getAccounts();
+	private Account accounts = ServerConsole.accounts;
+	
+	private ArrayList<Notice> noticies;
+	
 	/**
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 9000;
+	
 
 	ChatIF chatUI;
 
@@ -69,15 +75,15 @@ public class Server extends AbstractServer {
 		Protocol proc = (Protocol) msg;
 		System.out.println("Proc received: " + proc.getProcKind() + " " + proc.getData().toString() + " from " + client);
 
-		AccountController aCon = new AccountController(accounts);
 		Account account = null;
+		AccountController aCon = new AccountController(accounts);
 		
 		switch(proc.getProcKind())
 		{
 		case LOGIN:
 			System.out.println("Search Account " + proc.getID() + " " + proc.getPW());
 			
-			if ((account = aCon.searchAccount(proc.getID(), proc.getPW())) != null && !account.isOnLine()) {
+			if ((account = aCon.searchAccount(proc.getID(), proc.getPW())) != null) {// && !account.isOnLine()) {
 				System.out.println("Send to Client [LOGIN_ACCEPT]");
 				account.setOnLine(true);
 				account.setClientAddress(client.getInetAddress());
@@ -131,8 +137,14 @@ public class Server extends AbstractServer {
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
 			/* 모든 클라이언트에게 전송 */
-			this.sendToAllClients(new Protocol(ProtocolType.MAKE_ASSIGNMENT, accounts));
+			this.sendToAllClients(new Protocol(ProtocolType.MAKE_ASSIGNMENT_REFRESH, ((ProfessorAccount)account).getSubject().getName()));
 				
+			break;
+			
+		case NEED_REFRESH:
+			account = aCon.searchAccountByID(proc.getID());
+			System.out.println("Refresh " + account.getId() + " " + client);
+			this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.REFRESH, account));
 			break;
 			
 		case QUIT:
@@ -187,7 +199,6 @@ public class Server extends AbstractServer {
 	@Override
 	public void sendToAllClients(Object msg) {
 		Thread[] clientThreadList = getClientConnections();
-		chatUI.display(msg.toString());
 		for (int i = 0; i < clientThreadList.length; i++) {
 			try {
 				((ConnectionToClient) clientThreadList[i]).sendToClient(msg);

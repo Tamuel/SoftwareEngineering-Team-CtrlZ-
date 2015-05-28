@@ -75,6 +75,10 @@ public class Protocol implements Serializable{
 			hour = dataStrings[6];
 			break;
 			
+		case MAKE_ASSIGNMENT_REFRESH:
+			subject = dataStrings[0];
+			break;
+			
 		case QUIT:
 			ID = dataStrings[0];
 			break;
@@ -89,6 +93,13 @@ public class Protocol implements Serializable{
 			break;
 			
 		case MAKE_ANSWER:
+			break;
+			
+		case NEED_REFRESH:
+			ID = dataStrings[0];
+			break;
+			
+		case REFRESH:
 			break;
 			
 		default:

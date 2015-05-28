@@ -39,7 +39,6 @@ import ServerClientConsole.ClientConsole;
 
 public class BulletinBoardFrame extends SimpleJFrame{
 	
-	private Account account;
 	private Subject subject;
 	
 	private TitleBar titleBar;
@@ -59,9 +58,8 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public BulletinBoardFrame(String frameName, int width, int height) {
 		super(frameName, width, height);
-		this.account = ClientConsole.client.getAccount();
 		
-		titleBar = new TitleBar(this, titleBarHeight, account);
+		titleBar = new TitleBar(this, titleBarHeight, ClientConsole.client.getAccount());
 		titleBar.setLocation(0, 0);
 		
 		menuButton = new SimpleButton("", assignmentButtonWidth + 2 * xBorder + scrollBarWidth, assignmentButtonHeight / 2);
@@ -107,7 +105,7 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	private class menuListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(menuButton.getText().equals("내가 올린 과제")) {
-				ContentPanel stPanel = new ContentPanel(((StudentAccount)account).getAssignments(), getFrame(), titleBar);
+				ContentPanel stPanel = new ContentPanel(((StudentAccount)ClientConsole.client.getAccount()).getAssignments(), getFrame(), titleBar);
 				addContentPanel(stPanel);
 				titleBar.setAssignmentPath(subject);
 			} else if(menuButton.getText().equals("과제 생성")) {
@@ -116,11 +114,11 @@ public class BulletinBoardFrame extends SimpleJFrame{
 				addContentPanel(contentPanel);
 				titleBar.setAssignmentPath(subject);
 			} else if(menuButton.getText().equals("질문 올리기")) {
-				NewQuestionPanel nqPanel = new NewQuestionPanel(account, subject, thisFrame(), titleBar);
+				NewQuestionPanel nqPanel = new NewQuestionPanel(ClientConsole.client.getAccount(), subject, thisFrame(), titleBar);
 				ContentPanel contentPanel = new ContentPanel(nqPanel, thisFrame(), titleBar);
 				addContentPanel(contentPanel);
 			} else if(menuButton.getText().equals("나의 답변")) {
-				ContentPanel maPanel = new ContentPanel(getFrame(), ((ProfessorAccount)account).getAnswers(), titleBar);
+				ContentPanel maPanel = new ContentPanel(getFrame(), ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers(), titleBar);
 				addContentPanel(maPanel);
 				seeWholeAnswer = true;
 			}
@@ -132,9 +130,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	}
 	
 	public void addAssignmentPanel(AssignmentList assignmentPanel) {
-		if(account.isStudent())
+		if(ClientConsole.client.getAccount().isStudent())
 			menuButton.setText("내가 올린 과제");
-		else if(account.isProfessor())
+		else if(ClientConsole.client.getAccount().isProfessor())
 			menuButton.setText("과제 생성");
 		
 		menuButton.setVisible(true);
@@ -153,9 +151,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	}
 	
 	public void addQuestionPanel(QuestionList questionPanel) {
-		if(account.isStudent())
+		if(ClientConsole.client.getAccount().isStudent())
 			menuButton.setText("질문 올리기");
-		else if(account.isProfessor())
+		else if(ClientConsole.client.getAccount().isProfessor())
 			menuButton.setText("나의 답변");
 		
 		menuButton.setVisible(true);
@@ -200,9 +198,5 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public int getContentWidth() {
 		return contentPane.getWidth() - scrollBarWidth;
-	}
-	
-	public Account getAccount() {
-		return account;
 	}
 }

@@ -18,10 +18,10 @@ import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
+import ServerClientConsole.ClientConsole;
 
 public class AssignmentPanel extends JPanel{
 	
-	private Account account;
 	private Assignment assignment;
 	
 	private BulletinBoardFrame boardFrame;
@@ -48,7 +48,6 @@ public class AssignmentPanel extends JPanel{
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
 		this.contentPanel = contentPanel;
-		this.account = boardFrame.getAccount();
 		this.editable = false;
 		this.setLayout(null);
 
@@ -65,10 +64,10 @@ public class AssignmentPanel extends JPanel{
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 		
-		if(account.isStudent()) {
+		if(ClientConsole.client.getAccount().isStudent()) {
 			makeAssignment = new SimpleButton("과제 작성");
 			makeAssignment.addActionListener(new SubmitButtonListener());
-		} else if(account.isProfessor()) {
+		} else if(ClientConsole.client.getAccount().isProfessor()) {
 			makeAssignment = new SimpleButton("과제 수정");
 			makeAssignment.addActionListener(new EditButtonListener());
 		}
@@ -99,7 +98,7 @@ public class AssignmentPanel extends JPanel{
 	private class SubmitButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			// 제출 안한 과제일 경우
-			if(boardFrame.getAccount().isStudent() && !assignment.isSubmitted(((StudentAccount)boardFrame.getAccount()))) {
+			if(ClientConsole.client.getAccount().isStudent() && !assignment.isSubmitted(((StudentAccount)ClientConsole.client.getAccount()))) {
 				contentPanel.addUnsubmittedStudentAssignmentPanel();
 			}
 			boardFrame.repaint();

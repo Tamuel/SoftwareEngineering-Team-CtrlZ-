@@ -12,7 +12,7 @@ import java.util.Date;
 import Account.*;
 import Assignment.*;
 
-public class Question implements Serializable{
+public class Question implements Serializable {
 	private StudentAccount student;
 	private Subject subject;
 	private String attachedDocument;

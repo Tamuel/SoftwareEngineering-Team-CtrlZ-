@@ -67,29 +67,53 @@ public class Client extends AbstractClient {
 	 *            The message from the server.
 	 */
 	public void handleMessageFromServer(Object msg) {
+		System.out.print("Receive from server ");
 		Protocol proc = (Protocol)msg;
-		System.out.println(msg.toString());
+		System.out.println(proc.getProcKind() + " " + proc.getData());
 		setMsgReceive(true);
 		
 		switch(proc.getProcKind()) {
 		case LOGIN_ACCEPT:
-			account = (Account)proc.getData();
+			setAccount((Account)proc.getData());
 			System.out.println("계좌가 존재합니다 " + account.getName());
 			break;
 			
 		case LOGIN_FAIL:
-			account = null;
+			setAccount(null);
 			System.out.println("로그인 실패");
 			break;
 			
 		case JOIN_ACCEPT:
-			account = (Account)proc.getData();
+			setAccount((Account)proc.getData());
 			System.out.println("계좌를 생성했습니다 " + account.getName());
 			break;
 			
 		case ACCOUNT_LIST:
-			accountList = (Account)proc.getData();
+			setAccountList((Account)proc.getData());
 			System.out.println("계좌 리스트를 가져왔습니다");
+			break;
+			
+		case MAKE_ASSIGNMENT_REFRESH:
+			if(account instanceof StudentAccount) {
+				for(int i = 0; i < ((StudentAccount)account).getSubjects().size(); i++)
+					if(((StudentAccount)account).getSubjects().get(i).getName().equals(proc.getSubject()))
+					{
+						try {
+							sendToServer(ProtocolType.NEED_REFRESH, account.getId());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+			}
+			setMsgReceive(false);
+			break;
+			
+		case REFRESH:
+			setAccount((Account)proc.getData());
+			System.out.println("계좌를 새로고침 했습니다 " + account.getName() + " " + ((StudentAccount)account).getSubjects().get(0) + " " +
+						((StudentAccount)account).getSubjects().get(0).getAssignments().size());
+			setMsgReceive(false);
 			break;
 			
 		case ID_EXIST:

@@ -20,6 +20,7 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleTextArea;
 import QnA.Answer;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class ContentPanel extends JPanel{
 	
@@ -56,7 +57,7 @@ public class ContentPanel extends JPanel{
 		questionPanel.setLocation(xBorder, xBorder);
 		this.add(questionPanel);
 		
-		NewAnswerPanel naPanel = new NewAnswerPanel(boardFrame.getAccount(), question, boardFrame, questionPanel, titleBar);
+		NewAnswerPanel naPanel = new NewAnswerPanel(ClientConsole.client.getAccount(), question, boardFrame, questionPanel, titleBar);
 		naPanel.setLocation(questionPanel.getX(), questionPanel.getY() + questionPanel.getHeight() + xBorder);
 		this.add(naPanel);
 		
@@ -83,7 +84,7 @@ public class ContentPanel extends JPanel{
 	public ContentPanel(Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
-		this.student = ((StudentAccount)boardFrame.getAccount());
+		this.student = ((StudentAccount)ClientConsole.client.getAccount());
 		answerPanels = new ArrayList<AnswerPanel>();
 		thisAssignment = assignment;
 		
@@ -97,13 +98,13 @@ public class ContentPanel extends JPanel{
 		this.add(assignmentPanel);
 		
 
-		if(boardFrame.getAccount().isStudent() && assignment.isSubmitted(((StudentAccount)boardFrame.getAccount()))) {
-			addSubmittedStudentAssignmentPanel(((StudentAccount)boardFrame.getAccount())
+		if(ClientConsole.client.getAccount().isStudent() && assignment.isSubmitted(((StudentAccount)ClientConsole.client.getAccount()))) {
+			addSubmittedStudentAssignmentPanel(((StudentAccount)ClientConsole.client.getAccount())
 					.getWhichAssignmentSubmitted().indexOf(assignment));
 		}
 		
 		/* 평가된 과제가 있을 경우 */
-		if(boardFrame.getAccount().isStudent() &&
+		if(ClientConsole.client.getAccount().isStudent() &&
 				student.getWhichAssignmentSubmitted().indexOf(assignment) != -1 &&
 				student.getAssignments().get(student.getWhichAssignmentSubmitted().indexOf(assignment)).getScoredAssignment() != null) {
 			addScoredStudentAssignmentPanel();
@@ -157,7 +158,7 @@ public class ContentPanel extends JPanel{
 		this.setSize(boardFrame.getContentWidth() + 20, height);
 
 		for(int i = assignments.size() - 1; i >= 0; i--) {
-			StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)boardFrame.getAccount()), i, boardFrame, titleBar);
+			StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)ClientConsole.client.getAccount()), i, boardFrame, titleBar);
 			stPanel.setLocation(xBorder, (assignments.size() - i) * xBorder + (assignments.size() - i - 1) * stPanel.getHeight());
 			
 			if(i == 0)
@@ -228,7 +229,7 @@ public class ContentPanel extends JPanel{
 	}
 
 	public void addSubmittedStudentAssignmentPanel(int index) {
-		StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)boardFrame.getAccount()), index,boardFrame, titleBar);
+		StudentAssignmentPanel stPanel = new StudentAssignmentPanel(((StudentAccount)ClientConsole.client.getAccount()), index,boardFrame, titleBar);
 		stPanel.setLocation(assignmentPanel.getX(), assignmentPanel.getY() + assignmentPanel.getHeight() + xBorder);
 		this.add(stPanel);
 	}

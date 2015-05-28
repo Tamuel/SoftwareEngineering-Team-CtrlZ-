@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Account.*;
 import QnA.Question;
 
-public class Subject implements Serializable{
+public class Subject implements Serializable {
 	private String name;
 	private ProfessorAccount professor;
 	private ArrayList<StudentAccount> students;

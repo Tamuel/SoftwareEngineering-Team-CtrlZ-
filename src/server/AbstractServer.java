@@ -207,8 +207,7 @@ public abstract class AbstractServer implements Runnable {
 		for (int i = 0; i < clientThreadList.length; i++) {
 			if (((ConnectionToClient) clientThreadList[i]).getInetAddress() == address) {
 				try {
-					((ConnectionToClient) clientThreadList[i])
-							.sendToClient(msg);
+					((ConnectionToClient) clientThreadList[i]).sendToClient(msg);
 				} catch (Exception ex) {
 				}
 				break;

@@ -20,10 +20,10 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class QuestionPanel extends JPanel{
 	
-	private Account account;
 	private Question question;
 	
 	private ContentPanel qnaPanel;
@@ -47,7 +47,6 @@ public class QuestionPanel extends JPanel{
 	public QuestionPanel(Question question, ContentPanel qnaPanel, BulletinBoardFrame boardFrame) {
 		this.question = question;
 		this.qnaPanel = qnaPanel;
-		this.account = boardFrame.getAccount();
 		this.editable = false;
 		this.setLayout(null);
 
@@ -63,7 +62,7 @@ public class QuestionPanel extends JPanel{
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 
-		if(account.isStudent() && ((StudentAccount)account).getQuestions().indexOf(question) != -1) {
+		if(ClientConsole.client.getAccount().isStudent() && ((StudentAccount)ClientConsole.client.getAccount()).getQuestions().indexOf(question) != -1) {
 			makeAnswer = new SimpleButton("질문 수정");
 			makeAnswer.setSize(90, buttonHeight);
 			makeAnswer.setLocation(this.getWidth() - makeAnswer.getWidth() - 5, this.getHeight() - makeAnswer.getHeight() - 5);

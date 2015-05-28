@@ -15,7 +15,7 @@ import java.util.Date;
  * @author eastern7star
  *
  */
-public class Assignment implements Serializable{
+public class Assignment implements Serializable {
 	private String topic;
 	private String content;
 	private ProfessorAccount professor;

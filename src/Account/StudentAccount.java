@@ -1,18 +1,18 @@
 package Account;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import common.Permission;
-
 import Assignment.*;
 import GuiComponent.SimpleTextArea;
 import QnA.Question;
 import QnA.Answer;
 
-public class StudentAccount extends Account{
+public class StudentAccount extends Account implements Serializable {
 	private ArrayList<Subject> subjects;
 	private ArrayList<Assignment> assignments; // Assignments which Student have
 	private ArrayList<Assignment> submittedAssignments; // Submitted Assignments which Student have

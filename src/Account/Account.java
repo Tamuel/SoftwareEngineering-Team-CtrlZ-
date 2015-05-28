@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import common.Permission;
 
-public class Account implements Serializable{
+public class Account implements Serializable {
 	
 	private String id;
 	private String name;

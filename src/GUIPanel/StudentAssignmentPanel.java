@@ -23,6 +23,7 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import GuiComponent.SimpleTextField;
+import ServerClientConsole.ClientConsole;
 
 public class StudentAssignmentPanel extends JPanel{
 	
@@ -291,7 +292,7 @@ public class StudentAssignmentPanel extends JPanel{
 	private class ScoreButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(!assignment.isScored()) {
-				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)boardFrame.getAccount()));
+				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)ClientConsole.client.getAccount()));
 				pCon.assignmentAppraisal(comment.getText().toString(), score.getText().toString(), assignment);
 			}
 			System.out.println(assignment.getScoredAssignment().getScore() + " " + assignment.getScoredAssignment().getComment());
@@ -325,8 +326,8 @@ public class StudentAssignmentPanel extends JPanel{
 	}
 	
 	public StudentAccount getStudent() {
-		if(boardFrame.getAccount().isStudent())
-			return (StudentAccount)boardFrame.getAccount();
+		if(ClientConsole.client.getAccount().isStudent())
+			return (StudentAccount)ClientConsole.client.getAccount();
 		else
 			return null;
 	}

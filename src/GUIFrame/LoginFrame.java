@@ -41,8 +41,6 @@ public class LoginFrame extends SimpleJFrame{
 	private SimpleTextField idField;
 	private SimpleTextField passwordField;
 	
-	static private Account account;
-	
 	private SimpleButton loginButton;
 	private SimpleButton joinButton;
 
