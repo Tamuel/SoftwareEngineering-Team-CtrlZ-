@@ -79,7 +79,7 @@ public class ContentPanel extends JPanel{
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
-	/* ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
+	/* ÇÐ»ýÀÌ °úÁ¦¸¦ Å¬¸¯ÇßÀ» ¶§ */
 	public ContentPanel(Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
@@ -102,7 +102,7 @@ public class ContentPanel extends JPanel{
 					.getWhichAssignmentSubmitted().indexOf(assignment));
 		}
 		
-		/* ï¿½ò°¡µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ */
+		/* Æò°¡µÈ °úÁ¦°¡ ÀÖÀ» °æ¿ì */
 		if(boardFrame.getAccount().isStudent() &&
 				student.getWhichAssignmentSubmitted().indexOf(assignment) != -1 &&
 				student.getAssignments().get(student.getWhichAssignmentSubmitted().indexOf(assignment)).getScoredAssignment() != null) {
@@ -174,7 +174,7 @@ public class ContentPanel extends JPanel{
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 	
-	/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	/* ±³¼ö °èÁ¤À¸·Î ·Î±×ÀÎ ÇßÀ» ¶§ °úÁ¦¿¡ ÀÖ´Â ÇÐ»ýÀÌ Á¦ÃâÇÑ ¸ðµç °úÁ¦¸¦ °°ÀÌ º¸¿©ÁÜ */
 	public ContentPanel(Subject subject, Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;

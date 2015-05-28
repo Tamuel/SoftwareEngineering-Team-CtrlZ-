@@ -28,29 +28,16 @@ public class ProfessorAccount extends Account {
 		subject.setProfessor(this);
 	}
 
-	public void makeAssignment(String topic, String content, String y, String m, String d, String h) {
-		
-		Assignment newAssignment = new Assignment(this, topic, content, y, m, d, h);
-		newAssignment.setSubject(subject);
-		assignments.add(newAssignment);
-		subject.getAssignments().add(newAssignment);
-		/*
-		 * To do
-		 * Make Notice Here
-		 * Yu Dong Kyu, 15.05.13
-		 */
+	public ArrayList<Assignment> getAssignments() {
+		return assignments;
 	}
-	
-	public void assignmentAppraisal(String comment, String score, Assignment assignment) {
-		assignment.setComment(comment);
-		assignment.setScore(Double.parseDouble(score));
-		assignment.submitScoredStudentsAssignment(assignment);
+
+	public void setAssignments(ArrayList<Assignment> assignments) {
+		this.assignments = assignments;
 	}
-	
-	public void answerQuestion(Question question, String ans) {
-		Answer make = new Answer(this, question, ans);
-		answers.add(make);
-		question.addAnswer(make);
+
+	public void setAnswers(ArrayList<Answer> answers) {
+		this.answers = answers;
 	}
 
 	public ArrayList<Answer> getAnswers() {

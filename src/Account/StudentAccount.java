@@ -31,25 +31,30 @@ public class StudentAccount extends Account{
 		answers = new ArrayList<Answer>();
 	}
 
-	public void submitAssignment(Assignment whichAssignment, Assignment myAssignment) {
-		whichAssignment.addStudentAssignment(this, myAssignment);
-		myAssignment.setStudent(this);
-		submittedAssignments.add(whichAssignment);
-		assignments.add(myAssignment);
+	public ArrayList<Assignment> getSubmittedAssignments() {
+		return submittedAssignments;
 	}
-	
-	public void makeQuestion(Subject subject, String topic, String content) {
-		Question make = new Question(this, subject, topic, content);
-		questions.add(make);
-		subject.addQuestion(make);
+
+	public void setSubmittedAssignments(ArrayList<Assignment> submittedAssignments) {
+		this.submittedAssignments = submittedAssignments;
 	}
-	
-	public void answerQuestion(Question question, String ans) {
-		Answer make = new Answer(this, question, ans);
-		answers.add(make);
-		question.addAnswer(make);
+
+	public void setSubjects(ArrayList<Subject> subjects) {
+		this.subjects = subjects;
 	}
-	
+
+	public void setAssignments(ArrayList<Assignment> assignments) {
+		this.assignments = assignments;
+	}
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
+	}
+
+	public void setAnswers(ArrayList<Answer> answers) {
+		this.answers = answers;
+	}
+
 	public ArrayList<Assignment> getAssignments() {
 		return assignments;
 	}

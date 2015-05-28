@@ -52,7 +52,7 @@ public class AnswerPanel extends JPanel{
 		this.setSize(contentPanel.getWidth() - xBorder * 2 - 18, height);
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		time = new SimpleTextArea( "ï¿½Û¼ï¿½ï¿½ï¿½ - " + answer.getName(), dateFormat.format(answer.getTime()));
+		time = new SimpleTextArea( "ÀÛ¼ºÀÚ - " + answer.getName(), dateFormat.format(answer.getTime()));
 		time.setSize(this.getWidth() * 5 / 16 - 1, height - 2);
 		time.setLocation(1, 1);
 		time.setBackground(new Color(240, 240, 240));

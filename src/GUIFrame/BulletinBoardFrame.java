@@ -36,12 +36,6 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import QnA.Question;
 
-/**
- * ���� �α��� �� �Խ��� â�� ���� ������ Ŭ����
- * ���� ����Ʈ�� ǥ�����ָ�, ���� �Խ���, ���� �Խ��� ������ �����ϴ�
- * @author eastern7star
- *
- */
 public class BulletinBoardFrame extends SimpleJFrame{
 	
 	private Account account;
@@ -104,27 +98,27 @@ public class BulletinBoardFrame extends SimpleJFrame{
 		this.add(assignmentScrollPane);
 		this.add(contentPane);
 		
-		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1)); // frame�� �׵θ� ����
+		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1)); // frame에 테두리 적용
 		this.getContentPane().setBackground(Color.WHITE);//new Color(235, 235, 235));
 		this.setVisible(true);
 	}
 	
 	private class menuListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(menuButton.getText().equals("���� �ø� ����")) {
+			if(menuButton.getText().equals("내가 올린 과제")) {
 				ContentPanel stPanel = new ContentPanel(((StudentAccount)account).getAssignments(), getFrame(), titleBar);
 				addContentPanel(stPanel);
 				titleBar.setAssignmentPath(subject);
-			} else if(menuButton.getText().equals("���� ����")) {
+			} else if(menuButton.getText().equals("과제 생성")) {
 				NewAssignmentPanel naPanel = new NewAssignmentPanel(subject, thisFrame(), titleBar);
 				ContentPanel contentPanel = new ContentPanel(naPanel, thisFrame(), titleBar);
 				addContentPanel(contentPanel);
 				titleBar.setAssignmentPath(subject);
-			} else if(menuButton.getText().equals("���� �ø���")) {
+			} else if(menuButton.getText().equals("질문 올리기")) {
 				NewQuestionPanel nqPanel = new NewQuestionPanel(account, subject, thisFrame(), titleBar);
 				ContentPanel contentPanel = new ContentPanel(nqPanel, thisFrame(), titleBar);
 				addContentPanel(contentPanel);
-			} else if(menuButton.getText().equals("���� �亯")) {
+			} else if(menuButton.getText().equals("나의 답변")) {
 				ContentPanel maPanel = new ContentPanel(getFrame(), ((ProfessorAccount)account).getAnswers(), titleBar);
 				addContentPanel(maPanel);
 				seeWholeAnswer = true;
@@ -138,9 +132,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public void addAssignmentPanel(AssignmentList assignmentPanel) {
 		if(account.isStudent())
-			menuButton.setText("���� �ø� ����");
+			menuButton.setText("내가 올린 과제");
 		else if(account.isProfessor())
-			menuButton.setText("���� ����");
+			menuButton.setText("과제 생성");
 		
 		menuButton.setVisible(true);
 		assignmentScrollPane.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(200, 200, 200)));
@@ -159,9 +153,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	
 	public void addQuestionPanel(QuestionList questionPanel) {
 		if(account.isStudent())
-			menuButton.setText("���� �ø���");
+			menuButton.setText("질문 올리기");
 		else if(account.isProfessor())
-			menuButton.setText("���� �亯");
+			menuButton.setText("나의 답변");
 		
 		menuButton.setVisible(true);
 		

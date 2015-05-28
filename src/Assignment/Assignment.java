@@ -25,11 +25,11 @@ public class Assignment implements Serializable{
 	private Assignment scoredStudentsAssignment;
 	private Double score;
 	private boolean isScored;
-	private ArrayList<Assignment> studentsAssignment; // 占싻삼옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
-	private ArrayList<String> attachedDocument; // 첨占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙罐占� 占쏙옙占쏙옙
+	private ArrayList<Assignment> studentsAssignment; // 학생들이 제출한 과제
+	private ArrayList<String> attachedDocument; // 첨부 파일
 	private String comment;
 	
-	/* 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 */
+	/* 교수님이 새로운 과제를 만들 때 사용하는 생성자 */
 	public Assignment(ProfessorAccount professor, String topic, String content,
 			String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour) {
 		this.topic = topic;
@@ -46,7 +46,7 @@ public class Assignment implements Serializable{
 		attachedDocument = new ArrayList<String>();
 	}
 	
-	/* 占싻삼옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 */
+	/* 학생이 과제를 제출할 때 사용하는 생성자 */
 	public Assignment(String topic, String content, Date date) {
 		this.topic = topic;
 		this.content = content;

@@ -20,12 +20,6 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import GuiComponent.SimpleTextField;
 
-/**
- * ������ �����ϴ� �������� �����ϴ� ������ �����ϴ� ������ Ŭ����
- * 
- * @author eastern7star
- *
- */
 public class SubjectSelectFrame extends SimpleJFrame{
 	
 	private StudentAccount student;
@@ -88,7 +82,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 		scrollBar.setLocation(0, 0);
 		scrollBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(180, 180, 180)));
 		
-		submitButton = new SimpleButton("Ȯ��");
+		submitButton = new SimpleButton("Ȯ��");
 		submitButton.setSize(this.getWidth() - xBorder * 2, 50);
 		submitButton.setLocation(xBorder, scrollBar.getY() + scrollBar.getHeight() + 10);
 		submitButton.addActionListener(new submitListener());

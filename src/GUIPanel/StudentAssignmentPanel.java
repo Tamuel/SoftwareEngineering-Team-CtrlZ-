@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import Account.*;
 import Assignment.Assignment;
 import Assignment.Subject;
+import Controller.ProfessorAccountController;
+import Controller.StudentAccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
@@ -66,7 +68,7 @@ public class StudentAssignmentPanel extends JPanel{
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("占쏙옙占쏙옙");
+		submit = new SimpleButton("제출");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new SubmitButtonListener());
@@ -108,13 +110,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("占쏙옙占쏙옙 占쏙옙占쏙옙 " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("제출 일자 " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("占쏙옙占쏙옙");
+		submit = new SimpleButton("수정");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new EditButtonListener());
@@ -142,7 +144,7 @@ public class StudentAssignmentPanel extends JPanel{
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
 	}
 	
-	/* 占쏙옙占쏙옙占쏙옙 占싻삼옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙  */
+	/* 교수가 학생들이 제출한 모든 과제를 볼 때의 생성자  */
 	public StudentAssignmentPanel(Subject subject, Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = assignment;
 		this.boardFrame = boardFrame;
@@ -157,13 +159,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("占쌜쇽옙占쏙옙 - " + assignment.getStudent().getName(), "占쏙옙占쏙옙 占쏙옙占쏙옙 " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("작성자 - " + assignment.getStudent().getName(), "제출 일자 " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("占쏙옙");
+		submit = new SimpleButton("평가");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		submit.addActionListener(new ScoreButtonListener());
@@ -191,8 +193,8 @@ public class StudentAssignmentPanel extends JPanel{
 			comment.setText(assignment.getScoredAssignment().getComment());
 			score.setText(assignment.getScoredAssignment().getScore() + "");
 		} else if(!assignment.isScored()) {
-			comment.setText("占쌘몌옙트");
-			score.setText("占쏙옙占쏙옙");
+			comment.setText("코멘트");
+			score.setText("점수");
 		}
 		
 		scrollBar = new JScrollPane(content);
@@ -219,7 +221,7 @@ public class StudentAssignmentPanel extends JPanel{
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(180, 180, 180)));
 	}
 	
-	/* 占쏠가듸옙 占쏙옙占쏙옙 표占쏙옙 */
+	/* 평가된 과제 표시 */
 	public StudentAssignmentPanel(Assignment assignment, Double sc, String cm, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = assignment;
 		this.boardFrame = boardFrame;
@@ -234,13 +236,13 @@ public class StudentAssignmentPanel extends JPanel{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date today = assignment.getDeadline();
-		deadline = new SimpleTextArea("占쌜쇽옙占쏙옙 - " + assignment.getStudent().getName(), "占쏙옙占쏙옙 占쏙옙占쏙옙 " + dateFormat.format(today.getTime()));
+		deadline = new SimpleTextArea("작성자 - " + assignment.getStudent().getName(), "제출 일자 " + dateFormat.format(today.getTime()));
 		deadline.setSize(this.getWidth() * 2 / 5, topicHeight - 1);
 		deadline.setLocation(topic.getWidth() + 1, 1);
 		deadline.setBackground(new Color(240, 240, 240));
 		deadline.setSmallFont();
 
-		submit = new SimpleButton("占쏙옙");
+		submit = new SimpleButton("평가");
 		submit.setSize(70, 30);
 		submit.setLocation(this.getWidth() - submit.getWidth() - 5, this.getHeight() - submit.getHeight() - 5);
 		
@@ -256,7 +258,7 @@ public class StudentAssignmentPanel extends JPanel{
 		comment.setMargin(new Insets(10, 10, 10, 10));
 		comment.setEditable(false);
 		
-		SimpleTextArea score = new SimpleTextArea(sc + "占쏙옙");
+		SimpleTextArea score = new SimpleTextArea(sc + "점");
 		score.setSize(submit.getWidth() - 10, submit.getHeight());
 		score.setLocation(submit.getX() - score.getWidth() - xBorder, submit.getY() - 5);
 		score.setMargin(new Insets(10, 10, 10, 10));
@@ -288,8 +290,10 @@ public class StudentAssignmentPanel extends JPanel{
 	
 	private class ScoreButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(!assignment.isScored())
-				((ProfessorAccount)boardFrame.getAccount()).assignmentAppraisal(comment.getText().toString(), score.getText().toString(), assignment);
+			if(!assignment.isScored()) {
+				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)boardFrame.getAccount()));
+				pCon.assignmentAppraisal(comment.getText().toString(), score.getText().toString(), assignment);
+			}
 			System.out.println(assignment.getScoredAssignment().getScore() + " " + assignment.getScoredAssignment().getComment());
 		}
 	}
@@ -308,7 +312,8 @@ public class StudentAssignmentPanel extends JPanel{
 			if(getStudent() != null) {
 				Date submitTime = new Date();
 				Assignment myAssignment = new Assignment(topic.getText(), content.getText(), submitTime);
-				getStudent().submitAssignment(assignment, myAssignment);
+				StudentAccountController sCon = new StudentAccountController(getStudent());
+				sCon.submitAssignment(assignment, myAssignment);
 				getStudent().printAllAssignment();
 
 				ContentPanel contentPanel = new ContentPanel(assignment, boardFrame, titleBar);

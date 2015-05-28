@@ -54,7 +54,7 @@ public class AssignmentList extends JPanel{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 			
 			SimpleButton temp = new SimpleButton(subject.getAssignments().get(i).getTopic(),
-					dateFormat.format(subject.getAssignments().get(i).getDeadline()) + " ï¿½ï¿½ï¿½ï¿½",
+					dateFormat.format(subject.getAssignments().get(i).getDeadline()) + " ±îÁö",
 					assignmentButtonWidth, assignmentButtonHeight);
 			temp.setLocation(xBorder, yBorder + (assignmentButtonHeight + yBorder) * i);
 			temp.addActionListener(new assignmentButtonListener());

@@ -19,6 +19,7 @@ import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
+import Controller.ProfessorAccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
@@ -57,40 +58,40 @@ public class NewAssignmentPanel extends JPanel{
 
 		this.setSize(boardFrame.getContentWidth() - xBorder * 2, (boardFrame.getHeight() - yBorder * 3 - titleBar.getHeight()) / 2);
 		
-		topic = new SimpleTextField("ï¿½ï¿½ï¿½ï¿½");
+		topic = new SimpleTextField("°úÁ¦");
 		topic.setSize(this.getWidth() * 3 / 5 - 2, topicHeight - 1);
 		topic.setLocation(1, 1);
 		topic.setEditable(true);
 	
-		deadlineYear = new SimpleTextField("ï¿½ï¿½");
+		deadlineYear = new SimpleTextField("³â");
 		deadlineYear.setSize((this.getWidth() * 2 / 5) / 4 + 6, topicHeight - 1);
 		deadlineYear.setLocation(topic.getWidth() + 1, 1);
 		deadlineYear.setBackground(new Color(240, 240, 240));
 //		deadlineYear.setSmallFont();
 		deadlineYear.setEditable(true);
 		
-		deadlineMonth = new SimpleTextField("ï¿½ï¿½");
+		deadlineMonth = new SimpleTextField("¿ù");
 		deadlineMonth.setSize((this.getWidth() * 2 / 5) / 4 - 2, topicHeight - 1);
 		deadlineMonth.setLocation(deadlineYear.getWidth() + deadlineYear.getX() + 1, 1);
 		deadlineMonth.setBackground(new Color(240, 240, 240));
 //		deadlineMonth.setSmallFont();
 		deadlineMonth.setEditable(true);
 		
-		deadlineDay = new SimpleTextField("ï¿½ï¿½");
+		deadlineDay = new SimpleTextField("ÀÏ");
 		deadlineDay.setSize((this.getWidth() * 2 / 5) / 4 - 2, topicHeight - 1);
 		deadlineDay.setLocation(deadlineMonth.getWidth() + deadlineMonth.getX() + 1, 1);
 		deadlineDay.setBackground(new Color(240, 240, 240));
 //		deadlineDay.setSmallFont();
 		deadlineDay.setEditable(true);
 		
-		deadlineHour = new SimpleTextField("ï¿½ï¿½");
+		deadlineHour = new SimpleTextField("½Ã");
 		deadlineHour.setSize((this.getWidth() * 2 / 5) / 4 - 2, topicHeight - 1);
 		deadlineHour.setLocation(deadlineDay.getWidth() + deadlineDay.getX() + 1, 1);
 		deadlineHour.setBackground(new Color(240, 240, 240));
 //		deadlineHour.setSmallFont();
 		deadlineHour.setEditable(true);
 
-		makeAssignment = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		makeAssignment = new SimpleButton("°úÁ¦ »ý¼º");
 		makeAssignment.setSize(90, 30);
 		makeAssignment.setLocation(this.getWidth() - makeAssignment.getWidth() - 5, this.getHeight() - makeAssignment.getHeight() - 5);
 		makeAssignment.addActionListener(new SubmitButtonListener());
@@ -120,7 +121,7 @@ public class NewAssignmentPanel extends JPanel{
 		this.setBackground(backgroundColor);
 	}
 	
-	/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
+	/* °úÁ¦ ¼öÁ¤ ½Ã */
 	public NewAssignmentPanel(Assignment assignment, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		this.assignment = assignment;
 		this.boardFrame = boardFrame;
@@ -163,7 +164,7 @@ public class NewAssignmentPanel extends JPanel{
 		deadlineHour.setBackground(new Color(240, 240, 240));
 		deadlineHour.setEditable(true);
 
-		makeAssignment = new SimpleButton("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
+		makeAssignment = new SimpleButton("¼öÁ¤ ¿Ï·á");
 		makeAssignment.setSize(90, 30);
 		makeAssignment.setLocation(this.getWidth() - makeAssignment.getWidth() - 5, this.getHeight() - makeAssignment.getHeight() - 5);
 		makeAssignment.addActionListener(new editButtonListener());
@@ -212,16 +213,18 @@ public class NewAssignmentPanel extends JPanel{
 				boardFrame.addAssignmentPanel(assignmentList);
 				titleBar.setAssignmentPath(assignment);
 				boardFrame.repaint();
-			} catch (Exception ex) {System.err.println("ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");}
+			} catch (Exception ex) {System.err.println("½Ã°£ÀÌ Á¦´ë·Î ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù!");}
 		}
 	}
 
 	private class SubmitButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(boardFrame.getAccount().isProfessor())
-				((ProfessorAccount)boardFrame.getAccount()).makeAssignment(topic.getText(), content.getText(),
-						deadlineYear.getText().toString(), deadlineMonth.getText().toString(), deadlineDay.getText().toString(), deadlineHour.getText().toString());
-
+			if(boardFrame.getAccount().isProfessor()) {
+				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)boardFrame.getAccount()));
+				pCon.makeAssignment(topic.getText(), content.getText(), deadlineYear.getText().toString(),
+						deadlineMonth.getText().toString(), deadlineDay.getText().toString(), deadlineHour.getText().toString());
+			}
+			
 			AssignmentList assignmentList = new AssignmentList(thisHeight(), subject, boardFrame, titleBar);
 			titleBar.setAssignmentPath(subject);
 
