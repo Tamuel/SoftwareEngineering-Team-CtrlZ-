@@ -7,11 +7,26 @@ public class Protocol implements Serializable{
 	private String procKind;
 	private Object data;
 	private String[] dataStrings;
+	private String ID;
+	private String PW;
+	private String name;
+	private String subject;
 	
 	public Protocol(String procKind, Object data) {
 		this.procKind = procKind;
 		this.data = data;
 		cutString();
+		
+		if(isRequestLogin()) {
+			ID = dataStrings[0];
+			PW = dataStrings[1];
+		}
+		else if(isRequestJoin()) {
+			ID = dataStrings[0];
+			PW = dataStrings[1];
+			name = dataStrings[2];
+			subject = dataStrings[3];
+		}
 	}
 	
 	public void cutString() {
@@ -76,19 +91,19 @@ public class Protocol implements Serializable{
 	}
 	
 	public String getID() {
-		return dataStrings[0];
+		return ID;
 	}
 	
 	public String getPW() {
-		return dataStrings[1];
+		return PW;
 	}
 	
 	public String getName() {
-		return dataStrings[2];
+		return name;
 	}
 	
 	public String getSubject() {
-		return dataStrings[3];
+		return subject;
 	}
 
 	public String getProcKind() {
