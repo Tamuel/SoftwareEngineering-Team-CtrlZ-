@@ -1,0 +1,12 @@
+package common;
+
+public enum ProtocolType {
+	LOGIN,
+	LOGIN_ACCEPT,
+	ID_EXIST,
+	JOIN,
+	JOIN_ACCEPT,
+	REQUEST_ACCOUNT_LIST,
+	ACCOUNT_LIST,
+	ADD_SUBJECT
+}

@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
+import Account.ProfessorAccount;
 import Account.StudentAccount;
+import Assignment.Subject;
 
 public class AccountController {
 	Account accountList;
@@ -28,15 +30,6 @@ public class AccountController {
 		return true;
 	}
 	
-	public boolean changeAccount(Account changeAccount) {
-		Account temp = searchAccountByID(changeAccount.getId());
-		temp = changeAccount;
-		System.out.println("»ðÀÔ °ú¸ñ °¹¼ö " + ((StudentAccount)changeAccount).getSubjects().size());
-		System.out.println("°¡Á®¿Â °ú¸ñ °¹¼ö " + ((StudentAccount)temp).getSubjects().size());
-		ObjectSaveSingleton.getInstance().saveAccounts();
-		return true;
-	}
-	
 	public Account searchAccount(String id, String password) {
 		Iterator checkAccount = accountList.getAccounts().iterator();
 		Account temp;
@@ -55,6 +48,18 @@ public class AccountController {
 			temp = (Account)checkAccount.next();
 			if(temp.getId().equals(id))
 				return temp;
+		}
+		return null;
+	}
+	
+	public Subject searchSubject(String professorName, String subjectName) {
+		Iterator checkAccount = accountList.getAccounts().iterator();
+		Account temp;
+		while(checkAccount.hasNext()) {
+			temp = (Account)checkAccount.next();
+			if(temp.isProfessor() && temp.getName().equals(professorName) &&
+					((ProfessorAccount)temp).getSubject().getName().equals(subjectName))
+				return ((ProfessorAccount)temp).getSubject();
 		}
 		return null;
 	}

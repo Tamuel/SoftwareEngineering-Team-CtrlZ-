@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
@@ -95,7 +97,7 @@ public class MakeAccountFrame extends SimpleJFrame{
 		System.out.println(ClientConsole.client.getAccount().getId() + " " + ClientConsole.client.getAccount().getName());
 		
 		if(ClientConsole.client.getAccount().isProfessor()) {
-			BulletinBoardFrame board = new BulletinBoardFrame("苞力 力免", 1100, 630, ClientConsole.client.getAccount());
+			BulletinBoardFrame board = new BulletinBoardFrame("苞力 力免", 1100, 630);
 			ClientConsole.client.setMsgReceive(false);
 			visible(false);
 		} else if(ClientConsole.client.getAccount().isStudent()) {
@@ -110,7 +112,8 @@ public class MakeAccountFrame extends SimpleJFrame{
 		public void actionPerformed(ActionEvent ev) {
 			try
 			{
-				ClientConsole.client.sendToServer(new Protocol("[JOIN]", idField.getText() + ":" + passwordField.getText() + ":" + nameField.getText() + ":" + subjectField.getText()));
+				ClientConsole.client.sendToServer(new Protocol(ProtocolType.JOIN, idField.getText() + ":" + passwordField.getText()
+						+ ":" + nameField.getText() + ":" + subjectField.getText()));
 			}
 			catch(Exception ex)
 			{

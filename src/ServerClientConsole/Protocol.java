@@ -3,8 +3,10 @@ package ServerClientConsole;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import common.ProtocolType;
+
 public class Protocol implements Serializable{
-	private String procKind;
+	private ProtocolType procKind;
 	private Object data;
 	private String[] dataStrings;
 	private String ID;
@@ -12,20 +14,39 @@ public class Protocol implements Serializable{
 	private String name;
 	private String subject;
 	
-	public Protocol(String procKind, Object data) {
+	public Protocol(ProtocolType procKind, Object data) {
 		this.procKind = procKind;
 		this.data = data;
 		cutString();
 		
-		if(isRequestLogin()) {
+		switch(getProcKind()) {
+		case LOGIN:
 			ID = dataStrings[0];
 			PW = dataStrings[1];
-		}
-		else if(isRequestJoin()) {
+			break;
+		case LOGIN_ACCEPT:
+			break;
+		case JOIN:
 			ID = dataStrings[0];
 			PW = dataStrings[1];
 			name = dataStrings[2];
 			subject = dataStrings[3];
+			break;
+		case JOIN_ACCEPT:
+			break;
+		case ADD_SUBJECT:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			name = dataStrings[2];
+			break;
+		case ID_EXIST:
+			break;
+		case REQUEST_ACCOUNT_LIST:
+			break;
+		case ACCOUNT_LIST:
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -34,57 +55,8 @@ public class Protocol implements Serializable{
 			dataStrings = ((String)data).split(":");
 	}
 	
-	public boolean isIdExist() {
-		if(getProcKind().equals("[ID_EXIST]"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isRequestLogin() {
-		if(getProcKind().equals("[LOGIN]"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isLoginAccept() {
-		if(getProcKind().equals("[LOGIN_ACCEPT]"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isRequestJoin() {
-		if(getProcKind().equals("[JOIN]"))
-			return true;
-		
-		return false;
-	}
-
-	public boolean isJoinAccept() {
-		if(getProcKind().equals("[JOIN_ACCEPT]"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isRequestAccountList() {
-		if(getProcKind().equals("[REQUEST_ACCOUNT_LIST]"))
-			return true;
-		
-		return false;
-	}
-	
-	public boolean isAccountListReceive() {
-		if(getProcKind().equals("[ACCOUNT_LIST]"))
-			return true;
-		
-		return false;
-	}
-			
-	public boolean isChangeAccount() {
-		if(getProcKind().equals("[CHANGE_ACCOUNT]"))
+	public boolean isProcType(ProtocolType procType) {
+		if(getProcKind() == procType)
 			return true;
 		
 		return false;
@@ -106,11 +78,11 @@ public class Protocol implements Serializable{
 		return subject;
 	}
 
-	public String getProcKind() {
+	public ProtocolType getProcKind() {
 		return procKind;
 	}
 
-	public void setProcKind(String procKind) {
+	public void setProcKind(ProtocolType procKind) {
 		this.procKind = procKind;
 	}
 

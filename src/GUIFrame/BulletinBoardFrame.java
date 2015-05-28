@@ -35,6 +35,7 @@ import GUIPanel.TitleBar;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class BulletinBoardFrame extends SimpleJFrame{
 	
@@ -56,9 +57,9 @@ public class BulletinBoardFrame extends SimpleJFrame{
 	private int assignmentButtonWidth = 250;
 	private int xBorder = 10;
 	
-	public BulletinBoardFrame(String frameName, int width, int height, Account account) {
+	public BulletinBoardFrame(String frameName, int width, int height) {
 		super(frameName, width, height);
-		this.account = account;
+		this.account = ClientConsole.client.getAccount();
 		
 		titleBar = new TitleBar(this, titleBarHeight, account);
 		titleBar.setLocation(0, 0);

@@ -32,6 +32,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import common.ProtocolType;
+
 import objectSave.ObjectSaveSingleton;
 
 public class LoginFrame extends SimpleJFrame{
@@ -105,7 +107,7 @@ public class LoginFrame extends SimpleJFrame{
 			if(ev.getSource().equals(loginButton)) {
 				try
 				{
-					ClientConsole.client.sendToServer(new Protocol("[LOGIN]", idField.getText() + ":" + passwordField.getText()));
+					ClientConsole.client.sendToServer(new Protocol(ProtocolType.LOGIN, idField.getText() + ":" + passwordField.getText()));
 				}
 				catch(Exception ex)
 				{
@@ -129,7 +131,7 @@ public class LoginFrame extends SimpleJFrame{
 	}
 	
 	public void makeBulletinBoard(Account account) {
-		BulletinBoardFrame board = new BulletinBoardFrame("苞力 力免", 1100, 630, account);
+		BulletinBoardFrame board = new BulletinBoardFrame("苞力 力免", 1100, 630);
 	}
 
 	public static void main(String args[]) {

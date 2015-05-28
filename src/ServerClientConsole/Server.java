@@ -69,16 +69,18 @@ public class Server extends AbstractServer {
 		System.out.println("Proc received: " + proc.getProcKind() + " " + proc.getData().toString() + " from " + client);
 
 		AccountController aCon = new AccountController(accounts);
-		if (proc.isRequestLogin()) {
+		switch(proc.getProcKind())
+		{
+		case LOGIN:
 			Account account;
 			System.out.println("Search Account " + proc.getID() + " " + proc.getPW());
 			
 			if ((account = aCon.searchAccount(proc.getID(), proc.getPW())) != null) {
 				System.out.println("Send to Client [LOGIN_ACCEPT]");
-				this.sendToClient(client.getInetAddress(), new Protocol("[LOGIN_ACCEPT]", account));
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.LOGIN_ACCEPT, account));
 			}
-		}
-		else if (proc.isRequestJoin()) {
+			break;
+		case JOIN:
 			String subString = "담당 과목 (없으면 학생입니다)";
 			System.out.println("Search Account for new account " + proc.getID() + " " + proc.getPW());
 			
@@ -88,23 +90,26 @@ public class Server extends AbstractServer {
 				ProfessorAccount temp = new ProfessorAccount(proc.getID(), proc.getPW(), proc.getName(), newSubject);
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client.getInetAddress(), new Protocol("[JOIN_ACCEPT]", temp));
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
 			} else if(aCon.checkIdRepeated(proc.getID()) && proc.getSubject().equals(subString)) { /* 학생 계좌 생성 */
 				StudentAccount temp = new StudentAccount(proc.getID(), proc.getPW(), proc.getName());
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client.getInetAddress(), new Protocol("[JOIN_ACCEPT]", temp));
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
 			} else if(!aCon.checkIdRepeated(proc.getID())) {
-				this.sendToClient(client.getInetAddress(), new Protocol("[ID_EXIST]", null));
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ID_EXIST, null));
 			}
-		}
-		else if (proc.isRequestAccountList()) {
+			break;
+		case ADD_SUBJECT:
+			System.out.println("Add " + proc.getSubject() + " to " + proc.getID() + client);
+			((StudentAccount)aCon.searchAccountByID(proc.getID())).addSubject(aCon.searchSubject(proc.getName(), proc.getSubject()));
+			break;
+		case REQUEST_ACCOUNT_LIST:
 			System.out.println("Send account list to client " + client);
-			this.sendToClient(client.getInetAddress(), new Protocol("[ACCOUNT_LIST]", accounts));
-		}
-		else if (proc.isChangeAccount()) {
-			System.out.println("Change Account " + ((Account)proc.getData()).getId() + client);
-			aCon.changeAccount((Account)proc.getData());
+			this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ACCOUNT_LIST, accounts));
+			break;
+		default:
+			break;
 		}
 	}
 

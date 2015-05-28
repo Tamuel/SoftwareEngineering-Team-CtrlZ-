@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,6 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import common.ProtocolType;
 
 import Account.Account;
 import Account.ProfessorAccount;
@@ -58,7 +61,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 
 		try
 		{
-			ClientConsole.client.sendToServer(new Protocol("[REQUEST_ACCOUNT_LIST]", ""));
+			ClientConsole.client.sendToServer(new Protocol(ProtocolType.REQUEST_ACCOUNT_LIST, ""));
 		}
 		catch(Exception ex)
 		{
@@ -144,10 +147,15 @@ public class SubjectSelectFrame extends SimpleJFrame{
 
 	private class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
+			for(int i = 0; i < mySubject.size(); i++) {
+				try {
+					ClientConsole.client.sendToServer(new Protocol(ProtocolType.ADD_SUBJECT, ClientConsole.client.getAccount().getId() + ":" 
+							+ mySubject.get(i).getName() + ":" + mySubject.get(i).getProfessor().getName()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			
-			((StudentAccount)ClientConsole.client.getAccount()).getSubjects().addAll(mySubject);
-			
-			ClientConsole.client.saveChangeToServer();
 			
 			LoginFrame login = new LoginFrame("Login", 300, 200);
 			visible(false);

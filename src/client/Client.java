@@ -67,36 +67,25 @@ public class Client extends AbstractClient {
 	 */
 	public void handleMessageFromServer(Object msg) {
 		Protocol proc = (Protocol)msg;
-		//System.out.println(msg.toString());
+		System.out.println(msg.toString());
 		setMsgReceive(true);
 		
-		if(proc.isLoginAccept()) {
+		if(proc.isProcType(ProtocolType.LOGIN_ACCEPT)) {
 			account = (Account)proc.getData();
 			System.out.println("계좌가 존재합니다 " + account.getName());
 		}
-		else if(proc.isJoinAccept()) {
+		else if(proc.isProcType(ProtocolType.JOIN_ACCEPT)) {
 			account = (Account)proc.getData();
 			System.out.println("계좌를 생성했습니다 " + account.getName());
 		}
-		else if(proc.isAccountListReceive()) {
+		else if(proc.isProcType(ProtocolType.ACCOUNT_LIST)) {
 			accountList = (Account)proc.getData();
 			System.out.println("계좌 리스트를 가져왔습니다");
 		}
-		else if(proc.isIdExist()) {
+		else if(proc.isProcType(ProtocolType.ID_EXIST)) {
 		}
 	}
 	
-	public void saveChangeToServer() {
-		try
-		{
-			ClientConsole.client.sendToServer(new Protocol("[CHANGE_ACCOUNT]", account));
-		}
-		catch(Exception ex)
-		{
-			System.err.println(ex.toString());
-		}
-	}
-
 	public Account getAccount() {
 		return account;
 	}
