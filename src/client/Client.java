@@ -4,10 +4,8 @@
 
 package client;
 
-import Account.Account;
 import client.*;
 import common.*;
-
 import java.io.*;
 
 /**
@@ -27,8 +25,7 @@ public class Client extends AbstractClient
    * The interface type variable.  It allows the implementation of 
    * the display method in the client.
    */
-  ChatIF clientUI;
-  Account account;
+  ChatIF clientUI; 
 
   
   //Constructors ****************************************************
@@ -36,7 +33,7 @@ public class Client extends AbstractClient
   /**
    * Constructs an instance of the chat client.
    *
-   * ChatClient åª›ì•¹ê»œ ï¿½ê¹®ï¿½ê½¦.
+   * ChatClient °´Ã¼ »ı¼º.
    *
    * @param host The server to connect to.
    * @param port The port number to connect on.
@@ -57,7 +54,7 @@ public class Client extends AbstractClient
   /**
    * This method handles all data that comes in from the server.
    * 
-   * ï¿½ê½Œè¸°ê¾©ë¿‰ï¿½ê½Œ ï§ë¶¿ê½­ï§ï¿½ç‘œï¿½ è«›ì†ë¸˜ï¿½ë±¾ï¿½ì”¤ï¿½ë–.
+   * ¼­¹ö¿¡¼­ ¸Ş¼¼Áö¸¦ ¹Ş¾ÆµéÀÎ´Ù.
    * 
    * @param msg The message from the server.
    */
@@ -69,7 +66,7 @@ public class Client extends AbstractClient
   /**
    * This method handles all data coming from the UI            
    *
-   * Client UIï¿½ë¿‰ï¿½ê½Œ ï§ë¶¿ê½­ï§ï¿½ç‘œï¿½ handling ï¿½ë¸³ï¿½ë–.
+   * Client UI¿¡¼­ ¸Ş¼¼Áö¸¦ handling ÇÑ´Ù.
    *
    * @param message The message from the UI.    
    */
@@ -77,7 +74,7 @@ public class Client extends AbstractClient
   {
     try
     {
-      sendToServer(message); // Serveræ¿¡ï¿½ message ï¿½ìŸ¾ï¿½ë„š
+      sendToServer(message); // Server·Î message Àü¼Û
     }
     catch(IOException e)
     {
@@ -89,12 +86,12 @@ public class Client extends AbstractClient
   
   @Override
   protected void connectionClosed() {
-	  System.out.println("ï¿½ê½Œè¸°ê¾©ï¿½ ï¿½ë¿°å¯ƒê³—ì“£ ï¿½ê±¡ï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+	  System.out.println("¼­¹ö¿Í ¿¬°áÀ» ²÷¾ú½À´Ï´Ù.");
   }
 
   @Override
   protected void connectionException(Exception exception) {
-	  System.out.println("ï¿½ê½Œè¸°ê¾§ï¿½ ï¿½ë¿°å¯ƒê³—ì“£ ï¿½ê±¡ï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+	  System.out.println("¼­¹ö°¡ ¿¬°áÀ» ²÷¾ú½À´Ï´Ù.");
 	  System.exit(1);
   }
   
@@ -108,14 +105,6 @@ public class Client extends AbstractClient
       closeConnection();
     }
     catch(IOException e) {}
-  }
-  
-  public Account getAccount() {
-	  return account;
-  }
-  
-  public void setAccount(Account account) {
-	  this.account = account;
   }
 }
 //End of ChatClient class

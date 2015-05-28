@@ -17,9 +17,9 @@ import java.io.*;
 * server, the two programs can then exchange <code> Object </code>
 * instances.<p>
 * 
-* ì´ Class ëŠ” client ì—ì„œ ì‹œë„ í•˜ëŠ” connection ì„ ê¸°ë‹¤ë¦¬ëŠ” ìŠ¤ë ˆë“œë¥¼ í¬í•¨í•œë‹¤.
-* ë§Œì•½ connectionì´ ì„±ì‚¬ë˜ë©´, ìŠ¤ë ˆë“œë¡œ ì‹¤í–‰ë˜ëŠ” ìƒˆë¡œìš´ ConnectionToCilent ê°ì²´ë¥¼ ë§Œë“ ë‹¤.
-* Clientê°€ ì„œë²„ì— ì—°ê²°ë˜ë©´, ë‘ í”„ë¡œê·¸ë¨ì€ Object instances ë“¤ì„ êµí™˜ ê°€ëŠ¥í•˜ë‹¤.
+* ÀÌ Class ´Â client ¿¡¼­ ½Ãµµ ÇÏ´Â connection À» ±â´Ù¸®´Â ½º·¹µå¸¦ Æ÷ÇÔÇÑ´Ù.
+* ¸¸¾à connectionÀÌ ¼º»çµÇ¸é, ½º·¹µå·Î ½ÇÇàµÇ´Â »õ·Î¿î ConnectionToCilent °´Ã¼¸¦ ¸¸µç´Ù.
+* Client°¡ ¼­¹ö¿¡ ¿¬°áµÇ¸é, µÎ ÇÁ·Î±×·¥Àº Object instances µéÀ» ±³È¯ °¡´ÉÇÏ´Ù.
 * 
 * Method <code> handleMessageFromClient </code> must be defined by
 * a concrete subclass. Several other hook methods may also be
@@ -63,9 +63,9 @@ public abstract class AbstractServer implements Runnable
    * connections.
    * Set to half a second by default.
    * 
-   * ì„œë²„ëŠ” connectionì„ í•˜ëŠ” ì¤‘ ì‹œê°„ ì´ˆê³¼ë¥¼ ê³„ì‚°í•œë‹¤.
-   * ì‹œê°„ì´ ì´ˆê³¼ë˜ë©´, ì„œë²„ëŠ” ì„œë²„ë¥¼ ë©ˆì¶°ì•¼ í•˜ëŠ”ì§€ ì²´í¬í•˜ê³ , ì•„ë‹ˆë¼ë©´ ê³„ì† ì—°ê²°ì„ ì‹œë„í•œë‹¤.
-   * ì´ˆê¸°ì¹˜ëŠ” 1/2ì´ˆ ì´ë‹¤.
+   * ¼­¹ö´Â connectionÀ» ÇÏ´Â Áß ½Ã°£ ÃÊ°ú¸¦ °è»êÇÑ´Ù.
+   * ½Ã°£ÀÌ ÃÊ°úµÇ¸é, ¼­¹ö´Â ¼­¹ö¸¦ ¸ØÃç¾ß ÇÏ´ÂÁö Ã¼Å©ÇÏ°í, ¾Æ´Ï¶ó¸é °è¼Ó ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+   * ÃÊ±âÄ¡´Â 1/2ÃÊ ÀÌ´Ù.
    */
   private int timeout = 500;
 
@@ -74,8 +74,8 @@ public abstract class AbstractServer implements Runnable
    * can be waiting to connect.
    * Set to 10 by default.
    * 
-   * ì„œë²„ì— ì—°ê²°í•˜ê¸° ìœ„í•´ ëŒ€ê¸°í•  ìˆ˜ ìˆëŠ” í´ë¼ì´ì–¸íŠ¸ì˜ ìˆ˜ë‹¤.
-   * 10ëª…ì´ ê¸°ë³¸ì´ë‹¤.
+   * ¼­¹ö¿¡ ¿¬°áÇÏ±â À§ÇØ ´ë±âÇÒ ¼ö ÀÖ´Â Å¬¶óÀÌ¾ğÆ®ÀÇ ¼ö´Ù.
+   * 10¸íÀÌ ±âº»ÀÌ´Ù.
    */
   private int backlog = 10;
 
@@ -83,8 +83,8 @@ public abstract class AbstractServer implements Runnable
    * The thread group associated with client threads. Each member of the
    * thread group is a <code> ConnectionToClient </code>.
    * 
-   * í´ë¼ì´ì–¸íŠ¸ ìŠ¤ë ˆë“œì™€ ì—°ê²°ëœ ìŠ¤ë ˆë“œ ì§‘í•©ì´ë‹¤.
-   * ìŠ¤ë ˆë“œ ê·¸ë£¹ì˜ ê° ë©¤ë²„ëŠ” ConnectionToClient ì´ë‹¤.
+   * Å¬¶óÀÌ¾ğÆ® ½º·¹µå¿Í ¿¬°áµÈ ½º·¹µå ÁıÇÕÀÌ´Ù.
+   * ½º·¹µå ±×·ìÀÇ °¢ ¸â¹ö´Â ConnectionToClient ÀÌ´Ù.
    */
   private ThreadGroup clientThreadGroup;
 
@@ -127,8 +127,8 @@ public abstract class AbstractServer implements Runnable
    * If the server is already in listening mode, this
    * call has no effect.
    * 
-   * ìƒˆë¡œìš´ í´ë¼ì´ì–¸íŠ¸ë¥¼ ë°›ì•„ë“¤ì´ê¸° ìœ„í•œ ìŠ¤ë ˆë“œë¥¼ ì‹œì‘í•œë‹¤.
-   * ì„œë²„ê°€ ì´ë¯¸ ë¦¬ìŠ¤ë‹ ëª¨ë“œì´ë©´, ì´ ì½œì€ íš¨ê³¼ê°€ ì—†ë‹¤.
+   * »õ·Î¿î Å¬¶óÀÌ¾ğÆ®¸¦ ¹Ş¾ÆµéÀÌ±â À§ÇÑ ½º·¹µå¸¦ ½ÃÀÛÇÑ´Ù.
+   * ¼­¹ö°¡ ÀÌ¹Ì ¸®½º´× ¸ğµåÀÌ¸é, ÀÌ ÄİÀº È¿°ú°¡ ¾ø´Ù.
    *
    * @exception IOException if an I/O error occurs
    * when creating the server socket.
@@ -166,11 +166,11 @@ public abstract class AbstractServer implements Runnable
    * If the server is already closed, this
    * call has no effect.
    *
-   * ì„œë²„ ì†Œì¼“ì„ ë‹«ê³ , ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ì™€ì˜ ì—°ê²°ì„ ëŠëŠ”ë‹¤.
-   * í´ë¼ì´ì–¸íŠ¸ë¥¼ ë‹«ëŠ”ê²Œ ìŠ¹ì¸ ë°›ì§€ ëª»í•˜ë©´ ì˜ˆì™¸ì‚¬í•­ì„ throw í•œë‹¤.
-   * ì´ ì˜ˆì™¸ ì‚¬í•­ì„ catch í•˜ê³  ì‹¶ìœ¼ë©´, ì´ ë©”ì†Œë“œë¥¼ ì´ìš©í•˜ê¸° ì „ì— ê°ê° í´ë¼ì´ì–¸íŠ¸ë¥¼ ë‹«ì•„ì¤˜ì•¼ í•œë‹¤.
-   * ì´ ë©”ì†Œë“œëŠ” ì‹¤í–‰ì¤‘ì¸ ìŠ¤ë ˆë“œì˜ ë¦¬ìŠ¤ë‹ë„ ë©ˆì¶”ê²Œ í•œë‹¤.
-   * ì´ë¯¸ ì„œë²„ê°€ ë‹«í˜€ìˆìœ¼ë©´ ì•„ë¬´ íš¨ê³¼ë„ ì—†ë‹¤.
+   * ¼­¹ö ¼ÒÄÏÀ» ´İ°í, ¸ğµç Å¬¶óÀÌ¾ğÆ®¿ÍÀÇ ¿¬°áÀ» ²÷´Â´Ù.
+   * Å¬¶óÀÌ¾ğÆ®¸¦ ´İ´Â°Ô ½ÂÀÎ ¹ŞÁö ¸øÇÏ¸é ¿¹¿Ü»çÇ×À» throw ÇÑ´Ù.
+   * ÀÌ ¿¹¿Ü »çÇ×À» catch ÇÏ°í ½ÍÀ¸¸é, ÀÌ ¸Ş¼Òµå¸¦ ÀÌ¿ëÇÏ±â Àü¿¡ °¢°¢ Å¬¶óÀÌ¾ğÆ®¸¦ ´İ¾ÆÁà¾ß ÇÑ´Ù.
+   * ÀÌ ¸Ş¼Òµå´Â ½ÇÇàÁßÀÎ ½º·¹µåÀÇ ¸®½º´×µµ ¸ØÃß°Ô ÇÑ´Ù.
+   * ÀÌ¹Ì ¼­¹ö°¡ ´İÇôÀÖÀ¸¸é ¾Æ¹« È¿°úµµ ¾ø´Ù.
    *
    * @exception IOException if an I/O error occurs while
    * closing the server socket.
@@ -211,10 +211,10 @@ public abstract class AbstractServer implements Runnable
    * of filtering is done. Any exception thrown while
    * sending the message to a particular client is ignored.
    * 
-   * ì„œë²„ì— ì—°ê²°ëœ ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ë“¤ì—ê²Œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
-   * Subclassì—ì„œ ë©”ì„¸ì§€ë¥¼ ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ë“¤ì—ê²Œ 	ë³´ë‚´ê¸° ì „ì— ëª‡ëª‡ ìš”ì†Œë“¤ì„ ì²´í¬í•´ë³´ê³  ì‹¶ìœ¼ë©´
-   * ì˜¤ë²„ë¼ì´ë“œ ê°€ëŠ¥í•˜ë‹¤.í•˜ì§€ë§Œ í•„í„°ë§ì„ ë”°ë¡œ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì´ ì—­ì‹œ ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ë“¤ì—ê²Œ 
-   * ë©”ì†Œë“œê°€ ì‹¤í–‰ëœë‹¤.
+   * ¼­¹ö¿¡ ¿¬°áµÈ ¸ğµç Å¬¶óÀÌ¾ğÆ®µé¿¡°Ô ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+   * Subclass¿¡¼­ ¸Ş¼¼Áö¸¦ ¸ğµç Å¬¶óÀÌ¾ğÆ®µé¿¡°Ô 	º¸³»±â Àü¿¡ ¸î¸î ¿ä¼ÒµéÀ» Ã¼Å©ÇØº¸°í ½ÍÀ¸¸é
+   * ¿À¹ö¶óÀÌµå °¡´ÉÇÏ´Ù.ÇÏÁö¸¸ ÇÊÅÍ¸µÀ» µû·Î ¼³Á¤ÇÏÁö ¾Ê´Â´Ù¸é ÀÌ ¿ª½Ã ¸ğµç Å¬¶óÀÌ¾ğÆ®µé¿¡°Ô 
+   * ¸Ş¼Òµå°¡ ½ÇÇàµÈ´Ù.
    *
    * @param msg   Object The message to be sent
    */
@@ -254,11 +254,11 @@ public abstract class AbstractServer implements Runnable
    * in this might disconnect. New clients can also connect,
    * these later will not appear in the array.
    *
-   * ì¡´ì¬í•˜ëŠ” í´ë¦¬ì´ì–¸íŠ¸ connection ë“¤ì„ ë°°ì—´ë¡œ ë¦¬í„´í•´ì¤€ë‹¤.
-   * ì´ ë©”ì†Œë“œëŠ” ê°ê°ì˜ connection ì— ë­”ê°€ë¥¼ í•  ìˆ˜ ìˆë„ë¡ concrete subclassì— implementí•  ìˆ˜ ìˆë‹¤.
+   * Á¸ÀçÇÏ´Â Å¬¸®ÀÌ¾ğÆ® connection µéÀ» ¹è¿­·Î ¸®ÅÏÇØÁØ´Ù.
+   * ÀÌ ¸Ş¼Òµå´Â °¢°¢ÀÇ connection ¿¡ ¹º°¡¸¦ ÇÒ ¼ö ÀÖµµ·Ï concrete subclass¿¡ implementÇÒ ¼ö ÀÖ´Ù.
    * 
-   * ì´ ë°°ì—´ì´ ìƒì„±ë˜ë©´ ëª‡ëª‡ í´ë¼ì´ì–¸íŠ¸ë“¤ì´ ëŠê¸¸ ìˆ˜ ìˆìŒì„ ê¸°ì–µí•´ë¼.
-   * ìƒˆë¡œìš´ í´ë¼ì´ì–¸íŠ¸ê°€ ì—°ê²°í•  ìˆ˜ ìˆì§€ë§Œ, ë°°ì—´ì—ëŠ” ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ”ë‹¤.
+   * ÀÌ ¹è¿­ÀÌ »ı¼ºµÇ¸é ¸î¸î Å¬¶óÀÌ¾ğÆ®µéÀÌ ²÷±æ ¼ö ÀÖÀ½À» ±â¾ïÇØ¶ó.
+   * »õ·Î¿î Å¬¶óÀÌ¾ğÆ®°¡ ¿¬°áÇÒ ¼ö ÀÖÁö¸¸, ¹è¿­¿¡´Â ³ªÅ¸³ªÁö ¾Ê´Â´Ù.
    *
    * @return an array of <code>Thread</code> containing
    * <code>ConnectionToClient</code> instances.
@@ -325,8 +325,8 @@ public abstract class AbstractServer implements Runnable
    * The server must be closed and restarted for the backlog
    * change to be in effect.
    * 
-   * OSì—ì„œ connectionì„ ê¸°ë‹¤ë¦¬ëŠ” ìŠ¤ë ˆë“œì˜ ìµœëŒ€ì¹˜ë¥¼ ì •í•´ì¤„ ìˆ˜ ìˆë‹¤.
-   * ê¸°ë³¸ê°’ì€ 20ì´ë‹¤.
+   * OS¿¡¼­ connectionÀ» ±â´Ù¸®´Â ½º·¹µåÀÇ ÃÖ´ëÄ¡¸¦ Á¤ÇØÁÙ ¼ö ÀÖ´Ù.
+   * ±âº»°ªÀº 20ÀÌ´Ù.
    *  
    *
    * @param backlog the maximum number of connections.
@@ -341,8 +341,8 @@ public abstract class AbstractServer implements Runnable
   /**
    * Runs the listening thread that allows clients to connect.
    * Not to be called.
-   * í´ë¼ì´ì–¸íŠ¸ë“¤ì˜ ì—°ê²°ì„ í—ˆìš©í•˜ëŠ” ë¦¬ìŠ¤ë‹ ìŠ¤ë ˆë“œë¥¼ ì‹¤í–‰ì‹œí‚¨ë‹¤.
-   * call í•  í•„ìš”ëŠ” ì—†ë‹¤.
+   * Å¬¶óÀÌ¾ğÆ®µéÀÇ ¿¬°áÀ» Çã¿ëÇÏ´Â ¸®½º´× ½º·¹µå¸¦ ½ÇÇà½ÃÅ²´Ù.
+   * call ÇÒ ÇÊ¿ä´Â ¾ø´Ù.
    */
   final public void run()
   {
@@ -469,9 +469,9 @@ public abstract class AbstractServer implements Runnable
    * This method is called by a synchronized method so it is also
    * implcitly synchronized.
    *
-   * í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œ ë³´ë‚´ëŠ” ë©”ì„¸ì§€ë¥¼ í•¸ë“¤ë§ í•œë‹¤.
-   * ì´ ë©”ì†Œë“œëŠ” ë¬´ì¡°ê±´! subclass ì—ì„œ implement ë˜ì–´ì•¼ í•œë‹¤.
-   * synchronized ì˜µì…˜ì„ ë¶™ì—¬ì•¼ ëœë‹¤.
+   * Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·Î º¸³»´Â ¸Ş¼¼Áö¸¦ ÇÚµé¸µ ÇÑ´Ù.
+   * ÀÌ ¸Ş¼Òµå´Â ¹«Á¶°Ç! subclass ¿¡¼­ implement µÇ¾î¾ß ÇÑ´Ù.
+   * synchronized ¿É¼ÇÀ» ºÙ¿©¾ß µÈ´Ù.
    * 
    * @param msg   the message sent.
    * @param client the connection connected to the client that

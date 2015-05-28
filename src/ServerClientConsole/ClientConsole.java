@@ -14,21 +14,21 @@ import common.*;
  * chat interface in order to activate the display() method.
  * Warning: Some of the code here is cloned in ServerConsole
  * 
- * ì´ Class ëŠ” Display() ë©”ì†Œë“œë¥¼ ì´ìš©í•˜ì—¬ ì±„íŒ… UIë¥¼ ì œê³µí•œë‹¤.
- * ì£¼ì˜: ì—¬ê¸°ìˆëŠ” ëª‡ëª‡ ì½”ë“œë“¤ì€ ServerConsole ì— Clone ìœ¼ë¡œ ìˆë‹¤.
+ * ÀÌ Class ´Â Display() ¸Ş¼Òµå¸¦ ÀÌ¿ëÇÏ¿© Ã¤ÆÃ UI¸¦ Á¦°øÇÑ´Ù.
+ * ÁÖÀÇ: ¿©±âÀÖ´Â ¸î¸î ÄÚµåµéÀº ServerConsole ¿¡ Clone À¸·Î ÀÖ´Ù.
  * 
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge  
  * @author Dr Robert Lagani&egrave;re
  * @version July 2000
  */
-public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
+public class ClientConsole implements ChatIF // ChatIF ÀÎÅÍÆäÀÌ½º È£Ãâ
 {
   //Class variables *************************************************
   
   /**
    * The default port to connect on.
-   * DEFAULT_PORT : í¬íŠ¸ ë²ˆí˜¸, ì´ ë²ˆí˜¸ë¡œ ì»¤ë„¥íŠ¸
+   * DEFAULT_PORT : Æ÷Æ® ¹øÈ£, ÀÌ ¹øÈ£·Î Ä¿³ØÆ®
    */
   final public static int DEFAULT_PORT = 9000;
   
@@ -36,9 +36,9 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
   
   /**
    * The instance of the client that created this ConsoleChat.
-   * ChatClient ê°ì²´ ìƒì„±
+   * ChatClient °´Ã¼ »ı¼º
    */
-  Client client;
+  public static Client client;
 
   
   //Constructors ****************************************************
@@ -46,13 +46,13 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
   /**
    * Constructs an instance of the ClientConsole UI.
    *
-   * ClientConsole UI ê°ì²´(ì¸ìŠ¤í„´ìŠ¤) ìƒì„±
+   * ClientConsole UI °´Ã¼(ÀÎ½ºÅÏ½º) »ı¼º
    *
    * @param host The host to connect to.
    * @param port The port to connect on.
    */
   
-  public ClientConsole(String host, int port) // Client Console ìƒì„±ì
+  public ClientConsole(String host, int port) // Client Console »ı¼ºÀÚ
   {
     try 
     {
@@ -73,8 +73,8 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
    * This method waits for input from the console.  Once it is 
    * received, it sends it to the client's message handler.
    * 
-   * ì´ ë©”ì†Œë“œëŠ” console ì°½ì— ì…ë ¥í•  ë•Œê¹Œì§€ ëŒ€ê¸°í•œë‹¤. 
-   * console ì°½ì—ì„œì˜ ì…ë ¥ clientì˜ message handlerë¡œ ë³´ë‚¸ë‹¤.
+   * ÀÌ ¸Ş¼Òµå´Â console Ã¢¿¡ ÀÔ·ÂÇÒ ¶§±îÁö ´ë±âÇÑ´Ù. 
+   * console Ã¢¿¡¼­ÀÇ ÀÔ·Â clientÀÇ message handler·Î º¸³½´Ù.
    */
   public void accept() 
   {
@@ -84,7 +84,7 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
         new BufferedReader(new InputStreamReader(System.in));
       String message;
       
-      while (true) // ë¬´í•œ ë°˜ë³µí•˜ë©´ì„œ console ì…ë ¥ì„ ë°›ì•„ë“¤ì„.
+      while (true) // ¹«ÇÑ ¹İº¹ÇÏ¸é¼­ console ÀÔ·ÂÀ» ¹Ş¾ÆµéÀÓ.
       {
         message = fromConsole.readLine();
        
@@ -101,11 +101,11 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
     	{
     		if(client.isConnected())
     		{
-    			System.err.println("logoff í•´ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
+    			System.err.println("logoff ÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
     		}
     		else
     		{
-    			System.out.println("ì„œë²„ì— ì ‘ì†í•©ë‹ˆë‹¤.");
+    			System.out.println("¼­¹ö¿¡ Á¢¼ÓÇÕ´Ï´Ù.");
     			client = new Client(client.getHost(), client.getPort(), this);
     		}
     	}
@@ -117,26 +117,26 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
     	{	
     		if(client.isConnected())
     		{
-    			System.err.println("logoff í•´ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
+    			System.err.println("logoff ÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
     		}
     		else if(message.contains("<") && message.contains(">"))
     		{
     			client.setHost(message.substring(message.indexOf('<') + 1, message.indexOf('>')));
     		}
-    		else System.out.println("ì¸ìë¥¼ ë„£ì–´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
+    		else System.out.println("ÀÎÀÚ¸¦ ³Ö¾î ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
     	}
     	else if(message.length() >= 8 && message.substring(0, 8).equals("#setport"))
     	{	
     		if(client.isConnected())
     		{
-    			System.err.println("logoff í•´ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
+    			System.err.println("logoff ÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
     		}
     		else if(message.contains("<") && message.contains(">"))
     		{
     			client.setPort(Integer.parseInt(
     				message.substring(message.indexOf('<') + 1, message.indexOf('>'))));
     		}
-    		else System.out.println("ì¸ìë¥¼ ë„£ì–´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.");
+    		else System.out.println("ÀÎÀÚ¸¦ ³Ö¾î ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
     	}
     	else if(message.equals("#gethost"))
     	{	
@@ -160,7 +160,7 @@ public class ClientConsole implements ChatIF // ChatIF ì¸í„°í˜ì´ìŠ¤ í˜¸ì¶œ
    * This method overrides the method in the ChatIF interface.  It
    * displays a message onto the screen.
    * 
-   * Display()ëŠ” ì‘ë‹µí•˜ëŠ” ë©”ì„¸ì§€ë¥¼ ì¶œë ¥
+   * Display()´Â ÀÀ´äÇÏ´Â ¸Ş¼¼Áö¸¦ Ãâ·Â
    * 
    * @param message The string to be displayed.
    */

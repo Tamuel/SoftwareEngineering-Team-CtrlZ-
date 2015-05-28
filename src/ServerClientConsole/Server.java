@@ -4,20 +4,16 @@ package ServerClientConsole;
 // license found at www.lloseng.com 
 
 import java.io.*;
-import java.util.ArrayList;
 
-import Account.Account;
-import Assignment.Assignment;
-import Assignment.Subject;
-import QnA.Question;
 import common.*;
+
 import server.*;
 
 /**
  * This class overrides some of the methods in the abstract 
  * superclass in order to give more functionality to the server.
  * 
- * ï¿½ì”  Class ï¿½ë’— æ¹²ê³•ë’«ï¿½ê½¦ ï¿½ë¼¢ï¿½ê¸½ï¿½ì“£ ï¿½ìï¿½ë¹ AbstractServerç‘œï¿½ override ï¿½ë¸¿.
+ * ÀÌ Class ´Â ±â´É¼º Çâ»óÀ» À§ÇØ AbstractServer¸¦ override ÇÔ.
  *
  * @author Dr Timothy C. Lethbridge
  * @author Dr Robert Lagani&egrave;re
@@ -33,7 +29,7 @@ public class Server extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 9000;
- 
+  
   ChatIF chatUI;
   
   //Constructors ****************************************************
@@ -55,7 +51,7 @@ public class Server extends AbstractServer
   /**
    * This method handles any messages received from the client.
    * 
-   * ï¿½ì”  ï§ë¶¿ëƒ¼ï¿½ë±¶ï¿½ë’— client ï¿½ë¿‰ï¿½ê½Œ è«›ì†ï¿½ ï§â‘¤ë±º ï§ë¶¿ê½­ï§ï¿½ç‘œï¿½ ï¿½ë¹–ï¿½ë±¾ï§ï¿½ ï¿½ë¸³ï¿½ë–.
+   * ÀÌ ¸Ş¼Òµå´Â client ¿¡¼­ ¹ŞÀº ¸ğµç ¸Ş¼¼Áö¸¦ ÇÚµé¸µ ÇÑ´Ù.
    * 
    * @param msg The message received from the client.
    * @param client The connection from which the message originated.
@@ -70,7 +66,7 @@ public class Server extends AbstractServer
   /**
    * This method overrides the one in the superclass.  Called
    * 
-   * Clientï¿½ï¿½ ï¿½ë¿°å¯ƒê³•ë¦ºï¿½ë¿€ï¿½ì“£ ï¿½ë¸£ ï§ë¶¿ê½­ï§ï¿½ ç•°ì’•ì °
+   * Client¿Í ¿¬°áµÇ¾úÀ» ¶§ ¸Ş¼¼Áö Ãâ·Â
    * 
    * when the server starts listening for connections.
    */
@@ -83,7 +79,7 @@ public class Server extends AbstractServer
   /**
    * This method overrides the one in the superclass.  Called
    * 
-   * Serveråª›ï¿½ ä»¥ë¬’ï¿½ï¿½ë¦ºï¿½ë¿€ï¿½ì“£ ï¿½ë¸£ ç•°ì’•ì °
+   * Server°¡ ÁßÁöµÇ¾úÀ» ¶§ Ãâ·Â
    * 
    * when the server stops listening for connections.
    */
@@ -95,18 +91,18 @@ public class Server extends AbstractServer
   
   @Override
   protected void clientConnected(ConnectionToClient client) {
-	  System.out.println("ï¿½ê²¢ï¿½ì”ªï¿½ì” ï¿½ë¼µï¿½ë“ƒåª›ï¿½ ï¿½ë¿°å¯ƒê³•ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+	  System.out.println("Å¬¶óÀÌ¾ğÆ®°¡ ¿¬°áµÇ¾ú½À´Ï´Ù.");
   }
   
   @Override
   synchronized protected void clientException(
 		    ConnectionToClient client, Throwable exception) {
-	  System.out.println("ï¿½ê²¢ï¿½ì”ªï¿½ì” ï¿½ë¼µï¿½ë“ƒ ï¿½ë¿°å¯ƒê³—ì”  ï¿½ë¹ï¿½ì £ï¿½ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+	  System.out.println("Å¬¶óÀÌ¾ğÆ® ¿¬°áÀÌ ÇØÁ¦µÇ¾ú½À´Ï´Ù.");
   }
   
   @Override
   synchronized protected void clientDisconnected(ConnectionToClient client) {
-	  System.out.println("ï¿½ê²¢ï¿½ì”ªï¿½ì” ï¿½ë¼µï¿½ë“ƒ ï¿½ë¿°å¯ƒê³—ì“£ ï¿½ë¹ï¿½ì £ï¿½ë¸¯ï¿½ï¿½ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+	  System.out.println("Å¬¶óÀÌ¾ğÆ® ¿¬°áÀ» ÇØÁ¦ÇÏ¿´½À´Ï´Ù.");
   }  
   
   @Override
@@ -126,13 +122,6 @@ public class Server extends AbstractServer
   }
   
   
-  public void getAccount() {
-	  
-  }
-  
-  public void setAccount() {
-	  
-  }
   //Class methods ***************************************************
   
   /**
