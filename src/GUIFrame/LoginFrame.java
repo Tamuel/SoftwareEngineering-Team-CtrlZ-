@@ -5,6 +5,8 @@ import Assignment.Assignment;
 import Assignment.Subject;
 import GuiComponent.*;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
+import ServerClientConsole.Protocol;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,7 +39,7 @@ public class LoginFrame extends SimpleJFrame{
 	private SimpleTextField idField;
 	private SimpleTextField passwordField;
 	
-	static private Account accounts = ObjectSaveSingleton.getInstance().getAccounts();
+	static private Account account;
 	
 	private SimpleButton loginButton;
 	private SimpleButton joinButton;
@@ -81,17 +83,38 @@ public class LoginFrame extends SimpleJFrame{
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
 	}
 	
+	public void checkAccount()
+	{
+		while(ClientConsole.client.isMsgReceive() == false)
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("Load Account " + ((StudentAccount)ClientConsole.client.getAccount()).getSubjects().size() + "°³");
+		ClientConsole.client.setMsgReceive(false);
+		makeBulletinBoard(ClientConsole.client.getAccount());
+		visible(false);
+	}
+	
 	private class Action implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(ev.getSource().equals(loginButton)) {
-				Account temp;
-				if((temp = accounts.searchAccount(idField.getText(), passwordField.getText())) != null) {
-					makeBulletinBoard(temp);
-					visible(false);
+				try
+				{
+					ClientConsole.client.sendToServer(new Protocol("[LOGIN]", idField.getText() + ":" + passwordField.getText()));
 				}
+				catch(Exception ex)
+				{
+					System.err.println(ex.toString());
+				}
+				checkAccount();
 			}
 			else if(ev.getSource().equals(joinButton)) {
-				MakeAccountFrame join = new MakeAccountFrame(accounts,"Join", 300, 275, getThis());
+				MakeAccountFrame join = new MakeAccountFrame("Join", 300, 275, getThis());
 				visible(false);
 			}
 		}

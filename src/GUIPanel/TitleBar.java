@@ -63,7 +63,7 @@ public class TitleBar extends JPanel{
 
 	private class CloseWindow implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			ObjectSaveSingleton.getInstance().saveAccounts();
+			//ObjectSaveSingleton.getInstance().saveAccounts();
 			System.exit(0);
 		}
 	}

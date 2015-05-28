@@ -11,14 +11,14 @@ import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Subject;
+import Controller.AccountController;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import GuiComponent.SimpleTextField;
+import ServerClientConsole.ClientConsole;
+import ServerClientConsole.Protocol;
 
 public class MakeAccountFrame extends SimpleJFrame{
-	
-	private Account accounts;
-	
 	private LoginFrame loginFrame;
 	
 	private SimpleTextField idField;
@@ -35,10 +35,9 @@ public class MakeAccountFrame extends SimpleJFrame{
 	
 	private String subString = "담당 과목 (없으면 학생입니다)";
 	
-	public MakeAccountFrame(Account accounts, String frameName, int width, int height, LoginFrame loginFrame) {
+	public MakeAccountFrame(String frameName, int width, int height, LoginFrame loginFrame) {
 		super(frameName, width, height);
 
-		this.accounts = accounts;
 		this.loginFrame = loginFrame;
 		
 		idField = new SimpleTextField("ID");
@@ -81,26 +80,44 @@ public class MakeAccountFrame extends SimpleJFrame{
 		this.getContentPane().setBackground(new Color(255, 255, 255));
 		this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
 	}
+
+	public void checkAccount()
+	{
+		while(ClientConsole.client.isMsgReceive() == false)
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println(ClientConsole.client.getAccount().getId() + " " + ClientConsole.client.getAccount().getName());
+		
+		if(ClientConsole.client.getAccount().isProfessor()) {
+			BulletinBoardFrame board = new BulletinBoardFrame("과제 제출", 1100, 630, ClientConsole.client.getAccount());
+			ClientConsole.client.setMsgReceive(false);
+			visible(false);
+		} else if(ClientConsole.client.getAccount().isStudent()) {
+			ClientConsole.client.setMsgReceive(false);
+			SubjectSelectFrame sbFrame = new SubjectSelectFrame((StudentAccount)ClientConsole.client.getAccount(), "과목 선택", 300, 300, loginFrame);
+			ClientConsole.client.setMsgReceive(false);
+			visible(false);
+		}
+	}
 	
 	private class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			/* 교수님 계좌 생성 */
-			if(accounts.checkIdRepeated(idField.getText().toString()) && !subjectField.getText().equals(subString)) {
-				Subject newSubject = new Subject(subjectField.getText().toString());
-				ProfessorAccount temp = new ProfessorAccount(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString(), newSubject);
-				accounts.addAccount(temp);
-				loginFrame.setVisible(true);
-				visible(false);
-			} else if(accounts.checkIdRepeated(idField.getText().toString()) && subjectField.getText().equals(subString)) { /* 학생 계좌 생성 */
-				StudentAccount temp = new StudentAccount(idField.getText().toString(), passwordField.getText().toString(), nameField.getText().toString());
-				accounts.addAccount(temp);
-				SubjectSelectFrame sbFrame = new SubjectSelectFrame(accounts.getAccounts(), temp, "과목 선택", 300, 300, loginFrame);
-				visible(false);
-			} else if(!accounts.checkIdRepeated(idField.getText().toString())) {
-				idField.setText("");
-				idField.setGrayColor("이미 아이디가 존재합니다");
-				idField.focusLost(null);
+			try
+			{
+				ClientConsole.client.sendToServer(new Protocol("[JOIN]", idField.getText() + ":" + passwordField.getText() + ":" + nameField.getText() + ":" + subjectField.getText()));
 			}
+			catch(Exception ex)
+			{
+				System.err.println(ex.toString());
+			}
+		
+			checkAccount();
 		}
 	}
 	

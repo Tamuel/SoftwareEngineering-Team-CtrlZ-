@@ -97,30 +97,6 @@ public class Account implements Serializable{
 		this.accounts.add(account);
 	}
 	
-	// 21 MAR 2015 Tuna
-	// add a comment
-	/**
-	 * if there exists a duplicated id then return false
-	 * **/ 
-	public boolean checkIdRepeated(String id) {
-		Iterator checkAccount = accounts.iterator();
-		while(checkAccount.hasNext()) {
-			if(((Account)checkAccount.next()).getId().equals(id))
-				return false;
-		}
-		return true;
-	}
-
-	public Account searchAccount(String id, String password) {
-		Iterator checkAccount = accounts.iterator();
-		Account temp;
-		while(checkAccount.hasNext()) {
-			temp = (Account)checkAccount.next();
-			if(temp.getId().equals(id) && temp.checkPassword(password))
-				return temp;
-		}
-		return null;
-	}
 	
 	/**
 	 * haveNotice() : Declare whether notice is exist, return number of users notice

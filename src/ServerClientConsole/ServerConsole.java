@@ -25,7 +25,6 @@ import common.*;
  */
 public class ServerConsole implements ChatIF // ChatIF 인터페이스 호출
 {
-	static private Account accounts = ObjectSaveSingleton.getInstance().getAccounts();
 	
   //Class variables *************************************************
   

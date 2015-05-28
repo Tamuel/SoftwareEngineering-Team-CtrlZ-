@@ -19,6 +19,8 @@ import Assignment.Subject;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleJFrame;
 import GuiComponent.SimpleTextField;
+import ServerClientConsole.ClientConsole;
+import ServerClientConsole.Protocol;
 
 public class SubjectSelectFrame extends SimpleJFrame{
 	
@@ -38,7 +40,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 	
 	private Color selected = new Color(230, 230, 230);
 	
-	public SubjectSelectFrame(ArrayList<Account> accounts, StudentAccount student, String frameName, int width, int height, LoginFrame loginFrame) {
+	public SubjectSelectFrame(StudentAccount student, String frameName, int width, int height, LoginFrame loginFrame) {
 		super(frameName, width, height);
 
 		this.student = student;
@@ -53,8 +55,32 @@ public class SubjectSelectFrame extends SimpleJFrame{
 		panel.setSize(this.getWidth() - 30, height);
 		panel.setLayout(null);
 		
+
+		try
+		{
+			ClientConsole.client.sendToServer(new Protocol("[REQUEST_ACCOUNT_LIST]", ""));
+		}
+		catch(Exception ex)
+		{
+			System.err.println(ex.toString());
+		}
+		System.out.println("Send To Server Reuqest Account List");
+		
+		while(ClientConsole.client.isMsgReceive() == false)
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Leceive from Server Account List");
+		
+
+		Account accounts = ClientConsole.client.getAccountList();
+		
 		int i = 0;
-		Iterator iter = accounts.iterator();
+		Iterator iter = accounts.getAccounts().iterator();
 		while(iter.hasNext()) {
 			Account temp = (Account)iter.next();
 			if(temp.isProfessor()) {
@@ -118,8 +144,11 @@ public class SubjectSelectFrame extends SimpleJFrame{
 
 	private class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			student.getSubjects().addAll(mySubject);
-
+			
+			((StudentAccount)ClientConsole.client.getAccount()).getSubjects().addAll(mySubject);
+			
+			ClientConsole.client.saveChangeToServer();
+			
 			LoginFrame login = new LoginFrame("Login", 300, 200);
 			visible(false);
 		}
