@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import common.ProtocolType;
+
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
 import Assignment.Assignment;
@@ -15,6 +17,7 @@ import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
+import ServerClientConsole.ClientConsole;
 
 public class TitleBar extends JPanel{
 	private Account account;
@@ -63,7 +66,15 @@ public class TitleBar extends JPanel{
 
 	private class CloseWindow implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			//ObjectSaveSingleton.getInstance().saveAccounts();
+			try
+			{
+				ClientConsole.client.sendToServer(ProtocolType.QUIT, ClientConsole.client.getAccount().getId());
+			}
+			catch(Exception ex)
+			{
+				System.err.println(ex.toString());
+			}
+			
 			System.exit(0);
 		}
 	}

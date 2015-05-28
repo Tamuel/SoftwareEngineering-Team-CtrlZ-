@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
@@ -25,6 +27,7 @@ import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import GuiComponent.SimpleTextField;
+import ServerClientConsole.ClientConsole;
 
 public class NewAssignmentPanel extends JPanel{
 	
@@ -219,10 +222,19 @@ public class NewAssignmentPanel extends JPanel{
 
 	private class SubmitButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(boardFrame.getAccount().isProfessor()) {
-				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)boardFrame.getAccount()));
-				pCon.makeAssignment(topic.getText(), content.getText(), deadlineYear.getText().toString(),
-						deadlineMonth.getText().toString(), deadlineDay.getText().toString(), deadlineHour.getText().toString());
+			if(ClientConsole.client.getAccount().isProfessor()) {
+				try
+				{
+					ClientConsole.client.sendToServer(ProtocolType.MAKE_ASSIGNMENT, ClientConsole.client.getAccount().getId() + ":" +
+							topic.getText() + ":" + content.getText() + ":" +
+							deadlineYear.getText().toString() + ":" + deadlineMonth.getText().toString() + ":" +
+							deadlineDay.getText().toString() + ":" + deadlineHour.getText().toString());
+				}
+				catch(Exception ex)
+				{
+					System.err.println(ex.toString());
+				}
+				
 			}
 			
 			AssignmentList assignmentList = new AssignmentList(thisHeight(), subject, boardFrame, titleBar);

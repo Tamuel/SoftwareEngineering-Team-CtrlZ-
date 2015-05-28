@@ -1,6 +1,7 @@
 package Account;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,6 +12,7 @@ public class Account implements Serializable{
 	private String id;
 	private String name;
 	private String password;
+	private InetAddress clientAddress;
 	private int numberOfNotice;
 	private Permission permission; // Student 0, Professor 1
 	private boolean onLine = false; // Determine whether account is on-line
@@ -98,6 +100,22 @@ public class Account implements Serializable{
 	}
 	
 	
+	public boolean isOnLine() {
+		return onLine;
+	}
+
+	public void setOnLine(boolean onLine) {
+		this.onLine = onLine;
+	}
+
+	public InetAddress getClientAddress() {
+		return clientAddress;
+	}
+
+	public void setClientAddress(InetAddress clientAddress) {
+		this.clientAddress = clientAddress;
+	}
+
 	/**
 	 * haveNotice() : Declare whether notice is exist, return number of users notice
 	 */

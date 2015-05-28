@@ -12,6 +12,7 @@ import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Subject;
 import Controller.AccountController;
+import Controller.ProfessorAccountController;
 import GUIFrame.SubjectSelectFrame;
 import common.*;
 import server.*;
@@ -69,17 +70,25 @@ public class Server extends AbstractServer {
 		System.out.println("Proc received: " + proc.getProcKind() + " " + proc.getData().toString() + " from " + client);
 
 		AccountController aCon = new AccountController(accounts);
+		Account account = null;
+		
 		switch(proc.getProcKind())
 		{
 		case LOGIN:
-			Account account;
 			System.out.println("Search Account " + proc.getID() + " " + proc.getPW());
 			
-			if ((account = aCon.searchAccount(proc.getID(), proc.getPW())) != null) {
+			if ((account = aCon.searchAccount(proc.getID(), proc.getPW())) != null && !account.isOnLine()) {
 				System.out.println("Send to Client [LOGIN_ACCEPT]");
+				account.setOnLine(true);
+				account.setClientAddress(client.getInetAddress());
 				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.LOGIN_ACCEPT, account));
 			}
+			else {
+				System.out.println("Send to Client [LOGIN_FAIL]");
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.LOGIN_FAIL, account));
+			}
 			break;
+			
 		case JOIN:
 			String subString = "담당 과목 (없으면 학생입니다)";
 			System.out.println("Search Account for new account " + proc.getID() + " " + proc.getPW());
@@ -91,23 +100,46 @@ public class Server extends AbstractServer {
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
 				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
-			} else if(aCon.checkIdRepeated(proc.getID()) && proc.getSubject().equals(subString)) { /* 학생 계좌 생성 */
+			}
+			else if(aCon.checkIdRepeated(proc.getID()) && proc.getSubject().equals(subString)) { /* 학생 계좌 생성 */
 				StudentAccount temp = new StudentAccount(proc.getID(), proc.getPW(), proc.getName());
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
 				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
-			} else if(!aCon.checkIdRepeated(proc.getID())) {
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ID_EXIST, null));
+			}
+			else if(!aCon.checkIdRepeated(proc.getID())) {
+				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ID_EXIST, ""));
 			}
 			break;
+			
 		case ADD_SUBJECT:
-			System.out.println("Add " + proc.getSubject() + " to " + proc.getID() + client);
+			System.out.println("Add " + proc.getSubject() + " to " + proc.getID() + " " + client);
 			((StudentAccount)aCon.searchAccountByID(proc.getID())).addSubject(aCon.searchSubject(proc.getName(), proc.getSubject()));
+			ObjectSaveSingleton.getInstance().saveAccounts();
 			break;
+			
 		case REQUEST_ACCOUNT_LIST:
 			System.out.println("Send account list to client " + client);
 			this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ACCOUNT_LIST, accounts));
 			break;
+			
+		case MAKE_ASSIGNMENT:
+			System.out.println("Make new assignment " + proc.getID() + " " + proc.getTopic() + " " + client);
+			account = aCon.searchAccountByID(proc.getID());
+			ProfessorAccountController pCon = new ProfessorAccountController((ProfessorAccount)account);
+			pCon.makeAssignment(proc.getTopic(), proc.getContent(), proc.getYear(), proc.getMonth(), proc.getDay(), proc.getHour());
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.MAKE_ASSIGNMENT, accounts));
+				
+			break;
+			
+		case QUIT:
+			System.out.println("Client Quit " + client);
+			aCon.searchAccountByID(proc.getID()).setOnLine(false);
+			break;
+			
 		default:
 			break;
 		}

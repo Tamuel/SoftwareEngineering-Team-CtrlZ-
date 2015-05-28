@@ -61,7 +61,7 @@ public class SubjectSelectFrame extends SimpleJFrame{
 
 		try
 		{
-			ClientConsole.client.sendToServer(new Protocol(ProtocolType.REQUEST_ACCOUNT_LIST, ""));
+			ClientConsole.client.sendToServer(ProtocolType.REQUEST_ACCOUNT_LIST, "");
 		}
 		catch(Exception ex)
 		{
@@ -149,8 +149,8 @@ public class SubjectSelectFrame extends SimpleJFrame{
 		public void actionPerformed(ActionEvent ev) {
 			for(int i = 0; i < mySubject.size(); i++) {
 				try {
-					ClientConsole.client.sendToServer(new Protocol(ProtocolType.ADD_SUBJECT, ClientConsole.client.getAccount().getId() + ":" 
-							+ mySubject.get(i).getName() + ":" + mySubject.get(i).getProfessor().getName()));
+					ClientConsole.client.sendToServer(ProtocolType.ADD_SUBJECT, ClientConsole.client.getAccount().getId() + ":" 
+							+ mySubject.get(i).getName() + ":" + mySubject.get(i).getProfessor().getName());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

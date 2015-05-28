@@ -87,19 +87,26 @@ public class LoginFrame extends SimpleJFrame{
 	
 	public void checkAccount()
 	{
-		while(ClientConsole.client.isMsgReceive() == false)
+		try
 		{
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			while(ClientConsole.client.isMsgReceive() == false)
+			{
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			ClientConsole.client.setMsgReceive(false);
+			if(ClientConsole.client.getAccount() != null) {
+				makeBulletinBoard(ClientConsole.client.getAccount());
+				visible(false);
 			}
 		}
-		
-		System.out.println("Load Account " + ((StudentAccount)ClientConsole.client.getAccount()).getSubjects().size() + "°³");
-		ClientConsole.client.setMsgReceive(false);
-		makeBulletinBoard(ClientConsole.client.getAccount());
-		visible(false);
+		catch(Exception ex)
+		{
+			System.err.println("Login Fail");
+		}
 	}
 	
 	private class Action implements ActionListener {
@@ -107,7 +114,7 @@ public class LoginFrame extends SimpleJFrame{
 			if(ev.getSource().equals(loginButton)) {
 				try
 				{
-					ClientConsole.client.sendToServer(new Protocol(ProtocolType.LOGIN, idField.getText() + ":" + passwordField.getText()));
+					ClientConsole.client.sendToServer(ProtocolType.LOGIN, idField.getText() + ":" + passwordField.getText());
 				}
 				catch(Exception ex)
 				{

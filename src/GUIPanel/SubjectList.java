@@ -18,6 +18,7 @@ import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
+import ServerClientConsole.ClientConsole;
 
 public class SubjectList extends JPanel{
 
@@ -43,11 +44,11 @@ public class SubjectList extends JPanel{
 	private Color fontColor = new Color(100, 100, 100);
 	private Color clickColor = new Color(123, 170, 218);
 	
-	public SubjectList(int height, Account account, BulletinBoardFrame boardFrame, TitleBar titleBar) {
+	public SubjectList(int height, BulletinBoardFrame boardFrame, TitleBar titleBar) {
 		subjectButtons = new ArrayList<SimpleButton>();
 		this.boardFrame = boardFrame;
 		this.titleBar = titleBar;
-		this.account = account;
+		this.account = ClientConsole.client.getAccount();
 		
 		this.setLayout(null);
 		

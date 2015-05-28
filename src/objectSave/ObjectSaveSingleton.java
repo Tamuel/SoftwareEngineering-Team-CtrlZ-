@@ -18,8 +18,11 @@ public class ObjectSaveSingleton {
 		if(!loadAccounts()) {
 			accounts = new Account();
 			System.out.println("새로운 account 객체를 만들었습니다");
+			saveAccounts();
 		}
+		else {
 		System.out.println("기존의 account 를 불러왔습니다");
+		}
 	}
 	
 	public void saveAccounts() {

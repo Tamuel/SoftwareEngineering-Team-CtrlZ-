@@ -97,8 +97,8 @@ public class MakeAccountFrame extends SimpleJFrame{
 		System.out.println(ClientConsole.client.getAccount().getId() + " " + ClientConsole.client.getAccount().getName());
 		
 		if(ClientConsole.client.getAccount().isProfessor()) {
-			BulletinBoardFrame board = new BulletinBoardFrame("과제 제출", 1100, 630);
 			ClientConsole.client.setMsgReceive(false);
+			loginFrame.setVisible(true);
 			visible(false);
 		} else if(ClientConsole.client.getAccount().isStudent()) {
 			ClientConsole.client.setMsgReceive(false);
@@ -112,8 +112,8 @@ public class MakeAccountFrame extends SimpleJFrame{
 		public void actionPerformed(ActionEvent ev) {
 			try
 			{
-				ClientConsole.client.sendToServer(new Protocol(ProtocolType.JOIN, idField.getText() + ":" + passwordField.getText()
-						+ ":" + nameField.getText() + ":" + subjectField.getText()));
+				ClientConsole.client.sendToServer(ProtocolType.JOIN, idField.getText() + ":" + passwordField.getText()
+						+ ":" + nameField.getText() + ":" + subjectField.getText());
 			}
 			catch(Exception ex)
 			{

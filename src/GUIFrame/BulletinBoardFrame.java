@@ -68,7 +68,7 @@ public class BulletinBoardFrame extends SimpleJFrame{
 		menuButton.setVisible(false);
 		this.add(menuButton);
 		
-		SubjectList subjectList = new SubjectList(this.getHeight() - titleBarHeight, account, this, titleBar);
+		SubjectList subjectList = new SubjectList(this.getHeight() - titleBarHeight, this, titleBar);
 		
 		subjectScrollPane = new JScrollPane();
 		assignmentScrollPane = new JScrollPane();
