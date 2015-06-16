@@ -116,6 +116,11 @@ public class Protocol implements Serializable{
 			break;
 			
 		case MAKE_QUESTION:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			topic = dataStrings[2];
+			content = dataStrings[3];
+			name = dataStrings[4];
 			break;
 			
 		case MAKE_ANSWER:

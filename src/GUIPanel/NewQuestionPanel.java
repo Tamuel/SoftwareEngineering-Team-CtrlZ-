@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.ProtocolType;
 import Account.Account;
 import Account.StudentAccount;
 import Assignment.Assignment;
@@ -23,6 +24,7 @@ import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import GuiComponent.SimpleTextField;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class NewQuestionPanel extends JPanel{
 	
@@ -94,11 +96,45 @@ public class NewQuestionPanel extends JPanel{
 
 	private class addQuestion implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
-			sCon.makeQuestion(subject, topic.getText(), content.getText());
+			//StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+			//sCon.makeQuestion(subject, topic.getText(), content.getText());
+			//boardFrame.addQuestionPanel(new QuestionList(thisHeight(), subject, boardFrame, titleBar));
+			//boardFrame.repaint();
+			
+			/*
+			 * 2015.06.17, Tuna Park
+			 * - Add server-clients COMMS func.
+			 */
+			if(ClientConsole.client.getAccount().isStudent()) {
+				try
+				{
+					ClientConsole.client.sendToServer(ProtocolType.MAKE_QUESTION,
+							ClientConsole.client.getAccount().getId() + ":" +
+							subject.getName() + ":" + 
+							topic.getText() + ":" +
+							content.getText() + ":" +
+							subject.getProfessor().getName());
+				}
+				catch(Exception ex)
+				{
+					System.err.println(ex.toString());
+				}
+			}
+			
 			boardFrame.addQuestionPanel(new QuestionList(thisHeight(), subject, boardFrame, titleBar));
 			boardFrame.repaint();
 		}
+	}
+	
+	/**
+	 * this returns student account if it's instance of StudentAccount
+	 * @return StudentAccount : student
+	 */
+	public StudentAccount getStudent() {
+		if(ClientConsole.client.getAccount().isStudent())
+			return (StudentAccount)ClientConsole.client.getAccount();
+		else
+			return null;
 	}
 	
 	public int thisHeight() {

@@ -199,6 +199,25 @@ public class Server extends AbstractServer {
 			
 			break;
 			
+			/*
+			 * 2015.06.17, Tuna Park
+			 * - this occurs when client(student) add new question and send it to the server
+			 */
+		case MAKE_QUESTION:
+			System.out.println("Make Question " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			
+			account = aCon.searchAccountByID(proc.getID());
+			Subject subject = aCon.searchSubject(proc.getName(), proc.getSubject());
+			sCon = new StudentAccountController((StudentAccount)account);
+			sCon.makeQuestion(subject, proc.getTopic(), proc.getContent());
+			
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, subject.getName()));
+			
+			break;
+			
 		case NEED_REFRESH:
 			account = aCon.searchAccountByID(proc.getID());
 			System.out.println("Refresh " + account.getId() + " " + client);

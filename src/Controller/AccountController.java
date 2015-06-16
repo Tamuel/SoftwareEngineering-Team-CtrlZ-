@@ -32,6 +32,12 @@ public class AccountController {
 		return true;
 	}
 	
+	/**
+	 * this searches account by id and password and returns account matched with
+	 * @param id
+	 * @param password
+	 * @return account
+	 */
 	public Account searchAccount(String id, String password) {
 		Iterator checkAccount = accountList.getAccounts().iterator();
 		Account temp;

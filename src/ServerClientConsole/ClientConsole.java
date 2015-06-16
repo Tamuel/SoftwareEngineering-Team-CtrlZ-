@@ -153,7 +153,7 @@ public class ClientConsole implements ChatIF // ChatIF 인터페이스 호출
 	 *            [0] The host to connect to.
 	 */
 	public static void main(String[] args) {
-		String host = "192.168.0.114";
+		String host = "localhost";
 		int port = DEFAULT_PORT;
 
 		LoginFrame login = new LoginFrame("Login", 300, 200);
