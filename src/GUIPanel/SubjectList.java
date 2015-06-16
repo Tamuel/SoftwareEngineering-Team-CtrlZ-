@@ -118,9 +118,9 @@ public class SubjectList extends JPanel{
 				tempSubject = ((StudentAccount)account).getSubjects().get(subjectButtons.indexOf((SimpleButton)ev.getSource()));
 			else if(account.isProfessor())
 				tempSubject = ((ProfessorAccount)account).getSubject();
-			
 			assignmentButton.setLocation(((SimpleButton)ev.getSource()).getX(), ((SimpleButton)ev.getSource()).getY());
 			questionButton.setLocation(assignmentButton.getX() + assignmentButton.getWidth(), ((SimpleButton)ev.getSource()).getY());
+//			((SimpleButton)ev.getSource()).setLocation(-subjectButtonWidth, 0);
 		}
 	}
 

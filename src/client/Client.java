@@ -5,6 +5,7 @@
 package client;
 
 import Account.Account;
+import Account.ProfessorAccount;
 import Account.StudentAccount;
 import GUIFrame.LoginFrame;
 import ServerClientConsole.ClientConsole;
@@ -94,7 +95,7 @@ public class Client extends AbstractClient {
 			break;
 			
 		case MAKE_ASSIGNMENT_REFRESH:
-			if(account instanceof StudentAccount) {
+			if(account.isStudent()) {
 				for(int i = 0; i < ((StudentAccount)account).getSubjects().size(); i++)
 					if(((StudentAccount)account).getSubjects().get(i).getName().equals(proc.getSubject()))
 					{
@@ -106,13 +107,23 @@ public class Client extends AbstractClient {
 						break;
 					}
 			}
+			else {
+				if(((ProfessorAccount)account).getSubject().getName().equals(proc.getSubject()))
+				{
+					try {
+						sendToServer(ProtocolType.NEED_REFRESH, account.getId());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				}
+			}
 			setMsgReceive(false);
 			break;
 			
 		case REFRESH:
 			setAccount((Account)proc.getData());
-			System.out.println("계좌를 새로고침 했습니다 " + account.getName() + " " + ((StudentAccount)account).getSubjects().get(0) + " " +
-						((StudentAccount)account).getSubjects().get(0).getAssignments().size());
+			System.out.println("계좌를 새로고침 했습니다 ");
 			setMsgReceive(false);
 			break;
 			

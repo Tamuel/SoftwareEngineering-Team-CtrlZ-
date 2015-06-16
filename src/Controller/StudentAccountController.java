@@ -32,6 +32,13 @@ public class StudentAccountController {
 		getAccount().getAnswers().add(make);
 		question.addAnswer(make);
 	}
+	
+	public Subject getSubject(String name) {
+		for(int i = 0; i < account.getSubjects().size(); i++)
+			if(account.getSubjects().get(i).getName().equals(name))
+				return account.getSubjects().get(i);
+		return null;
+	}
 
 	public StudentAccount getAccount() {
 		return account;

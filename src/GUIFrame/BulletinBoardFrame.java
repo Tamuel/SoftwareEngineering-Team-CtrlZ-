@@ -37,7 +37,7 @@ import GuiComponent.SimpleJFrame;
 import QnA.Question;
 import ServerClientConsole.ClientConsole;
 
-public class BulletinBoardFrame extends SimpleJFrame{
+public class BulletinBoardFrame extends SimpleJFrame {
 	
 	private Subject subject;
 	

@@ -87,11 +87,11 @@ public class Server extends AbstractServer {
 				System.out.println("Send to Client [LOGIN_ACCEPT]");
 				account.setOnLine(true);
 				account.setClientAddress(client.getInetAddress());
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.LOGIN_ACCEPT, account));
+				this.sendToClient(client, new Protocol(ProtocolType.LOGIN_ACCEPT, account));
 			}
 			else {
 				System.out.println("Send to Client [LOGIN_FAIL]");
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.LOGIN_FAIL, account));
+				this.sendToClient(client, new Protocol(ProtocolType.LOGIN_FAIL, account));
 			}
 			break;
 			
@@ -105,16 +105,16 @@ public class Server extends AbstractServer {
 				ProfessorAccount temp = new ProfessorAccount(proc.getID(), proc.getPW(), proc.getName(), newSubject);
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
+				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, temp));
 			}
 			else if(aCon.checkIdRepeated(proc.getID()) && proc.getSubject().equals(subString)) { /* 학생 계좌 생성 */
 				StudentAccount temp = new StudentAccount(proc.getID(), proc.getPW(), proc.getName());
 				accounts.addAccount(temp);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.JOIN_ACCEPT, temp));
+				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, temp));
 			}
 			else if(!aCon.checkIdRepeated(proc.getID())) {
-				this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ID_EXIST, ""));
+				this.sendToClient(client, new Protocol(ProtocolType.ID_EXIST, ""));
 			}
 			break;
 			
@@ -126,7 +126,7 @@ public class Server extends AbstractServer {
 			
 		case REQUEST_ACCOUNT_LIST:
 			System.out.println("Send account list to client " + client);
-			this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.ACCOUNT_LIST, accounts));
+			this.sendToClient(client, new Protocol(ProtocolType.ACCOUNT_LIST, accounts));
 			break;
 			
 		case MAKE_ASSIGNMENT:
@@ -138,17 +138,17 @@ public class Server extends AbstractServer {
 			
 			/* 모든 클라이언트에게 전송 */
 			this.sendToAllClients(new Protocol(ProtocolType.MAKE_ASSIGNMENT_REFRESH, ((ProfessorAccount)account).getSubject().getName()));
-				
+			
 			break;
 			
 		case NEED_REFRESH:
 			account = aCon.searchAccountByID(proc.getID());
 			System.out.println("Refresh " + account.getId() + " " + client);
-			this.sendToClient(client.getInetAddress(), new Protocol(ProtocolType.REFRESH, account));
+			this.sendToClient(client, new Protocol(ProtocolType.REFRESH, account));
 			break;
 			
 		case QUIT:
-			System.out.println("Client Quit " + client);
+			System.out.println("Client Quit " + " " + client);
 			aCon.searchAccountByID(proc.getID()).setOnLine(false);
 			break;
 			
