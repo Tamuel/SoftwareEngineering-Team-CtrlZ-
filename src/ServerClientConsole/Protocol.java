@@ -124,6 +124,11 @@ public class Protocol implements Serializable{
 			break;
 			
 		case MAKE_ANSWER:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			contNum = Integer.parseInt(dataStrings[2]);
+			name = dataStrings[3];
+			content = dataStrings[4];
 			break;
 			
 		case NEED_REFRESH:

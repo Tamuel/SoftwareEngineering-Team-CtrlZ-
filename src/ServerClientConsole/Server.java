@@ -84,6 +84,8 @@ public class Server extends AbstractServer {
 		Account account = null;
 		Assignment assignment = null;
 		AccountController aCon = new AccountController(accounts);
+		StudentAccountController sCon;
+		ProfessorAccountController pCon;
 		Calendar time = Calendar.getInstance();
 		
 		switch(proc.getProcKind())
@@ -140,7 +142,7 @@ public class Server extends AbstractServer {
 		case MAKE_ASSIGNMENT:
 			System.out.println("Make new assignment " + proc.getID() + " " + proc.getTopic() + " " + client);
 			account = aCon.searchAccountByID(proc.getID());
-			ProfessorAccountController pCon = new ProfessorAccountController((ProfessorAccount)account);
+			pCon = new ProfessorAccountController((ProfessorAccount)account);
 			pCon.makeAssignment(proc.getTopic(), proc.getContent(), proc.getYear(), proc.getMonth(), proc.getDay(), proc.getHour());
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
@@ -177,7 +179,7 @@ public class Server extends AbstractServer {
 			System.out.println("Submit assignment " + proc.getID() + " " + proc.getContNum() + " " + proc.getTopic() + " " + client);
 			account = aCon.searchAccountByID(proc.getID());
 			assignment = aCon.getProfAssignment(proc.getContNum());
-			StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+			sCon = new StudentAccountController((StudentAccount)account);
 			sCon.submitAssignment(assignment, new Assignment(proc.getTopic(), proc.getContent(), new Date()));
 			((StudentAccount)account).printAllAssignment();
 			ObjectSaveSingleton.getInstance().saveAccounts();
@@ -201,7 +203,7 @@ public class Server extends AbstractServer {
 			
 			/*
 			 * 2015.06.17, Tuna Park
-			 * - this occurs when client(student) add new question and send it to the server
+			 * - this occurs when client(student) adds new question and send it to the server
 			 */
 		case MAKE_QUESTION:
 			System.out.println("Make Question " + proc.getContNum() + " " + proc.getTopic() + " " + client);
@@ -210,6 +212,31 @@ public class Server extends AbstractServer {
 			Subject subject = aCon.searchSubject(proc.getName(), proc.getSubject());
 			sCon = new StudentAccountController((StudentAccount)account);
 			sCon.makeQuestion(subject, proc.getTopic(), proc.getContent());
+			
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, subject.getName()));
+			
+			break;
+			
+			/*
+			 * 2015.06.17, Tuna Park
+			 * - this occurs when client adds new answer and send it to the server
+			 */
+		case MAKE_ANSWER:
+			System.out.println("Make Answer " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			
+			account = aCon.searchAccountByID(proc.getID());
+			subject = aCon.searchSubject(proc.getName(), proc.getSubject());
+
+			if(account.isProfessor()) {
+				pCon = new ProfessorAccountController((ProfessorAccount)account);
+				pCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
+			}else if(account.isStudent()) {
+				sCon = new StudentAccountController((StudentAccount)account);
+				sCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
+			}
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			

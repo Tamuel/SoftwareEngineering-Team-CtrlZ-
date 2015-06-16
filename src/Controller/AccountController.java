@@ -9,6 +9,7 @@ import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
+import QnA.Question;
 
 public class AccountController {
 	Account accountList;
@@ -139,7 +140,6 @@ public class AccountController {
 		return null;
 	}
 		
-	
 	public Assignment getProfAssignment(int contNum) {
 		ArrayList<Assignment> tempAssignments = getAssignments();
 		
@@ -149,6 +149,27 @@ public class AccountController {
 		
 		while(checkAssignment.hasNext()) {
 			temp = (Assignment)checkAssignment.next();
+			if(temp.getContNum() == contNum)
+				return temp;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * this returns specified question
+	 * 
+	 * @param subject
+	 * @param contNum
+	 * @return question
+	 */
+	public Question getQuestion(Subject subject, int contNum) {
+		
+		Iterator checkQuestion = subject.getSubjectQuestions().getQuestions().iterator();
+		Question temp;
+		
+		while(checkQuestion.hasNext()) {
+			temp = (Question)checkQuestion.next();
 			if(temp.getContNum() == contNum)
 				return temp;
 		}

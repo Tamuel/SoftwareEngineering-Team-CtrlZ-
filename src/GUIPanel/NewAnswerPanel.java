@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
@@ -24,6 +26,7 @@ import GuiComponent.SimpleLabel;
 import GuiComponent.SimpleTextArea;
 import QnA.Answer;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class NewAnswerPanel extends JPanel{
 	
@@ -91,12 +94,26 @@ public class NewAnswerPanel extends JPanel{
 
 	private class submit implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(account.isProfessor()) {
+			/*if(account.isProfessor()) {
 				ProfessorAccountController pCon = new ProfessorAccountController((ProfessorAccount)account);
 				pCon.answerQuestion(question, content.getText());
 			}else if(account.isStudent()) {
 				StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
 				sCon.answerQuestion(question, content.getText());
+			}*/
+			
+			try
+			{
+				ClientConsole.client.sendToServer(ProtocolType.MAKE_ANSWER,
+						ClientConsole.client.getAccount().getId() + ":" +
+						question.getSubject().getName() + ":" + 
+						question.getContNum() + ":" + 
+						question.getSubject().getProfessor().getName() + ":" +
+						content.getText());
+			}
+			catch(Exception ex)
+			{
+				System.err.println(ex.toString());
 			}
 
 			boardFrame.addContentPanel(new ContentPanel(question, boardFrame, titleBar));
