@@ -137,7 +137,7 @@ public class Server extends AbstractServer {
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
 			/* 모든 클라이언트에게 전송 */
-			this.sendToAllClients(new Protocol(ProtocolType.MAKE_ASSIGNMENT_REFRESH, ((ProfessorAccount)account).getSubject().getName()));
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, ((ProfessorAccount)account).getSubject().getName()));
 			
 			break;
 			

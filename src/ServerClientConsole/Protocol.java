@@ -74,8 +74,8 @@ public class Protocol implements Serializable{
 			day = dataStrings[5];
 			hour = dataStrings[6];
 			break;
-			
-		case MAKE_ASSIGNMENT_REFRESH:
+
+		case SET_REFRESH:
 			subject = dataStrings[0];
 			break;
 			

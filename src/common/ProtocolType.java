@@ -12,7 +12,7 @@ public enum ProtocolType {
 	ADD_SUBJECT,
 	QUIT,
 	MAKE_ASSIGNMENT, // 교수가 새로운 과제 생성
-	MAKE_ASSIGNMENT_REFRESH, // 새로운 과제를 생성했을 때 클라이언트 리프래시
+	SET_REFRESH, // 새로운 과제를 생성했을 때 클라이언트 리프래시
 	EDIT_ASSINMENT, // 교수가 과제 수정 시
 	SUBMIT_ASSIGNMENT, // 학생이 교수가 생성한 과제에 과제 제출
 	APPRAISAL_ASSIGNMENT, // 학생이 제출한 과제를 교수가 채점

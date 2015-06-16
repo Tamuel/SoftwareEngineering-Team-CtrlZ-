@@ -234,7 +234,6 @@ public class NewAssignmentPanel extends JPanel{
 				{
 					System.err.println(ex.toString());
 				}
-				
 			}
 			
 			AssignmentList assignmentList = new AssignmentList(thisHeight(), subject, boardFrame, titleBar);

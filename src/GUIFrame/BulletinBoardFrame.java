@@ -77,16 +77,19 @@ public class BulletinBoardFrame extends SimpleJFrame {
 		subjectScrollPane.setSize(subjectList.getWidth() + scrollBarWidth, this.HEIGHT - titleBar.getHeight());
 		subjectScrollPane.setWheelScrollingEnabled(true);
 		subjectScrollPane.setViewportView(subjectList);
+		subjectScrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		
 		assignmentScrollPane.setLocation(subjectScrollPane.getWidth(), titleBarHeight + menuButton.getHeight());
 		assignmentScrollPane.setBorder(null);
 		assignmentScrollPane.setSize(xBorder * 2 + assignmentButtonWidth + scrollBarWidth, this.HEIGHT - titleBar.getHeight() - menuButton.getHeight());
 		assignmentScrollPane.setWheelScrollingEnabled(true);
+		assignmentScrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		
 		contentPane.setLocation(assignmentScrollPane.getX() + assignmentScrollPane.getWidth(), titleBarHeight);
 		contentPane.setBorder(null);
 		contentPane.setSize(this.getWidth() - (assignmentScrollPane.getX() + assignmentScrollPane.getWidth()), this.HEIGHT - titleBar.getHeight());
 		contentPane.setWheelScrollingEnabled(true);
+		contentPane.getVerticalScrollBar().setUnitIncrement(10);
 //		contentPane.setLayout(null);
 		
 		menuButton.setLocation(subjectScrollPane.getWidth(), titleBar.getHeight());

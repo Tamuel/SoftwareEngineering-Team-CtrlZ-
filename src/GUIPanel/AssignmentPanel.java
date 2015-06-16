@@ -84,6 +84,7 @@ public class AssignmentPanel extends JPanel{
 		scrollBar.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(180, 180, 180)));
 		scrollBar.setSize(this.getWidth() - 2, this.getHeight() - topicHeight - makeAssignment.getHeight() - 10);
 		scrollBar.setWheelScrollingEnabled(true);
+		scrollBar.getVerticalScrollBar().setUnitIncrement(10);
 		
 		this.add(topic);
 		this.add(scrollBar);

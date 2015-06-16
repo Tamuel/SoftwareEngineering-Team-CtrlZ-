@@ -94,8 +94,9 @@ public class Client extends AbstractClient {
 			System.out.println("계좌 리스트를 가져왔습니다");
 			break;
 			
-		case MAKE_ASSIGNMENT_REFRESH:
-			if(account.isStudent()) {
+		case SET_REFRESH:
+			if(account.isStudent())
+			{
 				for(int i = 0; i < ((StudentAccount)account).getSubjects().size(); i++)
 					if(((StudentAccount)account).getSubjects().get(i).getName().equals(proc.getSubject()))
 					{
@@ -107,7 +108,8 @@ public class Client extends AbstractClient {
 						break;
 					}
 			}
-			else {
+			else
+			{
 				if(((ProfessorAccount)account).getSubject().getName().equals(proc.getSubject()))
 				{
 					try {
