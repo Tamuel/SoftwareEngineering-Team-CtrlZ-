@@ -21,6 +21,7 @@ public class Question implements Serializable {
 	private String topic;
 	private String content;
 	private Date time;
+	private int contNum;
 	
 	public Question(Subject subject) {
 		this.subject = subject;
@@ -32,6 +33,8 @@ public class Question implements Serializable {
 		this.subject = subject;
 		this.topic = topic;
 		this.content = content;
+		
+		contNum = Account.contNum++;
 		
 		answers = new ArrayList<Answer>();
 		

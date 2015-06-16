@@ -28,6 +28,7 @@ public class Assignment implements Serializable {
 	private ArrayList<Assignment> studentsAssignment; // 학생들이 제출한 과제
 	private ArrayList<String> attachedDocument; // 첨부 파일
 	private String comment;
+	private int contNum;
 	
 	/* 교수님이 새로운 과제를 만들 때 사용하는 생성자 */
 	public Assignment(ProfessorAccount professor, String topic, String content,
@@ -41,6 +42,8 @@ public class Assignment implements Serializable {
 		try {
 			deadline = dateFormat.parse(stringDate);
 		} catch (Exception ex) {System.err.println("占시곤옙占쏙옙 占쏙옙占쏙옙占� 占쌉력듸옙占쏙옙 占십았쏙옙占싹댐옙!");}
+		
+		contNum = Account.contNum++;
 
 		studentsAssignment = new ArrayList<Assignment>();
 		attachedDocument = new ArrayList<String>();
@@ -53,6 +56,8 @@ public class Assignment implements Serializable {
 		this.deadline = date;
 		this.setScored(false);
 		attachedDocument = new ArrayList<String>();
+		
+		contNum = Account.contNum++;
 	}
 	
 	/**

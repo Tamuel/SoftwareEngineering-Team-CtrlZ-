@@ -18,6 +18,7 @@ public class Answer implements Serializable {
 	private Question question;
 	private String content;
 	private Date time;
+	private int contNum;
 	
 	public Answer(StudentAccount student, Question question, String ans)
 	{
@@ -25,6 +26,7 @@ public class Answer implements Serializable {
 		this.question=question;
 		this.content=ans;
 		this.time = new Date();
+		contNum = Account.contNum++;
 	}
 	
 	public Answer(ProfessorAccount professor, Question question, String ans)
@@ -33,6 +35,7 @@ public class Answer implements Serializable {
 		this.question=question;
 		this.content=ans;
 		this.time = new Date();
+		contNum = Account.contNum++;
 	}
 
 	public void setStudent(StudentAccount student)

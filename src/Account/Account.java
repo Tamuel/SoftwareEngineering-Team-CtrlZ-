@@ -17,9 +17,11 @@ public class Account implements Serializable {
 	private Permission permission; // Student 0, Professor 1
 	private boolean onLine = false; // Determine whether account is on-line
 	private ArrayList<Account> accounts;
+	public static int contNum;
 	
 	public Account() {
 		this.accounts = new ArrayList<Account>();
+		contNum = 0;
 	}
 	
 	// 21 MAR 2015 Tuna
@@ -115,7 +117,7 @@ public class Account implements Serializable {
 	public void setClientAddress(InetAddress clientAddress) {
 		this.clientAddress = clientAddress;
 	}
-
+	
 	/**
 	 * haveNotice() : Declare whether notice is exist, return number of users notice
 	 */
