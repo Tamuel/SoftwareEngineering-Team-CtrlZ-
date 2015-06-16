@@ -91,6 +91,10 @@ public class Question implements Serializable {
 		return answers;
 	}
 	
+	public int getContNum() {
+		return contNum;
+	}
+
 	public ArrayList<Question> getQuestions()
 	{
 		return questions;

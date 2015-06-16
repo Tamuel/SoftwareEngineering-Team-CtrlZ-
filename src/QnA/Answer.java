@@ -84,6 +84,10 @@ public class Answer implements Serializable {
 		return "";
 	}
 	
+	public int getContNum() {
+		return contNum;
+	}
+
 	public String getContent()
 	{
 		return content;

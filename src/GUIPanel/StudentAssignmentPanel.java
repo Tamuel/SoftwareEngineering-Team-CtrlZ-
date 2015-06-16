@@ -13,6 +13,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import common.ProtocolType;
+
 import Account.*;
 import Assignment.Assignment;
 import Assignment.Subject;
@@ -301,21 +303,37 @@ public class StudentAssignmentPanel extends JPanel{
 		
 	private class EditButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			assignment.setTopic(topic.getText());
-			assignment.setContent(content.getText());
-			assignment.setDeadline(new Date());
-			getStudent().printAllAssignment();
+			if(ClientConsole.client.getAccount().isStudent()) {
+				try
+				{
+					ClientConsole.client.sendToServer(ProtocolType.STUDENT_EDIT_ASSIGNMENT, assignment.getSubject().getName() + ":" + assignment.getContNum() + ":" + 
+								topic.getText() + ":" + content.getText());
+				}
+				catch(Exception ex)
+				{
+					System.err.println(ex.toString());
+				}
+			}
 		}
 	}
 	
 	private class SubmitButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(getStudent() != null) {
-				Date submitTime = new Date();
-				Assignment myAssignment = new Assignment(topic.getText(), content.getText(), submitTime);
-				StudentAccountController sCon = new StudentAccountController(getStudent());
-				sCon.submitAssignment(assignment, myAssignment);
-				getStudent().printAllAssignment();
+				if(ClientConsole.client.getAccount().isStudent()) {
+					try
+					{
+						ClientConsole.client.sendToServer(ProtocolType.SUBMIT_ASSIGNMENT, getStudent().getId() + ":" + assignment.getContNum() + ":" + 
+									topic.getText() + ":" + content.getText());
+					}
+					catch(Exception ex)
+					{
+						System.err.println(ex.toString());
+					}
+				}
+//				StudentAccountController sCon = new StudentAccountController(getStudent());
+//				sCon.submitAssignment(assignment, myAssignment);
+//				getStudent().printAllAssignment();
 
 				ContentPanel contentPanel = new ContentPanel(assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);

@@ -172,6 +172,10 @@ public class Assignment implements Serializable {
 	private void saveData() {
 	}
 	
+	public int getContNum() {
+		return contNum;
+	}
+
 	public void makeStatistic() {	
 	}
 }

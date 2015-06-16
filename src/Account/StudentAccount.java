@@ -87,18 +87,18 @@ public class StudentAccount extends Account implements Serializable {
 		pl("--------------------------------------------------");
 		for(int i = 0; i < this.getSubjects().size(); i++) {
 			Subject subejct = this.getSubjects().get(i);
-			pl("占쏙옙占쏙옙 : " + subejct.getName() + " ");
+			pl("Subject : " + subejct.getName() + " ");
 			for(int j = 0; j < subejct.getAssignments().size(); j++) {
 				Assignment assignment = subejct.getAssignments().get(j);
-				pl("      " + "占쏙옙占쏙옙: " + assignment.getTopic() + " ");
+				pl("      " + "Assignment: " + assignment.getTopic() + " ");
 				for(int k = 0; k < assignment.getStudentsAssignment().size(); k++) {
 					Assignment sassignment = assignment.getStudentsAssignment().get(k);
 
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					pl("              " + "占싻삼옙 : " + sassignment.getStudent().getName());
-					pl("              " + "占쏙옙占쏙옙챨占� : " + dateFormat.format(sassignment.getDeadline()));
-					pl("              " + "占쏙옙占쏙옙 : " + sassignment.getTopic());
-					pl("              " + "占쏙옙占쏙옙 : " + sassignment.getContent());
+					pl("              " + "Stu Assignment : " + sassignment.getStudent().getName());
+					pl("              " + "Date : " + dateFormat.format(sassignment.getDeadline()));
+					pl("              " + "Topic : " + sassignment.getTopic());
+					pl("              " + "Content : " + sassignment.getContent());
 				}
 			}
 		}

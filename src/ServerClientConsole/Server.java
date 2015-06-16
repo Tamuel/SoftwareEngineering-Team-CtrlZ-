@@ -5,16 +5,22 @@ package ServerClientConsole;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
+import Assignment.Assignment;
 import Assignment.Notice;
 import Assignment.Subject;
 import Controller.AccountController;
 import Controller.ProfessorAccountController;
+import Controller.StudentAccountController;
 import GUIFrame.SubjectSelectFrame;
 import common.*;
 import server.*;
@@ -76,7 +82,9 @@ public class Server extends AbstractServer {
 		System.out.println("Proc received: " + proc.getProcKind() + " " + proc.getData().toString() + " from " + client);
 
 		Account account = null;
+		Assignment assignment = null;
 		AccountController aCon = new AccountController(accounts);
+		Calendar time = Calendar.getInstance();
 		
 		switch(proc.getProcKind())
 		{
@@ -138,6 +146,56 @@ public class Server extends AbstractServer {
 			
 			/* 모든 클라이언트에게 전송 */
 			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, ((ProfessorAccount)account).getSubject().getName()));
+			
+			break;
+			
+		case EDIT_ASSIGNMENT:
+			System.out.println("Edit assignment " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			assignment = aCon.getProfAssignment(proc.getContNum());
+			
+			Date temp;
+			String stringDate = proc.getYear() + "/" + proc.getMonth() + "/"
+								+ proc.getDay() + "/" + proc.getHour();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
+			try {
+				temp = dateFormat.parse(stringDate);
+				assignment.setTopic(proc.getTopic());
+				assignment.setContent(proc.getContent());
+				assignment.setDeadline(temp);
+			}
+			catch(Exception ex) {
+				System.err.println(ex.toString());
+			}
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, assignment.getProfessor().getSubject().getName()));
+			
+			break;
+			
+		case SUBMIT_ASSIGNMENT:
+			System.out.println("Submit assignment " + proc.getID() + " " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			account = aCon.searchAccountByID(proc.getID());
+			assignment = aCon.getProfAssignment(proc.getContNum());
+			StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+			sCon.submitAssignment(assignment, new Assignment(proc.getTopic(), proc.getContent(), new Date()));
+			((StudentAccount)account).printAllAssignment();
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, assignment.getProfessor().getSubject().getName()));
+			
+			break;
+			
+		case STUDENT_EDIT_ASSIGNMENT:
+			System.out.println("Edit assignment " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			assignment = aCon.getStudAssignment(proc.getSubject(), proc.getContNum());
+			assignment.setTopic(proc.getTopic());
+			assignment.setContent(proc.getContent());
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, assignment.getProfessor().getSubject().getName()));
 			
 			break;
 			

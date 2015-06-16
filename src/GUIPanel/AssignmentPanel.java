@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Account.StudentAccount;
 import Assignment.Assignment;

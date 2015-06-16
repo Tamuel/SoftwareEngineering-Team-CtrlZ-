@@ -16,6 +16,8 @@ public class StudentAccountController {
 
 	public void submitAssignment(Assignment whichAssignment, Assignment myAssignment) {
 		whichAssignment.addStudentAssignment(getAccount(), myAssignment);
+		myAssignment.setProfessor(whichAssignment.getProfessor());
+		myAssignment.setSubject(whichAssignment.getSubject());
 		myAssignment.setStudent(getAccount());
 		getAccount().getSubmittedAssignments().add(whichAssignment);
 		getAccount().getAssignments().add(myAssignment);

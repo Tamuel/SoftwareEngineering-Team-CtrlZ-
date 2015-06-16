@@ -15,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import common.ProtocolType;
-
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
@@ -205,10 +204,21 @@ public class NewAssignmentPanel extends JPanel{
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
 			try {
 				temp = dateFormat.parse(stringDate);
-				assignment.setDeadline(temp);
-				assignment.setTopic(topic.getText().toString());
-				assignment.setContent(content.getText().toString());
-
+				Assignment tempAssignment = new Assignment(topic.getText(), content.getText(), temp);
+				if(ClientConsole.client.getAccount().isProfessor()) {
+					try
+					{
+						ClientConsole.client.sendToServer(ProtocolType.EDIT_ASSIGNMENT, assignment.getContNum() + ":" +
+								topic.getText() + ":" + content.getText() + ":" +
+								deadlineYear.getText().toString() + ":" + deadlineMonth.getText().toString() + ":" +
+								deadlineDay.getText().toString() + ":" + deadlineHour.getText().toString());
+					}
+					catch(Exception ex)
+					{
+						System.err.println(ex.toString());
+					}
+				}
+				
 				ContentPanel contentPanel = new ContentPanel(subject, assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);
 

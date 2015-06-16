@@ -2,6 +2,7 @@ package ServerClientConsole;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import common.ProtocolType;
 
@@ -20,6 +21,10 @@ public class Protocol implements Serializable{
 	private String month;
 	private String day;
 	private String hour;
+	
+	private Date date;
+	
+	private int contNum;
 	
 	/**
 	 * Make Protocol for communicate between client and server
@@ -75,6 +80,16 @@ public class Protocol implements Serializable{
 			hour = dataStrings[6];
 			break;
 
+		case EDIT_ASSIGNMENT:
+			contNum = Integer.parseInt(dataStrings[0]);
+			topic = dataStrings[1];
+			content = dataStrings[2];
+			year = dataStrings[3];
+			month = dataStrings[4];
+			day = dataStrings[5];
+			hour = dataStrings[6];
+			break;
+			
 		case SET_REFRESH:
 			subject = dataStrings[0];
 			break;
@@ -84,6 +99,17 @@ public class Protocol implements Serializable{
 			break;
 			
 		case SUBMIT_ASSIGNMENT:
+			ID = dataStrings[0];
+			contNum = Integer.parseInt(dataStrings[1]);
+			topic = dataStrings[2];
+			content = dataStrings[3];
+			break;
+			
+		case STUDENT_EDIT_ASSIGNMENT:
+			subject = dataStrings[0];
+			contNum = Integer.parseInt(dataStrings[1]);
+			topic = dataStrings[2];
+			content = dataStrings[3];
 			break;
 			
 		case APPRAISAL_ASSIGNMENT:
@@ -165,6 +191,18 @@ public class Protocol implements Serializable{
 
 	public String getHour() {
 		return hour;
+	}
+
+	public int getContNum() {
+		return contNum;
+	}
+
+	public void setContNum(int contNum) {
+		this.contNum = contNum;
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	public Object getData() {
