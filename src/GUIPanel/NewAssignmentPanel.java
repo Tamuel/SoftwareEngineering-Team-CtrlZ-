@@ -221,7 +221,7 @@ public class NewAssignmentPanel extends JPanel{
 				
 				ContentPanel contentPanel = new ContentPanel(subject, assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);
-
+	
 				AssignmentList assignmentList = new AssignmentList(thisHeight(), subject, boardFrame, titleBar);
 				boardFrame.addAssignmentPanel(assignmentList);
 				titleBar.setAssignmentPath(assignment);

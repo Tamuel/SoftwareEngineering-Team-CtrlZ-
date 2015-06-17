@@ -134,8 +134,9 @@ public class Client extends AbstractClient {
 			
 		default:
 			break;
-		
 		}
+		
+		System.out.println("# of Notice : " + account.getNotices().size());
 	}
 	
 	public Account getAccount() {
