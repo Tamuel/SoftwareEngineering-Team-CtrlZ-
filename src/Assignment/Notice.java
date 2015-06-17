@@ -2,16 +2,18 @@ package Assignment;
 
 public class Notice {
 
-	private String from;
-	private String to;
+	private String destination; // destined ID
 	private String message;
 	
 	public Notice() {
 	}
 	
-	public Notice(String from, String to, String message) {
-		setFrom(from);
-		setTo(to);
+	public Notice(String message) {
+		setMessage(message);
+	}
+	
+	public Notice(String destination, String message) {
+		setDestination(destination);
 		setMessage(message);
 	}
 
@@ -19,22 +21,14 @@ public class Notice {
 	/*
 	 * Getters and Setters below
 	 */
-	public String getFrom() {
-		return from;
+	public String getDestination() {
+		return this.destination;
 	}
-
-	public void setFrom(String from) {
-		this.from = from;
+	
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
-
-	public String getTo() {
-		return to;
-	}
-
-	public void setTo(String to) {
-		this.to = to;
-	}
-
+	
 	public String getMessage() {
 		return message;
 	}

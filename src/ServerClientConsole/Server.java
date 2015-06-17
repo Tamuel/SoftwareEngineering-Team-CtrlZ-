@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
@@ -19,6 +20,7 @@ import Assignment.Assignment;
 import Assignment.Notice;
 import Assignment.Subject;
 import Controller.AccountController;
+import Controller.NoticeController;
 import Controller.ProfessorAccountController;
 import Controller.StudentAccountController;
 import GUIFrame.SubjectSelectFrame;
@@ -82,11 +84,15 @@ public class Server extends AbstractServer {
 		System.out.println("Proc received: " + proc.getProcKind() + " " + proc.getData().toString() + " from " + client);
 
 		Account account = null;
+		Account temp = null;
 		Assignment assignment = null;
 		AccountController aCon = new AccountController(accounts);
 		StudentAccountController sCon;
 		ProfessorAccountController pCon;
+		NoticeController nCon;
 		Calendar time = Calendar.getInstance();
+		Iterator it;
+		Date today;
 		
 		switch(proc.getProcKind())
 		{
@@ -112,16 +118,16 @@ public class Server extends AbstractServer {
 			/* 교수님 계좌 생성 */
 			if(aCon.checkIdRepeated(proc.getID()) && !proc.getSubject().equals(subString)) {
 				Subject newSubject = new Subject(proc.getSubject());
-				ProfessorAccount temp = new ProfessorAccount(proc.getID(), proc.getPW(), proc.getName(), newSubject);
-				accounts.addAccount(temp);
+				ProfessorAccount tempPAccount = new ProfessorAccount(proc.getID(), proc.getPW(), proc.getName(), newSubject);
+				accounts.addAccount(tempPAccount);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, temp));
+				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, tempPAccount));
 			}
 			else if(aCon.checkIdRepeated(proc.getID()) && proc.getSubject().equals(subString)) { /* 학생 계좌 생성 */
-				StudentAccount temp = new StudentAccount(proc.getID(), proc.getPW(), proc.getName());
-				accounts.addAccount(temp);
+				StudentAccount tempSAccount = new StudentAccount(proc.getID(), proc.getPW(), proc.getName());
+				accounts.addAccount(tempSAccount);
 				ObjectSaveSingleton.getInstance().saveAccounts();
-				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, temp));
+				this.sendToClient(client, new Protocol(ProtocolType.JOIN_ACCEPT, tempSAccount));
 			}
 			else if(!aCon.checkIdRepeated(proc.getID())) {
 				this.sendToClient(client, new Protocol(ProtocolType.ID_EXIST, ""));
@@ -130,7 +136,14 @@ public class Server extends AbstractServer {
 			
 		case ADD_SUBJECT:
 			System.out.println("Add " + proc.getSubject() + " to " + proc.getID() + " " + client);
-			((StudentAccount)aCon.searchAccountByID(proc.getID())).addSubject(aCon.searchSubject(proc.getName(), proc.getSubject()));
+			( (StudentAccount)aCon.searchAccountByID( proc.getID() ) ).addSubject( aCon.searchSubject( proc.getName(), proc.getSubject() ) );
+			
+			System.out.println("111111111");
+			
+			aCon.searchSubject(proc.getName(), proc.getSubject()).getStudents().add( (StudentAccount)aCon.searchAccountByID( proc.getID() ) );
+			
+			System.out.println("222222222");
+			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			break;
 			
@@ -144,6 +157,23 @@ public class Server extends AbstractServer {
 			account = aCon.searchAccountByID(proc.getID());
 			pCon = new ProfessorAccountController((ProfessorAccount)account);
 			pCon.makeAssignment(proc.getTopic(), proc.getContent(), proc.getYear(), proc.getMonth(), proc.getDay(), proc.getHour());
+			
+			/*
+			 * make notice
+			 */
+			nCon = new NoticeController(account);
+			
+			it = ((ProfessorAccount)account).getSubject().getStudents().iterator();
+			today = new Date();
+			
+			while(it.hasNext()) {
+				temp = (StudentAccount)it.next();
+				temp.getNotices().add(nCon.getNewAssignmentNotice(((ProfessorAccount)account).getSubject(), today));
+			}
+			/*
+			 * make notice - end
+			 */
+			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
 			/* 모든 클라이언트에게 전송 */
@@ -155,15 +185,15 @@ public class Server extends AbstractServer {
 			System.out.println("Edit assignment " + proc.getContNum() + " " + proc.getTopic() + " " + client);
 			assignment = aCon.getProfAssignment(proc.getContNum());
 			
-			Date temp;
+			Date tempDate;
 			String stringDate = proc.getYear() + "/" + proc.getMonth() + "/"
 								+ proc.getDay() + "/" + proc.getHour();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
 			try {
-				temp = dateFormat.parse(stringDate);
+				tempDate = dateFormat.parse(stringDate);
 				assignment.setTopic(proc.getTopic());
 				assignment.setContent(proc.getContent());
-				assignment.setDeadline(temp);
+				assignment.setDeadline(tempDate);
 			}
 			catch(Exception ex) {
 				System.err.println(ex.toString());
@@ -182,6 +212,19 @@ public class Server extends AbstractServer {
 			sCon = new StudentAccountController((StudentAccount)account);
 			sCon.submitAssignment(assignment, new Assignment(proc.getTopic(), proc.getContent(), new Date()));
 			((StudentAccount)account).printAllAssignment();
+			
+			/*
+			 * make notice
+			 */
+			nCon = new NoticeController(account);
+
+			today = new Date();
+			
+			assignment.getSubject().getProfessor().getNotices().add(nCon.getSubmitAssignmentNotice(assignment.getSubject(), today));
+			/*
+			 * make notice - end
+			 */
+			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
 			/* 모든 클라이언트에게 전송 */
@@ -214,6 +257,22 @@ public class Server extends AbstractServer {
 			pCon = new ProfessorAccountController(((ProfessorAccount)account));
 			pCon.assignmentAppraisal(proc.getContent(), proc.getScore(), assignment);
 			
+			/*
+			 * make notice
+			 */
+			nCon = new NoticeController(account);
+			
+			it = ((ProfessorAccount)account).getSubject().getStudents().iterator();
+			today = new Date();
+			
+			while(it.hasNext()) {
+				temp = (StudentAccount)it.next();
+				temp.getNotices().add(nCon.getAppraisalAssignmentNotice( ((ProfessorAccount)account).getSubject(), today ) );
+			}
+			/*
+			 * make notice - end
+			 */
+			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
 			/* 모든 클라이언트에게 전송 */
@@ -232,6 +291,24 @@ public class Server extends AbstractServer {
 			Subject subject = aCon.searchSubject(proc.getName(), proc.getSubject());
 			sCon = new StudentAccountController((StudentAccount)account);
 			sCon.makeQuestion(subject, proc.getTopic(), proc.getContent());
+			
+			/*
+			 * make notice
+			 */
+			nCon = new NoticeController(account);
+			
+			it = subject.getStudents().iterator();
+			today = new Date();
+			
+			subject.getProfessor().getNotices().add( nCon.getNewQuestionNotice( subject, today ) );
+			
+			while(it.hasNext()) {
+				temp = (Account)it.next();
+				temp.getNotices().add( nCon.getNewQuestionNotice( subject, today ) );
+			}
+			/*
+			 * make notice - end
+			 */
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
@@ -257,6 +334,24 @@ public class Server extends AbstractServer {
 				sCon = new StudentAccountController((StudentAccount)account);
 				sCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
 			}
+			
+			/*
+			 * make notice
+			 */
+			nCon = new NoticeController(account);
+			
+			it = subject.getStudents().iterator();
+			today = new Date();
+			
+			subject.getProfessor().getNotices().add( nCon.getNewAnswerNotice( subject, today ) );
+			
+			while(it.hasNext()) {
+				temp = (Account)it.next();
+				temp.getNotices().add( nCon.getNewAnswerNotice( subject, today ) );
+			}
+			/*
+			 * make notice - end
+			 */
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			

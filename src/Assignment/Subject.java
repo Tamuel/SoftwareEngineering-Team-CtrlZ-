@@ -52,4 +52,29 @@ public class Subject implements Serializable {
 	public ProfessorAccount getProfessor() {
 		return professor;
 	}
+
+	public ArrayList<StudentAccount> getStudents() {
+		return students;
+	}
+
+	public void setStudents(ArrayList<StudentAccount> students) {
+		this.students = students;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAssignments(ArrayList<Assignment> assignments) {
+		this.assignments = assignments;
+	}
+	
 }
