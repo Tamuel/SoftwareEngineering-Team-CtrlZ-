@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import common.ProtocolType;
-
 import Account.*;
 import Assignment.Assignment;
 import Assignment.Subject;
@@ -294,8 +293,20 @@ public class StudentAssignmentPanel extends JPanel{
 	private class ScoreButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if(!assignment.isScored()) {
-				ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)ClientConsole.client.getAccount()));
-				pCon.assignmentAppraisal(comment.getText().toString(), score.getText().toString(), assignment);
+				try {
+					ClientConsole.client.sendToServer(ProtocolType.APPRAISAL_ASSIGNMENT,
+							ClientConsole.client.getAccount().getId() + ":" +
+							assignment.getSubject().getName() + ":" +
+							assignment.getContNum() + ":" +
+							comment.getText().toString() + ":" +
+							score.getText().toString());
+				}
+				catch(Exception ex) {
+					System.err.println(ex.toString());
+				}
+				
+				//ProfessorAccountController pCon = new ProfessorAccountController(((ProfessorAccount)ClientConsole.client.getAccount()));
+				//pCon.assignmentAppraisal(comment.getText().toString(), score.getText().toString(), assignment);
 			}
 			System.out.println(assignment.getScoredAssignment().getScore() + " " + assignment.getScoredAssignment().getComment());
 		}

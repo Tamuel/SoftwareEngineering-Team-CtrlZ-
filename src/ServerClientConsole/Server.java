@@ -203,6 +203,26 @@ public class Server extends AbstractServer {
 			
 			/*
 			 * 2015.06.17, Tuna Park
+			 * - this occurs when client(professor) comments, scoring and send it to the server
+			 */
+		case APPRAISAL_ASSIGNMENT:
+			System.out.println("Make Comment " + proc.getContNum() + " " + proc.getSubject() + " " + client);
+			
+			account = aCon.searchAccountByID(proc.getID());
+			assignment = aCon.getStudAssignment(proc.getSubject(), proc.getContNum());
+			
+			pCon = new ProfessorAccountController(((ProfessorAccount)account));
+			pCon.assignmentAppraisal(proc.getContent(), proc.getScore(), assignment);
+			
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, assignment.getProfessor().getSubject().getName()));
+			
+			break;
+			
+			/*
+			 * 2015.06.17, Tuna Park
 			 * - this occurs when client(student) adds new question and send it to the server
 			 */
 		case MAKE_QUESTION:

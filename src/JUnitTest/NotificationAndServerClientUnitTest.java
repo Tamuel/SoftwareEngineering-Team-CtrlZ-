@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.Date;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -41,7 +42,7 @@ public class NotificationAndServerClientUnitTest {
 	}
 	
 	@Before
-	public void before() {
+	public void beforeNotiTest() {
 	}
 	
 	
@@ -116,4 +117,10 @@ public class NotificationAndServerClientUnitTest {
 		
 		Assert.assertEquals(1, receiver.getAccount().haveNotice());
 	}
+	
+	@After
+	public void afterNotiTest()	{
+	}
+	
+	
 }

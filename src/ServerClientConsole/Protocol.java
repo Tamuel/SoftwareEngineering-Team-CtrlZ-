@@ -17,6 +17,7 @@ public class Protocol implements Serializable{
 	
 	private String topic;
 	private String content;
+	private String score;
 	private String year;
 	private String month;
 	private String day;
@@ -112,9 +113,20 @@ public class Protocol implements Serializable{
 			content = dataStrings[3];
 			break;
 			
+			/*
+			 * this is for scoring and make a comment for the submitted assignment
+			 */
 		case APPRAISAL_ASSIGNMENT:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			contNum = Integer.parseInt(dataStrings[2]); // for finding assignment
+			content = dataStrings[3];
+			score = dataStrings[4];
 			break;
 			
+			/*
+			 * this is for adding question by student 
+			 */
 		case MAKE_QUESTION:
 			ID = dataStrings[0];
 			subject = dataStrings[1];
@@ -123,6 +135,9 @@ public class Protocol implements Serializable{
 			name = dataStrings[4];
 			break;
 			
+			/*
+			 * this is for adding answer
+			 */
 		case MAKE_ANSWER:
 			ID = dataStrings[0];
 			subject = dataStrings[1];
@@ -222,4 +237,13 @@ public class Protocol implements Serializable{
 	public void setData(Object data) {
 		this.data = data;
 	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+	
 }
