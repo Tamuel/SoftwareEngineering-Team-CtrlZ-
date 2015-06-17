@@ -108,7 +108,8 @@ public class AnswerPanel extends JPanel{
 						ClientConsole.client.getAccount().getId() + ":" +
 						answer.getQuestion().getSubject().getName() + ":" + 
 						answer.getContNum() + ":" + // for finding answer
-						answer.getQuestion().getContNum()); // for finding question
+						answer.getQuestion().getContNum() + ":" + // for finding question
+						answer.getQuestion().getSubject().getProfessor().getName());
 				
 				System.out.println();
 			}

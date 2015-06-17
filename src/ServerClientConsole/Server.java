@@ -270,7 +270,7 @@ public class Server extends AbstractServer {
 			
 			account = aCon.searchAccountByID(proc.getID());
 			subject = aCon.searchSubject(proc.getName(), proc.getSubject());
-			
+
 			if(account.isProfessor()) {
 				((ProfessorAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
 			}
@@ -278,7 +278,7 @@ public class Server extends AbstractServer {
 				((StudentAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
 			}
 			
-			System.out.println("¾ÈµÊ?????????????????");
+			aCon.getQuestion(subject, proc.getContNum2()).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			

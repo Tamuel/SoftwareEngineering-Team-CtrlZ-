@@ -155,6 +155,7 @@ public class Protocol implements Serializable{
 			subject = dataStrings[1];
 			contNum = Integer.parseInt(dataStrings[2]); // answer number
 			contNum2 = Integer.parseInt(dataStrings[3]); // question number
+			name = dataStrings[4];
 			break;
 			
 		case NEED_REFRESH:
