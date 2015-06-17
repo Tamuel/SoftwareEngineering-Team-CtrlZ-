@@ -12,14 +12,17 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import Account.Account;
+import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
+import Controller.StudentAccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleTextArea;
 import QnA.Answer;
 import QnA.Question;
+import ServerClientConsole.ClientConsole;
 
 public class QuestionList extends JPanel{
 	
@@ -51,15 +54,23 @@ public class QuestionList extends JPanel{
 		this.boardFrame = boardFrame;
 
 		this.setLayout(null);
-		
-		for(int i = 0; i < subject.getSubjectQuestions().getQuestions().size(); i++) {
+		this.setBackground(backgroundColor);
+		this.setBorder(null);
+
+		paint();
+	}
+	
+	public void paint() {
+		subject = getSubject();
+		int numOfQuestions = subject.getSubjectQuestions().getQuestions().size();
+		for(int i = 0; i < numOfQuestions; i++) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 			
 			SimpleButton temp = new SimpleButton(subject.getSubjectQuestions().getQuestions().get(i).getTopic(),
 					subject.getSubjectQuestions().getQuestions().get(i).getStudent().getName(),
 					dateFormat.format(subject.getSubjectQuestions().getQuestions().get(i).getTime()) + "¿¡ ÀÛ¼º",
 					questionButtonWidth, questionButtonHeight);
-			temp.setLocation(xBorder, yBorder + (questionButtonHeight + yBorder) * i);
+			temp.setLocation(xBorder, yBorder + (questionButtonHeight + yBorder) * (numOfQuestions - i - 1));
 			temp.addActionListener(new questionButtonListener());
 			temp.setBackground(buttonColor);
 			temp.setFontColor(fontColor, fontColor, fontColor);
@@ -77,8 +88,6 @@ public class QuestionList extends JPanel{
 		if(this.height > height)
 			height = this.height;
 		
-		this.setBackground(backgroundColor);
-		this.setBorder(null);
 		this.setSize(xBorder * 2 + questionButtonWidth, height);
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
@@ -97,7 +106,13 @@ public class QuestionList extends JPanel{
 	}
 	
 	public Subject getSubject() {
-		return subject;
+		if(ClientConsole.client.getAccount().isProfessor())
+			return ((ProfessorAccount)ClientConsole.client.getAccount()).getSubject();
+		else {
+			StudentAccountController sCon = new StudentAccountController(
+					(StudentAccount)ClientConsole.client.getAccount());
+			return sCon.getSubject(subject.getName());
+		}
 	}
 
 	public void removeQuestionPanel() {

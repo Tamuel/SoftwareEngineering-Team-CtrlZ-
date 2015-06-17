@@ -106,13 +106,12 @@ public class AnswerPanel extends JPanel{
 			
 			if(!boardFrame.getSeeWholeAnswer()) {
 				boardFrame.addContentPanel(new ContentPanel(answer.getQuestion(), boardFrame, titleBar));
-				boardFrame.repaint();	
+				boardFrame.repaint();
 			}else {
 				ContentPanel maPanel = new ContentPanel(boardFrame, ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers(), titleBar);
 				boardFrame.addContentPanel(maPanel);
 				boardFrame.setSeeWholeAnswer(true);
 			}
-			
 		}
 	}
 	
