@@ -44,8 +44,6 @@ public class Server extends AbstractServer {
 
 	private Account accounts = ServerConsole.accounts;
 	
-	private ArrayList<Notice> noticies;
-	
 	/**
 	 * The default port to listen on.
 	 */
@@ -137,13 +135,9 @@ public class Server extends AbstractServer {
 		case ADD_SUBJECT:
 			System.out.println("Add " + proc.getSubject() + " to " + proc.getID() + " " + client);
 			( (StudentAccount)aCon.searchAccountByID( proc.getID() ) ).addSubject( aCon.searchSubject( proc.getName(), proc.getSubject() ) );
-			
-			System.out.println("111111111");
-			
+
 			aCon.searchSubject(proc.getName(), proc.getSubject()).getStudents().add( (StudentAccount)aCon.searchAccountByID( proc.getID() ) );
-			
-			System.out.println("222222222");
-			
+
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			break;
 			
@@ -262,13 +256,15 @@ public class Server extends AbstractServer {
 			 */
 			nCon = new NoticeController(account);
 			
-			it = ((ProfessorAccount)account).getSubject().getStudents().iterator();
+			//it = ((ProfessorAccount)account).getSubject().getStudents().iterator();
 			today = new Date();
 			
-			while(it.hasNext()) {
+			assignment.getStudent().getNotices().add( nCon.getAppraisalAssignmentNotice( ((ProfessorAccount)account).getSubject(), today ) );
+			/*while(it.hasNext()) {
 				temp = (StudentAccount)it.next();
 				temp.getNotices().add(nCon.getAppraisalAssignmentNotice( ((ProfessorAccount)account).getSubject(), today ) );
-			}
+			}*/
+			
 			/*
 			 * make notice - end
 			 */
