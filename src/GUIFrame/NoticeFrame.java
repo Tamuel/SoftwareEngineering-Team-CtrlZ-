@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Assignment.Notice;
 import GuiComponent.SimpleButton;
@@ -45,6 +47,15 @@ public class NoticeFrame extends SimpleJFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				account.getNotices().clear();
+				
+				try {
+					ClientConsole.client.sendToServer(ProtocolType.CLEAR_NOTICE,
+							ClientConsole.client.getAccount().getId());
+				}
+				catch(Exception ex) {
+					
+				}
+				
 				exit();
 			}
 			

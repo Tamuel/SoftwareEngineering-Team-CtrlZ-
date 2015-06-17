@@ -63,7 +63,8 @@ public class AnswerPanel extends JPanel{
 
 		AccountController aCon = new AccountController(ClientConsole.client.getAccount());
 		
-		if(aCon.getAnswer(answer.getQuestion().getSubject(), answer.getContNum(), answer.getQuestion().getContNum()) != null) {
+		if(aCon.getAnswer(answer.getQuestion().getSubject(), answer.getContNum(), answer.getQuestion().getContNum()) != null &&
+				ClientConsole.client.getAccount().getName().equals(answer.getName())) {
 			content = new SimpleTextArea(answer.getContent());
 			content.setSize(this.getWidth() * 10 / 16 - 1, 0);
 			content.setLocation(1, 1);

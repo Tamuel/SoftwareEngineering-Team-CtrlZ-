@@ -137,6 +137,17 @@ public class Protocol implements Serializable{
 			break;
 			
 			/*
+			 * this is for editing question by student
+			 */
+		case EDIT_QUESTION:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			topic = dataStrings[2];
+			content = dataStrings[3];
+			name = dataStrings[4];
+			break;
+			
+			/*
 			 * this is for adding answer
 			 */
 		case MAKE_ANSWER:
@@ -156,6 +167,13 @@ public class Protocol implements Serializable{
 			contNum = Integer.parseInt(dataStrings[2]); // answer number
 			contNum2 = Integer.parseInt(dataStrings[3]); // question number
 			name = dataStrings[4];
+			break;
+			
+			/*
+			 * this is for clearing notice 
+			 */
+		case CLEAR_NOTICE:
+			ID = dataStrings[0];
 			break;
 			
 		case NEED_REFRESH:

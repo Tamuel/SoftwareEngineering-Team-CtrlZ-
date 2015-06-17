@@ -123,9 +123,16 @@ public class NewAnswerPanel extends JPanel{
 			}
 			
 			Account account = ClientConsole.client.getAccount();
-			StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
-			Question temp = sCon.getQuestion(question.getContNum());
+			Question temp;
 			
+			if(account.isStudent()) {
+				StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+				temp = sCon.getQuestion(question.getContNum());
+			}
+			else {
+				ProfessorAccountController pCon = new ProfessorAccountController((ProfessorAccount)account);
+				temp = pCon.getQuestion(question.getContNum());
+			}
 			
 			boardFrame.addContentPanel(new ContentPanel(temp, boardFrame, titleBar));
 			boardFrame.repaint();

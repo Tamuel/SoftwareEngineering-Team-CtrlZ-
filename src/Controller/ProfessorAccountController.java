@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.Iterator;
+
 import Account.ProfessorAccount;
 import Assignment.Assignment;
 import QnA.Answer;
@@ -34,6 +36,23 @@ public class ProfessorAccountController {
 		Answer make = new Answer(getAccount(), question, ans);
 		getAccount().getAnswers().add(make);
 		question.addAnswer(make);
+	}
+	
+	/**
+	 * this returns question searching by question number
+	 * @return question
+	 */
+	public Question getQuestion(int contNum) {
+		Iterator it = account.getSubject().getQuestion().getQuestions().iterator();
+		Question question = null;
+		
+		while(it.hasNext()) {
+			question = (Question)it.next();
+			if(question.getContNum() == contNum)
+				return question;
+		}
+		
+		return null;
 	}
 
 	public ProfessorAccount getAccount() {

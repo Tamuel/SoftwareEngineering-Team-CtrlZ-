@@ -382,6 +382,19 @@ public class Server extends AbstractServer {
 			
 			break;
 			
+		case CLEAR_NOTICE:
+			System.out.println("Clear Notice " + proc.getID());
+			
+			account = aCon.searchAccountByID(proc.getID());
+			
+			account.getNotices().clear();
+			
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			this.sendToClient(client, new Protocol(ProtocolType.REFRESH, account));
+			
+			break;
+			
 		case NEED_REFRESH:
 			account = aCon.searchAccountByID(proc.getID());
 			System.out.println("Refresh " + account.getId() + " " + client);

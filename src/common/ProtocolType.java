@@ -19,7 +19,9 @@ public enum ProtocolType {
 	APPRAISAL_ASSIGNMENT, // 학생이 제출한 과제를 교수가 채점
 	DELETE_ANSWER, // when delete answer
 	MAKE_QUESTION, // 질문 생성 시
+	EDIT_QUESTION,
 	MAKE_ANSWER, // 답변 생성 시
+	CLEAR_NOTICE, // when notices are checked
 	NEED_REFRESH,
 	REFRESH,
 	ELSE
