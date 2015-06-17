@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import common.ProtocolType;
+
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
@@ -97,12 +99,30 @@ public class AnswerPanel extends JPanel{
 	
 	private class deleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			if(ClientConsole.client.getAccount().isStudent())
+			
+			System.out.println("answer contNum : " + answer.getContNum());
+			
+			try
+			{
+				ClientConsole.client.sendToServer(ProtocolType.DELETE_ANSWER,
+						ClientConsole.client.getAccount().getId() + ":" +
+						answer.getQuestion().getSubject().getName() + ":" + 
+						answer.getContNum() + ":" + // for finding answer
+						answer.getQuestion().getContNum()); // for finding question
+				
+				System.out.println();
+			}
+			catch(Exception ex)
+			{
+				System.err.println(ex.toString());
+			}
+			
+			/*if(ClientConsole.client.getAccount().isStudent())
 				((StudentAccount)ClientConsole.client.getAccount()).getAnswers().remove(((StudentAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer));
 			else if(ClientConsole.client.getAccount().isProfessor())
 				((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().remove(((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer));
 			
-			answer.getQuestion().getAnswers().remove(answer.getQuestion().getAnswers().indexOf(answer));
+			answer.getQuestion().getAnswers().remove(answer.getQuestion().getAnswers().indexOf(answer));*/
 			
 			if(!boardFrame.getSeeWholeAnswer()) {
 				boardFrame.addContentPanel(new ContentPanel(answer.getQuestion(), boardFrame, titleBar));

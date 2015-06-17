@@ -26,6 +26,7 @@ public class Protocol implements Serializable{
 	private Date date;
 	
 	private int contNum;
+	private int contNum2;
 	
 	/**
 	 * Make Protocol for communicate between client and server
@@ -146,6 +147,16 @@ public class Protocol implements Serializable{
 			content = dataStrings[4];
 			break;
 			
+			/*
+			 * this is for deleting answer 
+			 */
+		case DELETE_ANSWER:
+			ID = dataStrings[0];
+			subject = dataStrings[1];
+			contNum = Integer.parseInt(dataStrings[2]); // answer number
+			contNum2 = Integer.parseInt(dataStrings[3]); // question number
+			break;
+			
 		case NEED_REFRESH:
 			ID = dataStrings[0];
 			break;
@@ -244,6 +255,14 @@ public class Protocol implements Serializable{
 
 	public void setScore(String score) {
 		this.score = score;
+	}
+
+	public int getContNum2() {
+		return contNum2;
+	}
+
+	public void setContNum2(int contNum2) {
+		this.contNum2 = contNum2;
 	}
 	
 }

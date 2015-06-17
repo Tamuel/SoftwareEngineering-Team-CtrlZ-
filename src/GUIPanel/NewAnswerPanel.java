@@ -107,7 +107,7 @@ public class NewAnswerPanel extends JPanel{
 				ClientConsole.client.sendToServer(ProtocolType.MAKE_ANSWER,
 						ClientConsole.client.getAccount().getId() + ":" +
 						question.getSubject().getName() + ":" + 
-						question.getContNum() + ":" + 
+						question.getContNum() + ":" + // for finding question
 						question.getSubject().getProfessor().getName() + ":" +
 						content.getText());
 			}

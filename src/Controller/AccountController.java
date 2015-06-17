@@ -9,6 +9,7 @@ import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
+import QnA.Answer;
 import QnA.Question;
 
 public class AccountController {
@@ -171,6 +172,28 @@ public class AccountController {
 		while(checkQuestion.hasNext()) {
 			temp = (Question)checkQuestion.next();
 			if(temp.getContNum() == contNum)
+				return temp;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * this returns specified answer
+	 * 
+	 * @param subject
+	 * @param contNum
+	 * @return answer
+	 */
+	public Answer getAnswer(Subject subject, int contNum_answer, int contNum_question) {
+		
+		Answer temp;
+		Question question = getQuestion(subject, contNum_question);
+		Iterator checkAnswer = question.getAnswers().iterator();
+		
+		while(checkAnswer.hasNext()) {
+			temp = (Answer)checkAnswer.next();
+			if(temp.getContNum() == contNum_answer)
 				return temp;
 		}
 		

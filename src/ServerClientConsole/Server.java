@@ -245,7 +245,7 @@ public class Server extends AbstractServer {
 			 * - this occurs when client adds new answer and send it to the server
 			 */
 		case MAKE_ANSWER:
-			System.out.println("Make Answer " + proc.getContNum() + " " + proc.getTopic() + " " + client);
+			System.out.println("Make Answer " + proc.getContNum() + " " + proc.getSubject() + " " + client);
 			
 			account = aCon.searchAccountByID(proc.getID());
 			subject = aCon.searchSubject(proc.getName(), proc.getSubject());
@@ -257,6 +257,28 @@ public class Server extends AbstractServer {
 				sCon = new StudentAccountController((StudentAccount)account);
 				sCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
 			}
+			
+			ObjectSaveSingleton.getInstance().saveAccounts();
+			
+			/* 모든 클라이언트에게 전송 */
+			this.sendToAllClients(new Protocol(ProtocolType.SET_REFRESH, subject.getName()));
+			
+			break;
+			
+		case DELETE_ANSWER:
+			System.out.println("Delete Answer " + proc.getSubject() + " " + proc.getContNum() + " " + + proc.getContNum2() + " " + client);
+			
+			account = aCon.searchAccountByID(proc.getID());
+			subject = aCon.searchSubject(proc.getName(), proc.getSubject());
+			
+			if(account.isProfessor()) {
+				((ProfessorAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
+			}
+			else if(account.isStudent()) {
+				((StudentAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
+			}
+			
+			System.out.println("안됨?????????????????");
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
