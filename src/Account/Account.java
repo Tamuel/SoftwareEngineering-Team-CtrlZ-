@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Assignment.Notice;
 import common.Permission;
 
 public class Account implements Serializable {
@@ -13,10 +14,10 @@ public class Account implements Serializable {
 	private String name;
 	private String password;
 	private InetAddress clientAddress;
-	private int numberOfNotice;
 	private Permission permission; // Student 0, Professor 1
 	private boolean onLine = false; // Determine whether account is on-line
 	private ArrayList<Account> accounts;
+	private ArrayList<Notice> notices;
 	public static int contNum;
 	
 	public Account() {
@@ -32,7 +33,7 @@ public class Account implements Serializable {
 		this.name = name;
 		this.permission = permission;
 		this.accounts = new ArrayList<Account>();
-		this.numberOfNotice = 0;
+		this.notices = new ArrayList<Notice>();
 	}
 	
 	public String getId() {
@@ -117,11 +118,14 @@ public class Account implements Serializable {
 	public void setClientAddress(InetAddress clientAddress) {
 		this.clientAddress = clientAddress;
 	}
-	
-	/**
-	 * haveNotice() : Declare whether notice is exist, return number of users notice
-	 */
-	public int haveNotice() {
-		return numberOfNotice;
+
+	public ArrayList<Notice> getNotices() {
+		return notices;
 	}
+	
+	public void setNotices(ArrayList<Notice> notices) {
+		this.notices = notices;
+	}
+	
+	
 }
