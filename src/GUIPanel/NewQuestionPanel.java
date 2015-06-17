@@ -114,6 +114,12 @@ public class NewQuestionPanel extends JPanel{
 							topic.getText() + ":" +
 							content.getText() + ":" +
 							subject.getProfessor().getName());
+					
+					ClientConsole.client.setMsgReceive(false);
+					while(!ClientConsole.client.isMsgReceive()) {
+						Thread.sleep(100);
+					}
+					ClientConsole.client.setMsgReceive(false);
 				}
 				catch(Exception ex)
 				{

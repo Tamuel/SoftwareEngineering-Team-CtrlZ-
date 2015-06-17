@@ -16,6 +16,8 @@ import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
 import Assignment.Subject;
+import Controller.AccountController;
+import Controller.ProfessorAccountController;
 import Controller.StudentAccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
@@ -76,7 +78,7 @@ public class QuestionList extends JPanel{
 			temp.setFontColor(fontColor, fontColor, fontColor);
 			temp.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210), 1));
 			
-			if(i == subject.getSubjectQuestions().getQuestions().size() - 1)
+			if(i == 0)
 				this.height = temp.getY() + questionButtonHeight + yBorder;
 			
 			questionButtons.add(temp);
@@ -95,6 +97,14 @@ public class QuestionList extends JPanel{
 	private class questionButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			removeQuestionPanel();
+			Account account = ClientConsole.client.getAccount();
+			if(account.isProfessor()) {
+				subject = ((ProfessorAccount)account).getSubject();
+			} else {
+
+				StudentAccountController sCon = new StudentAccountController((StudentAccount)ClientConsole.client.getAccount());
+				subject = sCon.getSubject(subject.getName());
+			}
 			
 			thisQuestion = subject.getSubjectQuestions().getQuestions().get(questionButtons.indexOf((SimpleButton)ev.getSource()));
 			

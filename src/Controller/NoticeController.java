@@ -29,8 +29,8 @@ public class NoticeController {
 		int minute = today.getMinutes();
 		int second = today.getSeconds();
 		
-		String message = "새 과제 알림 : " + account.getName() + "교수 " + subject.getName() + "과목\n" +
-						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+		String message = "<html>새 과제 알림 : " + account.getName() + "교수 " + subject.getName() + "과목<br>" +
+						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</html>";
 		
 		Notice notice = new Notice(message);
 		
@@ -48,8 +48,8 @@ public class NoticeController {
 		int minute = today.getMinutes();
 		int second = today.getSeconds();
 		
-		String message = "과제 제출 알림 : " + account.getName() + "학생 " + subject.getName() + "과목\n" +
-						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+		String message = "<html><body>과제 제출 알림 : " + account.getName() + "학생 " + subject.getName() + "과목<br>" +
+						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</body></html>";
 		
 		Notice notice = new Notice(message);
 		
@@ -67,8 +67,8 @@ public class NoticeController {
 		int minute = today.getMinutes();
 		int second = today.getSeconds();
 		
-		String message = "과제 평가 알림 : " + account.getName() + "교수 " + subject.getName() + "과목\n" +
-						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+		String message = "<html>과제 평가 알림 : " + account.getName() + "교수 " + subject.getName() + "과목<br>" +
+						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</html>";
 		
 		Notice notice = new Notice(message);
 		
@@ -86,8 +86,8 @@ public class NoticeController {
 		int minute = today.getMinutes();
 		int second = today.getSeconds();
 		
-		String message = "새 질문 알림 : " + account.getName() + "학생 " + subject.getName() + "과목\n" +
-						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+		String message = "<html>새 질문 알림 : " + account.getName() + "학생 " + subject.getName() + "과목<br>" +
+						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</html>";
 		
 		Notice notice = new Notice(message);
 		
@@ -108,12 +108,12 @@ public class NoticeController {
 		String message = null;
 		
 		if(account.isProfessor()) {
-			message = "새 답변 알림 : " + account.getName() + "교수 " + subject.getName() + "과목\n" +
-						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+			message = "<html>새 답변 알림 : " + account.getName() + "교수 " + subject.getName() + "과목<br>" +
+						year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</html>";
 		}
 		else if(account.isStudent()) {
-			message = "새 답변 알림 : " + account.getName() + "학생 " + subject.getName() + "과목\n" +
-					year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초 ";
+			message = "<html>새 답변 알림 : " + account.getName() + "학생 " + subject.getName() + "과목<br>" +
+					year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 " + second + "초</html>";
 		}
 		
 		Notice notice = new Notice(message);

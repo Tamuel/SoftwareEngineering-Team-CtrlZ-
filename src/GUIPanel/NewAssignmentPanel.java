@@ -235,10 +235,16 @@ public class NewAssignmentPanel extends JPanel{
 			if(ClientConsole.client.getAccount().isProfessor()) {
 				try
 				{
+					ClientConsole.client.setMsgReceive(false);
 					ClientConsole.client.sendToServer(ProtocolType.MAKE_ASSIGNMENT, ClientConsole.client.getAccount().getId() + ":" +
 							topic.getText() + ":" + content.getText() + ":" +
 							deadlineYear.getText().toString() + ":" + deadlineMonth.getText().toString() + ":" +
 							deadlineDay.getText().toString() + ":" + deadlineHour.getText().toString());
+					
+					while(!ClientConsole.client.isMsgReceive()) {
+						Thread.sleep(100);
+					}
+					ClientConsole.client.setMsgReceive(false);
 				}
 				catch(Exception ex)
 				{

@@ -16,12 +16,14 @@ public class Subject implements Serializable {
 		this.name = name;
 		this.assignments = new ArrayList<Assignment>();
 		this.question = new Question(this);
+		this.students = new ArrayList<StudentAccount>();
 	}
 	
 	public Subject(String name, ArrayList<Assignment> assignments) {
 		this.assignments = assignments;
 		this.name = name;
 		this.question = new Question(this);
+		this.students = new ArrayList<StudentAccount>();
 	}
 	
 	public void setProfessor(ProfessorAccount professor) {

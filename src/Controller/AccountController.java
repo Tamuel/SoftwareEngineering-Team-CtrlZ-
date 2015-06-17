@@ -23,7 +23,7 @@ public class AccountController {
 	// 21 MAR 2015 Tuna
 	// add a comment
 	/**
-	 * if there exists a duplicated id then return false
+	 * If there exists a duplicated id then return false
 	 * **/ 
 	public boolean checkIdRepeated(String id) {
 		Iterator checkAccount = accountList.getAccounts().iterator();
@@ -35,7 +35,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * this searches account by id and password and returns account matched with
+	 * This searches account by id and password and returns account matched with
 	 * @param id
 	 * @param password
 	 * @return account
@@ -51,6 +51,11 @@ public class AccountController {
 		return null;
 	}
 	
+	/**
+	 * This searches account by id and returns account matched with
+	 * @param id
+	 * @return account
+	 */
 	public Account searchAccountByID(String id) {
 		Iterator checkAccount = accountList.getAccounts().iterator();
 		Account temp;
@@ -69,6 +74,17 @@ public class AccountController {
 			temp = (Account)checkAccount.next();
 			if(temp.isProfessor() && temp.getName().equals(professorName) &&
 					((ProfessorAccount)temp).getSubject().getName().equals(subjectName))
+				return ((ProfessorAccount)temp).getSubject();
+		}
+		return null;
+	}
+	
+	public Subject searchSubject(String subjectName) {
+		Iterator checkAccount = getProfessorAccounts().iterator();
+		Account temp;
+		while(checkAccount.hasNext()) {
+			temp = (Account)checkAccount.next();
+			if(((ProfessorAccount)temp).getSubject().getName().equals(subjectName))
 				return ((ProfessorAccount)temp).getSubject();
 		}
 		return null;
@@ -164,6 +180,20 @@ public class AccountController {
 	 * @param contNum
 	 * @return question
 	 */
+	public Question getQuestion(String subject, int contNum) {
+		
+		Iterator checkQuestion = searchSubject(subject).getSubjectQuestions().getQuestions().iterator();
+		Question temp;
+		
+		while(checkQuestion.hasNext()) {
+			temp = (Question)checkQuestion.next();
+			if(temp.getContNum() == contNum)
+				return temp;
+		}
+		
+		return null;
+	}
+	
 	public Question getQuestion(Subject subject, int contNum) {
 		
 		Iterator checkQuestion = subject.getSubjectQuestions().getQuestions().iterator();
@@ -185,7 +215,7 @@ public class AccountController {
 	 * @param contNum
 	 * @return answer
 	 */
-	public Answer getAnswer(Subject subject, int contNum_answer, int contNum_question) {
+	public Answer getAnswer(String subject, int contNum_answer, int contNum_question) {
 		
 		Answer temp;
 		Question question = getQuestion(subject, contNum_question);
@@ -200,6 +230,21 @@ public class AccountController {
 		return null;
 	}
 	
+	public Answer getAnswer(Subject subject, int contNum_answer, int contNum_question) {
+		
+		Answer temp;
+		Question question = getQuestion(subject, contNum_question);
+		Iterator checkAnswer = question.getAnswers().iterator();
+		
+		while(checkAnswer.hasNext()) {
+			temp = (Answer)checkAnswer.next();
+			if(temp.getContNum() == contNum_answer)
+				return temp;
+		}
+		
+		return null;
+	}
+
 	public ArrayList<Assignment> getStudAssignments(String subject) {
 		ArrayList<Assignment> tempAssignments = getAssignments(subject);
 		ArrayList<Assignment> retAssignments = new ArrayList<Assignment>();

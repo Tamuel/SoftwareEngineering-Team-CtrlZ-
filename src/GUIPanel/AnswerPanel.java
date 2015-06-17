@@ -12,11 +12,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import common.ProtocolType;
-
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
+import Controller.AccountController;
+import Controller.StudentAccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
@@ -59,8 +60,10 @@ public class AnswerPanel extends JPanel{
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
 		
-		if((ClientConsole.client.getAccount().isStudent() && ((StudentAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer) != -1) ||
-		   (ClientConsole.client.getAccount().isProfessor() && ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers().indexOf(answer) != -1)) {
+
+		AccountController aCon = new AccountController(ClientConsole.client.getAccount());
+		
+		if(aCon.getAnswer(answer.getQuestion().getSubject(), answer.getContNum(), answer.getQuestion().getContNum()) != null) {
 			content = new SimpleTextArea(answer.getContent());
 			content.setSize(this.getWidth() * 10 / 16 - 1, 0);
 			content.setLocation(1, 1);
@@ -110,6 +113,13 @@ public class AnswerPanel extends JPanel{
 						answer.getContNum() + ":" + // for finding answer
 						answer.getQuestion().getContNum() + ":" + // for finding question
 						answer.getQuestion().getSubject().getProfessor().getName());
+
+
+				ClientConsole.client.setMsgReceive(false);
+				while(!ClientConsole.client.isMsgReceive()) {
+					Thread.sleep(100);
+				}
+				ClientConsole.client.setMsgReceive(false);
 				
 				System.out.println();
 			}
@@ -125,8 +135,15 @@ public class AnswerPanel extends JPanel{
 			
 			answer.getQuestion().getAnswers().remove(answer.getQuestion().getAnswers().indexOf(answer));*/
 			
+			Account account = ClientConsole.client.getAccount();
+			Question question = null;
+			if(account.isStudent()) {
+				StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+				question = sCon.getQuestion(answer.getQuestion().getContNum());
+			}
+			
 			if(!boardFrame.getSeeWholeAnswer()) {
-				boardFrame.addContentPanel(new ContentPanel(answer.getQuestion(), boardFrame, titleBar));
+				boardFrame.addContentPanel(new ContentPanel(question, boardFrame, titleBar));
 				boardFrame.repaint();
 			}else {
 				ContentPanel maPanel = new ContentPanel(boardFrame, ((ProfessorAccount)ClientConsole.client.getAccount()).getAnswers(), titleBar);

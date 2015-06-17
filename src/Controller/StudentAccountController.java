@@ -41,6 +41,22 @@ public class StudentAccountController {
 				return account.getSubjects().get(i);
 		return null;
 	}
+	
+	public Question getQuestion(int question_contNum) {
+		for(int i = 0; i < account.getQuestions().size(); i++)
+			if(account.getQuestions().get(i).getContNum() == question_contNum)
+				return account.getQuestions().get(i);
+		
+		return null;
+	}
+	
+	public Assignment getAssignment(int assignment_contNum) {
+		for(int i = 0; i < account.getAssignments().size(); i++)
+			if(account.getAssignments().get(i).getContNum() == assignment_contNum)
+				return account.getAssignments().get(i);
+		
+		return null;
+	}
 
 	public StudentAccount getAccount() {
 		return account;

@@ -13,11 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import common.ProtocolType;
-
 import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
+import Controller.AccountController;
 import Controller.ProfessorAccountController;
 import Controller.StudentAccountController;
 import GUIFrame.BulletinBoardFrame;
@@ -110,13 +110,24 @@ public class NewAnswerPanel extends JPanel{
 						question.getContNum() + ":" + // for finding question
 						question.getSubject().getProfessor().getName() + ":" +
 						content.getText());
+
+				ClientConsole.client.setMsgReceive(false);
+				while(!ClientConsole.client.isMsgReceive()) {
+					Thread.sleep(100);
+				}
+				ClientConsole.client.setMsgReceive(false);
 			}
 			catch(Exception ex)
 			{
 				System.err.println(ex.toString());
 			}
-
-			boardFrame.addContentPanel(new ContentPanel(question, boardFrame, titleBar));
+			
+			Account account = ClientConsole.client.getAccount();
+			StudentAccountController sCon = new StudentAccountController((StudentAccount)account);
+			Question temp = sCon.getQuestion(question.getContNum());
+			
+			
+			boardFrame.addContentPanel(new ContentPanel(temp, boardFrame, titleBar));
 			boardFrame.repaint();
 		}
 	}

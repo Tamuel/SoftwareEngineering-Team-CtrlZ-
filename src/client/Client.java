@@ -120,13 +120,11 @@ public class Client extends AbstractClient {
 					break;
 				}
 			}
-			setMsgReceive(false);
 			break;
 			
 		case REFRESH:
 			setAccount((Account)proc.getData());
 			System.out.println("계좌를 새로고침 했습니다 ");
-			setMsgReceive(false);
 			break;
 			
 		case ID_EXIST:

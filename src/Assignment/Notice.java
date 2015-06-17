@@ -1,6 +1,8 @@
 package Assignment;
 
-public class Notice {
+import java.io.Serializable;
+
+public class Notice implements Serializable {
 
 	private String destination; // destined ID
 	private String message;
@@ -37,5 +39,7 @@ public class Notice {
 		this.message = message;
 	}
 	
-	
+	public String toString() {
+		return message; 
+	}
 }

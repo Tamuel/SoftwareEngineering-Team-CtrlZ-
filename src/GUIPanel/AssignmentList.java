@@ -57,6 +57,15 @@ public class AssignmentList extends JPanel {
 
 	private class assignmentButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
+			Account account = ClientConsole.client.getAccount();
+			if(account.isProfessor()) {
+				subject = ((ProfessorAccount)account).getSubject();
+			} else {
+
+				StudentAccountController sCon = new StudentAccountController((StudentAccount)ClientConsole.client.getAccount());
+				subject = sCon.getSubject(subject.getName());
+			}
+			
 			Assignment assignment = subject.getAssignments().get(
 					assignmentButtons.indexOf((SimpleButton) ev.getSource()));
 

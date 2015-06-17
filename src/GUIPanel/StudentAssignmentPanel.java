@@ -300,6 +300,12 @@ public class StudentAssignmentPanel extends JPanel{
 							assignment.getContNum() + ":" +
 							comment.getText().toString() + ":" +
 							score.getText().toString());
+
+					ClientConsole.client.setMsgReceive(false);
+					while(!ClientConsole.client.isMsgReceive()) {
+						Thread.sleep(100);
+					}
+					ClientConsole.client.setMsgReceive(false);
 				}
 				catch(Exception ex) {
 					System.err.println(ex.toString());
@@ -319,6 +325,13 @@ public class StudentAssignmentPanel extends JPanel{
 				{
 					ClientConsole.client.sendToServer(ProtocolType.STUDENT_EDIT_ASSIGNMENT, assignment.getSubject().getName() + ":" + assignment.getContNum() + ":" + 
 								topic.getText() + ":" + content.getText());
+					
+
+					ClientConsole.client.setMsgReceive(false);
+					while(!ClientConsole.client.isMsgReceive()) {
+						Thread.sleep(100);
+					}
+					ClientConsole.client.setMsgReceive(false);
 				}
 				catch(Exception ex)
 				{
@@ -336,6 +349,12 @@ public class StudentAssignmentPanel extends JPanel{
 					{
 						ClientConsole.client.sendToServer(ProtocolType.SUBMIT_ASSIGNMENT, getStudent().getId() + ":" + assignment.getContNum() + ":" + 
 									topic.getText() + ":" + content.getText());
+
+						ClientConsole.client.setMsgReceive(false);
+						while(!ClientConsole.client.isMsgReceive()) {
+							Thread.sleep(100);
+						}
+						ClientConsole.client.setMsgReceive(false);
 					}
 					catch(Exception ex)
 					{
@@ -345,6 +364,10 @@ public class StudentAssignmentPanel extends JPanel{
 //				StudentAccountController sCon = new StudentAccountController(getStudent());
 //				sCon.submitAssignment(assignment, myAssignment);
 //				getStudent().printAllAssignment();
+				
+
+				StudentAccountController sCon = new StudentAccountController(getStudent());
+				assignment = sCon.getAssignment(assignment.getContNum()); 
 
 				ContentPanel contentPanel = new ContentPanel(assignment, boardFrame, titleBar);
 				boardFrame.addContentPanel(contentPanel);

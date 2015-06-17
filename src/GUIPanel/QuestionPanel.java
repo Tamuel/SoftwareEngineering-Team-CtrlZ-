@@ -15,6 +15,7 @@ import Account.Account;
 import Account.ProfessorAccount;
 import Account.StudentAccount;
 import Assignment.Assignment;
+import Controller.AccountController;
 import GUIFrame.BulletinBoardFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
@@ -61,8 +62,10 @@ public class QuestionPanel extends JPanel{
 		time.setLocation(topic.getWidth() + 1, 1);
 		time.setBackground(new Color(240, 240, 240));
 		time.setSmallFont();
+		
+		AccountController aCon = new AccountController(ClientConsole.client.getAccount());
 
-		if(ClientConsole.client.getAccount().isStudent() && ((StudentAccount)ClientConsole.client.getAccount()).getQuestions().indexOf(question) != -1) {
+		if(ClientConsole.client.getAccount().isStudent() && aCon.getQuestion(question.getSubject(), question.getContNum()) != null) {
 			makeAnswer = new SimpleButton("질문 수정");
 			makeAnswer.setSize(90, buttonHeight);
 			makeAnswer.setLocation(this.getWidth() - makeAnswer.getWidth() - 5, this.getHeight() - makeAnswer.getHeight() - 5);

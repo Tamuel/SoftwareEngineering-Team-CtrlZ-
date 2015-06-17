@@ -9,20 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import common.ProtocolType;
-
 import objectSave.ObjectSaveSingleton;
 import Account.Account;
 import Assignment.Assignment;
 import Assignment.Subject;
 import GUIFrame.BulletinBoardFrame;
+import GUIFrame.NoticeFrame;
 import GuiComponent.SimpleButton;
 import GuiComponent.SimpleLabel;
 import ServerClientConsole.ClientConsole;
 
-public class TitleBar extends JPanel{
+public class TitleBar extends JPanel implements Runnable{
 	private Account account;
 	
-	private SimpleLabel nameField;
+	private SimpleButton nameField;
 	private SimpleLabel pathField;
 	private SimpleButton closeWindow;
 
@@ -35,14 +35,23 @@ public class TitleBar extends JPanel{
 		
 		String title = "  " + account.getId() + " | " + account.getName();
 		if(account.isProfessor())
-			title += " 교수님";
+			title += " 교수님 | 새소식 " + account.getNotices().size();
 		else
-			title += " 학생";
-		nameField = new SimpleLabel(title);
-		nameField.setSize(this.getWidth() / 4, this.getHeight());
+			title += " 학생 | 새소식 " + account.getNotices().size();
+		nameField = new SimpleButton(title);
+		nameField.setSize(this.getWidth() / 4, this.getHeight() - 1);
 		nameField.setLocation(0, 0);
 		nameField.setHorizontalAlignment(SwingConstants.LEFT);
 		nameField.setForeground(new Color(255, 132, 0));
+		nameField.setBackground(Color.WHITE);
+		nameField.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new NoticeFrame("Notice", 300, 500);
+			}
+			
+		});
 		//nameField.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(180, 180, 180)));
 		
 		pathField = new SimpleLabel("");
@@ -62,6 +71,20 @@ public class TitleBar extends JPanel{
 		this.add(pathField);
 		this.add(closeWindow);
 		this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(180, 180, 180)));
+		
+		Thread thisThread = new Thread(this);
+		thisThread.start();
+	}
+	
+	public void rePaint() {
+		account = ClientConsole.client.getAccount();
+		
+		String title = "  " + account.getId() + " | " + account.getName();
+		if(account.isProfessor())
+			title += " 교수님 | 새소식 " + account.getNotices().size();
+		else
+			title += " 학생 | 새소식 " + account.getNotices().size();
+		nameField.setText(title);
 	}
 
 	private class CloseWindow implements ActionListener {
@@ -90,5 +113,19 @@ public class TitleBar extends JPanel{
 	
 	public void setAssignmentPath(Assignment assignment) {
 		pathField.setText("과제 게시판 > " + assignment.getProfessor().getName() + " 교수님 > " + assignment.getSubject().getName() + " > " + assignment.getTopic());
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			try {
+				Thread.sleep(100);
+				rePaint();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
 	}
 }

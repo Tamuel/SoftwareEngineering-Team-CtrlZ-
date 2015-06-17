@@ -329,10 +329,10 @@ public class Server extends AbstractServer {
 
 			if(account.isProfessor()) {
 				pCon = new ProfessorAccountController((ProfessorAccount)account);
-				pCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
+				pCon.answerQuestion(aCon.getQuestion(subject.getName(), proc.getContNum()), proc.getContent());
 			}else if(account.isStudent()) {
 				sCon = new StudentAccountController((StudentAccount)account);
-				sCon.answerQuestion(aCon.getQuestion(subject, proc.getContNum()), proc.getContent());
+				sCon.answerQuestion(aCon.getQuestion(subject.getName(), proc.getContNum()), proc.getContent());
 			}
 			
 			/*
@@ -367,13 +367,13 @@ public class Server extends AbstractServer {
 			subject = aCon.searchSubject(proc.getName(), proc.getSubject());
 
 			if(account.isProfessor()) {
-				((ProfessorAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
+				((ProfessorAccount)account).getAnswers().remove(aCon.getAnswer(subject.getName(), proc.getContNum(), proc.getContNum2()));
 			}
 			else if(account.isStudent()) {
-				((StudentAccount)account).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
+				((StudentAccount)account).getAnswers().remove(aCon.getAnswer(subject.getName(), proc.getContNum(), proc.getContNum2()));
 			}
 			
-			aCon.getQuestion(subject, proc.getContNum2()).getAnswers().remove(aCon.getAnswer(subject, proc.getContNum(), proc.getContNum2()));
+			aCon.getQuestion(subject.getName(), proc.getContNum2()).getAnswers().remove(aCon.getAnswer(subject.getName(), proc.getContNum(), proc.getContNum2()));
 			
 			ObjectSaveSingleton.getInstance().saveAccounts();
 			
